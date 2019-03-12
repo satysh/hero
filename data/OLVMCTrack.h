@@ -18,8 +18,6 @@
 #ifndef OLVMCTRACK_H_
 #define OLVMCTRACK_H_
 
-#include "ERDetectorList.h"
-
 #include "TObject.h"
 #include "TMath.h"
 #include "TVector3.h"
@@ -92,7 +90,7 @@ class OLVMCTrack : public TObject
 
 
   /** Accessors to the number of MCPoints in the detectors **/
-  Int_t GetNPoints(DetectorId detId)  const;
+  Int_t GetNPoints(Int_t detId)  const;
 
 
   /**  Modifiers  **/

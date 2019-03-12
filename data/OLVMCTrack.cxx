@@ -153,7 +153,7 @@ Double_t OLVMCTrack::GetRapidity() const {
 
 
 // -----   Public method GetNPoints   --------------------------------------
-Int_t OLVMCTrack::GetNPoints(DetectorId detId) const {
+Int_t OLVMCTrack::GetNPoints(Int_t detId) const {
  /* if      ( detId == kREF  ) return (  fNPoints &   1);
   else if ( detId == kMVD  ) return ( (fNPoints & ( 7 <<  1) ) >>  1);
   else if ( detId == kSTS  ) return ( (fNPoints & (31 <<  4) ) >>  4);

@@ -7,7 +7,7 @@ void histo()
         return;
     }
 
-    TTree* tree = (TTree*)file->Get("er");
+    TTree* tree = (TTree*)file->Get("OLV");
     if (!tree)
     {
         cerr << "Tree read error" << endl;
