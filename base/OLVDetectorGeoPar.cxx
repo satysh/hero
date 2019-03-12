@@ -1,14 +1,13 @@
-#include "OLVDetectorGeoPar.h"
-
-#include "FairParamList.h"
-
+// ROOT
 #include "TObjArray.h"
 
-#include <iostream>
+// FAIRROOT
+#include "FairParamList.h"
 
-OLVDetectorGeoPar ::OLVDetectorGeoPar(const char* name,
-    const char* title,
-    const char* context)
+// OLV
+#include "OLVDetectorGeoPar.h"
+
+OLVDetectorGeoPar ::OLVDetectorGeoPar(const char* name, const char* title, const char* context)
   : FairParGenericSet(name,title,context),
     fGeoSensNodes(new TObjArray()),
     fGeoPassNodes(new TObjArray())
@@ -21,22 +20,29 @@ OLVDetectorGeoPar::~OLVDetectorGeoPar(void)
 
 void OLVDetectorGeoPar::clear(void)
 {
-  if(fGeoSensNodes) { delete fGeoSensNodes; }
-  if(fGeoPassNodes) { delete fGeoPassNodes; }
+  if(fGeoSensNodes) 
+    delete fGeoSensNodes; 
+  if(fGeoPassNodes) 
+    delete fGeoPassNodes; 
 }
 
 void OLVDetectorGeoPar::putParams(FairParamList* l)
 {
-  if (!l) { return; }
-  l->addObject("FairGeoNodes Sensitive List", fGeoSensNodes);
-  l->addObject("FairGeoNodes Passive List", fGeoPassNodes);
+  if (!l) 
+    return; 
+  l->addObject("OLVGeoNodes Sensitive List", fGeoSensNodes);
+  l->addObject("OLVGeoNodes Passive List", fGeoPassNodes);
 }
 
 Bool_t OLVDetectorGeoPar::getParams(FairParamList* l)
 {
-  if (!l) { return kFALSE; }
-  if (!l->fillObject("FairGeoNodes Sensitive List", fGeoSensNodes)) { return kFALSE; }
-  if (!l->fillObject("FairGeoNodes Passive List", fGeoPassNodes)) { return kFALSE; }
+  if (!l) 
+    return kFALSE; 
+  if (!l->fillObject("OLVGeoNodes Sensitive List", fGeoSensNodes))
+    return kFALSE; 
+  if (!l->fillObject("OLVGeoNodes Passive List", fGeoPassNodes)) 
+    return kFALSE;
+
   return kTRUE;
 }
 

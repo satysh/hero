@@ -16,7 +16,7 @@ void sim_test(Int_t nEvents = 100, Int_t index = 0)
   run->SetOutputFile(outFile.Data());          // Output file
   run->SetMaterials("media.geo");       // Materials
 
-  FairModule* cave= new OLVCave("CAVE");
+  FairModule* cave= new FairCave("CAVE");
   cave->SetGeometryFileName("cave.geo");
   run->AddModule(cave);
 

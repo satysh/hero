@@ -1,22 +1,10 @@
-/********************************************************************************
- *              Copyright (C) Joint Institute for Nuclear Research              *
- *                                                                              *
- *              This software is distributed under the terms of the             * 
- *         GNU Lesser General Public Licence version 3 (LGPL) version 3,        *  
- *                  copied verbatim in the file "LICENSE"                       *
- ********************************************************************************/
-
-#include "OLVDetector.h"
-
+// ROOT
 #include "TGeoMatrix.h"
 #include "TVirtualMC.h"
 #include "TParticle.h"
 
-#include "FairRun.h"
-#include "FairRuntimeDb.h"
-#include "FairRootManager.h"
-#include "FairLogger.h"
-
+// OLV
+#include "OLVDetector.h"
 #include "OLVDetectorGeoPar.h"
 //-------------------------------------------------------------------------------------------------
 OLVDetector::OLVDetector()
@@ -35,13 +23,16 @@ OLVDetector::OLVDetector(const char* Name, Bool_t Active, Int_t DetId/*=0*/)
   fVerboseLevel = 1;
 }
 //-------------------------------------------------------------------------------------------------
-void OLVDetector::ConstructGeometry() {
+void OLVDetector::ConstructGeometry() 
+{
   TString fileName = GetGeometryFileName();
-  if(fileName.EndsWith(".root")) {
+  if(fileName.EndsWith(".root")) 
+  {
     LOG(INFO) << "Constructing geometry from ROOT file " << fileName.Data() << FairLogger::endl;
     ConstructRootGeometry();
   }
-  else if (fileName.EndsWith(".gdml")) {
+  else if (fileName.EndsWith(".gdml")) 
+  {
     LOG(INFO) << "Constructing geometry from GDML file " << fileName.Data() << FairLogger::endl;
     TGeoRotation *zeroRotation = new TGeoRotation();
     zeroRotation->RotateX(0.);
@@ -49,27 +40,30 @@ void OLVDetector::ConstructGeometry() {
     zeroRotation->RotateZ(0.);
     ConstructGDMLGeometry(new TGeoCombiTrans(.0,.0,.0, zeroRotation));
   }
-  else {
+  else 
     LOG(FATAL) << "Geometry file name is not set" << FairLogger::endl;
-  }
 }
 //-------------------------------------------------------------------------------------------------
-void OLVDetector::AddSensetive(TString name){
+void OLVDetector::AddSensetive(TString name)
+{
   fSenNames.push_back(name);
 }
 //-------------------------------------------------------------------------------------------------
-TClonesArray* OLVDetector::GetCollection(Int_t iColl) const {
-  if (fSenVolumes.size() > iColl){
+TClonesArray* OLVDetector::GetCollection(Int_t iColl) const 
+{
+  if (fSenVolumes.size() > iColl)
+  {
     auto it = fSenVolumes.begin();
-    for (Int_t i = 0; i<iColl; i++){it++;}
+    for (Int_t i = 0; i < iColl; i++)
+      it++;
     return it->second;
   }
-  else {
+  else 
     return NULL;
-  }
 }
 //-------------------------------------------------------------------------------------------------
-void OLVDetector::Initialize(){
+void OLVDetector::Initialize()
+{
   FairDetector::Initialize();
   FairRuntimeDb* rtdb= FairRun::Instance()->GetRuntimeDb();
   OLVDetectorGeoPar* par=(OLVDetectorGeoPar*)(rtdb->getContainer("OLVDetectorGeoPar"));
@@ -80,73 +74,51 @@ void OLVDetector::Register(){
   if (!ioman)
     LOG(FATAL) << "IO manager is not set" << FairLogger::endl;
   
-  for(const auto &itSen: fSenVolumes){
+  for(const auto &itSen: fSenVolumes)
+  {
     ioman->Register(fName+itSen.first+TString("Point"),fName, itSen.second, kTRUE);
   }
 }
 //-------------------------------------------------------------------------------------------------
-Bool_t OLVDetector::ProcessHits(FairVolume* vol) {
-  // Set constants for Birk's Law implentation
-  static const Double_t dP = 1.032 ;
-  static const Double_t BirkC1 =  0.013/dP;
-  static const Double_t BirkC2 =  9.6e-6/(dP * dP);
-  
-  /** Track information to be stored until the track leaves the
-      active volume. **/
-  
-  if (gMC->IsTrackEntering()) { // Return true if this is the first step of the track in the current volume
+Bool_t OLVDetector::ProcessHits(FairVolume* vol) 
+{
+  if (gMC->IsTrackEntering()) // Return true if this is the first step of the track in the current volume
     StartNewPoint();
-  }
   
   fELoss += gMC->Edep(); // GeV //Return the energy lost in the current step
 
-  Double_t curLightYield = 0.;
-  // Apply Birk's law ( Adapted from G3BIRK/Geant3)
-  // Correction for all charge states
-  if (gMC->TrackCharge()!=0) { // Return the charge of the track currently transported
-    Double_t BirkC1Mod = 0;
-    // Apply correction for higher charge states
-    if (TMath::Abs(gMC->TrackCharge())>=2)
-      BirkC1Mod=BirkC1*7.2/12.6;
-    else
-      BirkC1Mod=BirkC1;
-
-    if (gMC->TrackStep()>0){
-      Double_t dedxcm=gMC->Edep()*1000./gMC->TrackStep(); //[MeV/cm]
-      curLightYield=gMC->Edep()*1000./(1.+BirkC1Mod*dedxcm+BirkC2*dedxcm*dedxcm); //[MeV]
-      curLightYield /= 1000.; //[GeV]
-      fLightYield+=curLightYield;
-    }
-  }
-  
   if (gMC->IsTrackExiting() || //true if this is the last step of the track in the current volume 
       gMC->IsTrackStop()    || //true if the track energy has fallen below the threshold
-      gMC->IsTrackDisappeared()) { 
+      gMC->IsTrackDisappeared()) 
     FinishNewPoint();
-  }
   
   return kTRUE;
 }
 //-------------------------------------------------------------------------------------------------
-void OLVDetector::EndOfEvent() {
-  if (fVerbose > 1){
+void OLVDetector::EndOfEvent() 
+{
+  if (fVerbose > 1)
     Print();
-  }
   Reset();
 }
 //-------------------------------------------------------------------------------------------------
-void OLVDetector::Print(Option_t *option) const {
-  for(const auto &itSen: fSenVolumes){
+void OLVDetector::Print(Option_t *option) const 
+{
+  for(const auto &itSen: fSenVolumes)
+  {
     TClonesArray* points = itSen.second; 
-    for (Int_t i_point = 0; i_point < points->GetEntriesFast(); i_point++) {
+    for (Int_t i_point = 0; i_point < points->GetEntriesFast(); i_point++) 
+    {
       OLVPoint* point = (OLVPoint*)points->At(i_point);
       point->Print();
     }
   }
 }
 //-------------------------------------------------------------------------------------------------
-void OLVDetector::Reset() {
-  for(const auto &itSen: fSenVolumes){
+void OLVDetector::Reset() 
+{
+  for(const auto &itSen: fSenVolumes)
+  {
     TClonesArray* points = itSen.second;
     points->Clear();
   }
@@ -154,25 +126,28 @@ void OLVDetector::Reset() {
   fFullLY = 0.;
 }
 //-------------------------------------------------------------------------------------------------
-void OLVDetector::CopyClones(TClonesArray* cl1, TClonesArray* cl2, Int_t offset) {
-  
+void OLVDetector::CopyClones(TClonesArray* cl1, TClonesArray* cl2, Int_t offset) 
+{  
   Int_t nEntries = cl1->GetEntriesFast();
   LOG(DEBUG) << "OLVDetector: " << nEntries << " entries to add" << FairLogger::endl;
   TClonesArray& clref = *cl2;
   OLVPoint* oldpoint = NULL;
-  for (Int_t i=0; i<nEntries; i++) {
-  oldpoint = (OLVPoint*) cl1->At(i);
-   Int_t index = oldpoint->GetTrackID() + offset;
-   oldpoint->SetTrackID(index);
-   new (clref[cl2->GetEntriesFast()]) OLVPoint(*oldpoint);
+  for (Int_t i=0; i<nEntries; i++) 
+  {
+    oldpoint = (OLVPoint*) cl1->At(i);
+    Int_t index = oldpoint->GetTrackID() + offset;
+    oldpoint->SetTrackID(index);
+    new (clref[cl2->GetEntriesFast()]) OLVPoint(*oldpoint);
   }
   LOG(DEBUG) << "OLVDetector: " << cl2->GetEntriesFast() << " merged entries" << FairLogger::endl;
   
 }
 //-------------------------------------------------------------------------------------------------
-Bool_t OLVDetector::CheckIfSensitive(std::string name) {
+Bool_t OLVDetector::CheckIfSensitive(std::string name) 
+{
   TString curVolName = name;
-  for(const auto &volNameSubsting: fSenNames){
+  for(const auto &volNameSubsting: fSenNames)
+  {
     if(curVolName.Contains(volNameSubsting)){
       fSenVolumes[curVolName] = new TClonesArray("OLVPoint");
       return kTRUE;
@@ -181,7 +156,8 @@ Bool_t OLVDetector::CheckIfSensitive(std::string name) {
   return kFALSE;
 }
 //-------------------------------------------------------------------------------------------------
-void OLVDetector::StartNewPoint() {
+void OLVDetector::StartNewPoint() 
+{
   fELoss  = 0.;
   fLightYield = 0.;
   fEventID = gMC->CurrentEvent();
@@ -202,21 +178,23 @@ void OLVDetector::StartNewPoint() {
   fPosInLocal.SetXYZ(localPos[0],localPos[1],localPos[2]);
 }
 //-------------------------------------------------------------------------------------------------
-void OLVDetector::FinishNewPoint() {
+void OLVDetector::FinishNewPoint() 
+{
   gMC->TrackPosition(fPosOut);
   gMC->TrackMomentum(fMomOut);
   fTimeOut = gMC->TrackTime() * 1.0e09; 
   
-  if (fELoss > 0.) {
+  if (fELoss > 0.) 
+  {
     TClonesArray* points = fSenVolumes[gMC->CurrentVolName()];
     AddPoint(points);
-    fFullEnergy+=fELoss;
-    fFullLY+=fLightYield;
-
+    fFullEnergy += fELoss;
+    fFullLY += fLightYield;
   }                
 }
 //-------------------------------------------------------------------------------------------------
-OLVPoint* OLVDetector::AddPoint(TClonesArray* points) {
+OLVPoint* OLVDetector::AddPoint(TClonesArray* points) 
+{
   TClonesArray& clref = *points;
   Int_t size = clref.GetEntriesFast();
   return new(clref[size]) OLVPoint(fEventID, fTrackID, fMot0TrackID, fVolNb,

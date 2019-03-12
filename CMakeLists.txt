@@ -197,8 +197,6 @@ ENDIF (NOT FAIRROOT_FOUND)
 
 add_subdirectory (base)
 add_subdirectory (data)
-add_subdirectory (passive)
-
 
 Execute_Process(COMMAND ${ROOT_CONFIG_EXECUTABLE} --has-opengl
                 OUTPUT_VARIABLE EveIsBuild

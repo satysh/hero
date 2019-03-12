@@ -35,7 +35,7 @@ CHANGE_FILE_EXTENSION(*.cxx *.h HEADERS "${SRCS}")
 
 Set(LINKDEF OLVBaseLinkDef.h)
 Set(LIBRARY_NAME OLVBase)
-Set(DEPENDENCIES Base Core G4processes G4run G4physicslists geant4vmc)
+Set(DEPENDENCIES )
 
 GENERATE_LIBRARY()
 
