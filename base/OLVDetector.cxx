@@ -62,14 +62,8 @@ TClonesArray* OLVDetector::GetCollection(Int_t iColl) const
     return NULL;
 }
 //-------------------------------------------------------------------------------------------------
-void OLVDetector::Initialize()
+void OLVDetector::Register()
 {
-  FairDetector::Initialize();
-  FairRuntimeDb* rtdb= FairRun::Instance()->GetRuntimeDb();
-  OLVDetectorGeoPar* par=(OLVDetectorGeoPar*)(rtdb->getContainer("OLVDetectorGeoPar"));
-}
-//-------------------------------------------------------------------------------------------------
-void OLVDetector::Register(){
   FairRootManager* ioman = FairRootManager::Instance();
   if (!ioman)
     LOG(FATAL) << "IO manager is not set" << FairLogger::endl;

@@ -3,16 +3,11 @@
 #define OLVPoint_H
 
 //ROOT
-#include "TObject.h"
 #include "TVector3.h"
 
+// FAIRROOT
 #include "FairMCPoint.h"
 
-/** @class OLVPoint
- ** @brief The data class for storing pieces of charged tracks in sensitive volumes in NeuRad
- ** @author V.Schetinin <sch_vitaliy@mail.ru>
- ** @version 1.0
-**/
 class OLVPoint : public FairMCPoint
 {
 
@@ -21,21 +16,6 @@ class OLVPoint : public FairMCPoint
   /** Default constructor **/
   OLVPoint();
 
-
-  /** Constructor with arguments
-   *@param EventID  Index of Event
-   *@param trackID  Index of MCTrack
-   *@param mot0trackID Index of Mother MCTrack
-   *@param fiberInModuleNb number of fiber in module
-   *@param posIn    Ccoordinates at entrance of point [cm]
-   *@param posOut   Coordinates at exit of point [cm]
-   *@param momIn    Momentum of track at entrance [GeV]
-   *@param momOut   Momentum of track at exit [GeV]
-   *@param tof      Time since event start [ns]
-   *@param length   Track length since creation [cm]
-   *@param eLoss    Energy deposit [KeV]
-   *@param lightYield    Energy deposit [MeV]
-   **/
   OLVPoint(Int_t eventID, Int_t trackID,
 		  Int_t mot0trackID,
       Int_t fVolNb,
@@ -116,19 +96,19 @@ class OLVPoint : public FairMCPoint
   
  protected:
   
-  Int_t fEventID;
-  Int_t fMot0TrackID;
-  Int_t fVolNb;
-  Double_t fMass;
-  Double32_t fXlocal,  fYlocal,  fZlocal;
-  Double32_t fX_out,  fY_out,  fZ_out;
-  Double32_t fPx_out, fPy_out, fPz_out;
-  Double_t fTimeIn, fTimeOut;
-  Double_t fLightYield;
-  Int_t fPID;
-  Double_t fCharge;
-  Double_t fTrackLength;
+  Int_t 		  fEventID;
+  Int_t 		  fMot0TrackID;
+  Int_t 		  fVolNb;
+  Int_t       fPID;
+  Double_t 		fMass;
+  Double_t    fTimeIn, fTimeOut;
+  Double_t    fLightYield;
+  Double_t    fCharge;
+  Double_t    fTrackLength;
+  Double32_t 	fXlocal,  fYlocal,  fZlocal;
+  Double32_t  fX_out,  fY_out,  fZ_out;
+  Double32_t  fPx_out, fPy_out, fPz_out;
 
-  ClassDef(OLVPoint,1)
+  ClassDef(OLVPoint, 1)
 };
 #endif

@@ -1,21 +1,20 @@
-#include "OLVStack.h"
-#include "OLVMCTrack.h"
+// STD
+#include <iostream>
 
-#include "FairDetector.h"
-#include "FairMCPoint.h"
-#include "FairRootManager.h"
-
+// ROOT
 #include "TLorentzVector.h"
 #include "TClonesArray.h"
 #include "TParticle.h"
 #include "TRefArray.h"
 
-#include <iostream>
-using namespace std;
+// FAIRROOT
+#include "FairDetector.h"
+#include "FairMCPoint.h"
+#include "FairRootManager.h"
 
-#include <list>
-
-using std::pair;
+// OLV
+#include "OLVStack.h"
+#include "OLVMCTrack.h"
 
 
 // -----   Default constructor   -------------------------------------------
@@ -450,11 +449,15 @@ void OLVStack::SelectTracks()
   }
 
   // --> If flag is set, flag recursively mothers of selected tracks
-  if (fStoreMothers) {
-    for (Int_t i=0; i<fNParticles; i++) {
-      if (fStoreMap[i]) {
+  if (fStoreMothers) 
+  {
+    for (Int_t i=0; i<fNParticles; i++) 
+    {
+      if (fStoreMap[i]) 
+      {
         Int_t iMother = GetParticle(i)->GetMother(0);
-        while(iMother >= 0) {
+        while(iMother >= 0) 
+        {
           fStoreMap[iMother] = kTRUE;
           iMother = GetParticle(iMother)->GetMother(0);
         }

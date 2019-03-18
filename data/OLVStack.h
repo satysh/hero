@@ -1,12 +1,11 @@
 #ifndef OLVStack_H
 #define OLVStack_H
 
-
-//#include "ERDetectorList.h"
-#include "FairGenericStack.h"
-
-#include <map>
+// STD
 #include <stack>
+
+// FAIRROOT
+#include "FairGenericStack.h"
 
 class TClonesArray;
 

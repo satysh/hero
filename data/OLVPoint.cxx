@@ -1,12 +1,9 @@
-// STD
-#include <cmath>
-#include<iostream>
-
 // FAIRROOT
 #include "FairLogger.h"
 
 // OLV
 #include "OLVPoint.h"
+
 // -----   Default constructor   -------------------------------------------
 OLVPoint::OLVPoint()
   : FairMCPoint(),
@@ -88,9 +85,9 @@ Double_t OLVPoint::GetX(Double_t z) const
 // -----   Point y coordinate from linear extrapolation   ------------------
 Double_t OLVPoint::GetY(Double_t z) const
 {
-  if ( (fZ_out-z)*(fZ-z) >= 0. ) return (fY_out+fY)/2.;
+  if ( (fZ_out-z)*(fZ-z) >= 0. ) 
+    return (fY_out+fY)/2.;
   Double_t dz = fZ_out - fZ;
-  //  if ( TMath::Abs(dz) < 1.e-3 ) return (fY_out+fY)/2.;
   return ( fY + (z-fZ) / dz * (fY_out-fY) );
 }
 // -------------------------------------------------------------------------
@@ -101,7 +98,8 @@ Double_t OLVPoint::GetY(Double_t z) const
 Bool_t OLVPoint::IsUsable() const
 {
   Double_t dz = fZ_out - fZ;
-  if ( TMath::Abs(dz) < 1.e-4 ) return kFALSE;
+  if ( TMath::Abs(dz) < 1.e-4 ) 
+    return kFALSE;
   return kTRUE;
 }
 // -------------------------------------------------------------------------

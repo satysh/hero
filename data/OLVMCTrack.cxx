@@ -1,23 +1,14 @@
-// -------------------------------------------------------------------------
-// -----                      OLVMCTrack header file                    -----
-// -----                  Created 11/05/15  by V.Schetinin            -----
-// -------------------------------------------------------------------------
-
-
-#include "OLVMCTrack.h"
-
-#include<iostream>
-
+// ROOT
 #include "TParticle.h"
-#ifndef ROOT_TParticlePDG
- #include "TParticlePDG.h"
-#endif
-#ifndef ROOT_TDatabasePDG
- #include "TDatabasePDG.h"
-#endif
+#include "TParticlePDG.h"
+#include "TDatabasePDG.h"
+
+// FAIRROOT
 #include "FairRunSim.h"
 
-// -----   Default constructor   -------------------------------------------
+// OLV
+#include "OLVMCTrack.h"
+
 OLVMCTrack::OLVMCTrack()
   : TObject(),
     fPdgCode(0),
@@ -32,9 +23,7 @@ OLVMCTrack::OLVMCTrack()
     fNPoints(0)
 {
 }
-// -------------------------------------------------------------------------
 
-// -----   Standard constructor   ------------------------------------------
 OLVMCTrack::OLVMCTrack(Int_t pdgCode, Int_t motherId, Double_t px,
            Double_t py, Double_t pz, Double_t x, Double_t y,
            Double_t z, Double_t t, Int_t nPoints = 0)
@@ -51,18 +40,13 @@ OLVMCTrack::OLVMCTrack(Int_t pdgCode, Int_t motherId, Double_t px,
     fNPoints(0)
 {
   if (nPoints >= 0) fNPoints = nPoints;
-  //  else              fNPoints = 0;
   fPx = px;
   fPy = py;
   fPz = pz;
   fMass = CalculateMass();
   fEnergy = CalculateEnergy();
 }
-// -------------------------------------------------------------------------
 
-
-
-// -----   Copy constructor   ----------------------------------------------
 OLVMCTrack::OLVMCTrack(const OLVMCTrack& track)
   : TObject(track),
     fPdgCode(track.fPdgCode),
@@ -78,13 +62,8 @@ OLVMCTrack::OLVMCTrack(const OLVMCTrack& track)
     fMass(track.fMass),
     fEnergy(track.fEnergy)
 {
-  //  *this = track;
 }
-// -------------------------------------------------------------------------
 
-
-
-// -----   Constructor from TParticle   ------------------------------------
 OLVMCTrack::OLVMCTrack(TParticle* part)
   : TObject(),
     fPdgCode(part->GetPdgCode()),
@@ -97,183 +76,101 @@ OLVMCTrack::OLVMCTrack(TParticle* part)
     fStartZ(part->Vz()),
     fStartT(part->T()*1e09),
     fNPoints(0),
-    //@TODO выплить этот костыль
+    // костыль Виталика TODO
     fID(part->GetStatusCode())
 {
     fMass = CalculateMass();
     fEnergy = CalculateEnergy();
 }
-// -------------------------------------------------------------------------
 
-
-
-// -----   Destructor   ----------------------------------------------------
-OLVMCTrack::~OLVMCTrack() { }
-// -------------------------------------------------------------------------
-
-
-
-// -----   Public method Print   -------------------------------------------
-void OLVMCTrack::Print(Int_t trackId) const {
-  /*std::cout << "Track " << trackId << ", mother : " << fMotherId
-       << ", Type " << fPdgCode << ", momentum (" << fPx << ", "
-       << fPy << ", " << fPz << ") GeV" << std::endl;*/
-  //std::cout << "       Ref " << GetNPoints(kREF) << std::endl;
+OLVMCTrack::~OLVMCTrack() 
+{
 }
-// -------------------------------------------------------------------------
 
+void OLVMCTrack::Print(Int_t trackId) const 
+{
+  /* TODO*/
+}
 
-
-// -----   Public method GetMass   -----------------------------------------
-Double_t OLVMCTrack::GetMass() const {
+Double_t OLVMCTrack::GetMass() const 
+{
   return fMass;
 }
-// -------------------------------------------------------------------------
 
-// -----   Public method GetCharge   ---------------------------------------
-Double_t OLVMCTrack::GetCharge() const {
-  if ( TDatabasePDG::Instance() ) {
+Double_t OLVMCTrack::GetCharge() const 
+{
+  if ( TDatabasePDG::Instance() ) 
+  {
     TParticlePDG* particle = TDatabasePDG::Instance()->GetParticle(fPdgCode);
     if ( particle ) return particle->Charge();
     else return 0.;
   }
   return 0.;
 }
-// -------------------------------------------------------------------------
 
-// -----   Public method GetRapidity   -------------------------------------
-Double_t OLVMCTrack::GetRapidity() const {
-  Double_t e = GetEnergy();
+Double_t OLVMCTrack::GetRapidity() const 
+{
+  Double_t e = fEnergy;
   Double_t y = 0.5 * TMath::Log( (e+fPz) / (e-fPz) );
   return y;
 }
-// -------------------------------------------------------------------------
 
-
-
-
-// -----   Public method GetNPoints   --------------------------------------
-Int_t OLVMCTrack::GetNPoints(Int_t detId) const {
- /* if      ( detId == kREF  ) return (  fNPoints &   1);
-  else if ( detId == kMVD  ) return ( (fNPoints & ( 7 <<  1) ) >>  1);
-  else if ( detId == kSTS  ) return ( (fNPoints & (31 <<  4) ) >>  4);
-  else if ( detId == kRICH ) return ( (fNPoints & ( 1 <<  9) ) >>  9);
-  else if ( detId == kMUCH ) return ( (fNPoints & (31 << 10) ) >> 10);
-  else if ( detId == kTRD  ) return ( (fNPoints & (31 << 15) ) >> 15);
-  else if ( detId == kTOF  ) return ( (fNPoints & (15 << 20) ) >> 20);
-  else if ( detId == kECAL ) return ( (fNPoints & ( 1 << 24) ) >> 24);
-  else if ( detId == kPSD  ) return ( (fNPoints & ( 1 << 25) ) >> 25);
-  else {
-    std::cerr << "GetNPoints: Unknown detector ID "
-         << detId << std::endl;
-  */
+Int_t OLVMCTrack::GetNPoints(Int_t detId) const 
+{
+  /* TODO */
     return 0;
-  //}
-}
-// -------------------------------------------------------------------------
-
-
-
-// -----   Public method SetNPoints   --------------------------------------
-void OLVMCTrack::SetNPoints(Int_t iDet, Int_t nPoints) {
-/*
-  if ( iDet == kREF ) {
-    if      ( nPoints < 0 ) nPoints = 0;
-    else if ( nPoints > 1 ) nPoints = 1;
-    fNPoints = ( fNPoints & ( ~ 1 ) )  |  nPoints;
-  }
-
-  else if ( iDet == kMVD ) {
-    if      ( nPoints < 0 ) nPoints = 0;
-    else if ( nPoints > 7 ) nPoints = 7;
-    fNPoints = ( fNPoints & ( ~ (  7 <<  1 ) ) )  |  ( nPoints <<  1 );
-  }
-
-  else if ( iDet == kSTS ) {
-    if      ( nPoints <  0 ) nPoints =  0;
-    else if ( nPoints > 31 ) nPoints = 31;
-    fNPoints = ( fNPoints & ( ~ ( 31 <<  4 ) ) )  |  ( nPoints <<  4 );
-  }
-
-  else if ( iDet == kRICH ) {
-    if      ( nPoints < 0 ) nPoints = 0;
-    else if ( nPoints > 1 ) nPoints = 1;
-    fNPoints = ( fNPoints & ( ~ (  1 <<  9 ) ) )  |  ( nPoints <<  9 );
-  }
-
-  else if ( iDet == kMUCH ) {
-    if      ( nPoints <  0 ) nPoints =  0;
-    else if ( nPoints > 31 ) nPoints = 31;
-    fNPoints = ( fNPoints & ( ~ ( 31 << 10 ) ) )  |  ( nPoints << 10 );
-  }
-
-  else if ( iDet == kTRD ) {
-    if      ( nPoints <  0 ) nPoints =  0;
-    else if ( nPoints > 31 ) nPoints = 31;
-    fNPoints = ( fNPoints & ( ~ ( 31 << 15 ) ) )  |  ( nPoints << 15 );
-  }
-
-  else if ( iDet == kTOF ) {
-    if      ( nPoints <  0 ) nPoints =  0;
-    else if ( nPoints > 15 ) nPoints = 15;
-    fNPoints = ( fNPoints & ( ~ ( 15 << 20 ) ) )  |  ( nPoints << 20 );
-  }
-
-  else if ( iDet == kECAL ) {
-    if      ( nPoints < 0 ) nPoints = 0;
-    else if ( nPoints > 1 ) nPoints = 1;
-    fNPoints = ( fNPoints & ( ~ (  1 << 24 ) ) )  |  ( nPoints << 24 );
-  }
-
-  else if ( iDet == kPSD ) {
-    if      ( nPoints < 0 ) nPoints = 0;
-    else if ( nPoints > 1 ) nPoints = 1;
-    fNPoints = ( fNPoints & ( ~ (  1 << 25 ) ) )  |  ( nPoints << 25 );
-  }
-
-  else std::cerr << "Unknown detector ID "
-      << iDet << std::endl;
-*/
 }
 
 
-TLorentzVector OLVMCTrack::GetVector(){
+void OLVMCTrack::SetNPoints(Int_t iDet, Int_t nPoints) 
+{
+  /* TODO */
+}
+
+
+TLorentzVector OLVMCTrack::GetVector()
+{
   fMomentum.SetXYZT(fPx,fPy,fPz,fEnergy);
   return fMomentum;
 }
 
-Double_t OLVMCTrack::GetTheta(){
+Double_t OLVMCTrack::GetTheta()
+{
   fMomentum.SetXYZT(fPx,fPy,fPz,fEnergy);
   fTheta = fMomentum.Theta();
   return fTheta;
 }
 
-Double_t OLVMCTrack::GetPhi(){
+Double_t OLVMCTrack::GetPhi()
+{
   fMomentum.SetXYZT(fPx,fPy,fPz,fEnergy);
   fPhi = fMomentum.Phi();
   return fPhi;
 }
 
-// -------------------------------------------------------------------------
-Double_t OLVMCTrack::CalculateMass() {
-  if ( TDatabasePDG::Instance() ) {
+Double_t OLVMCTrack::CalculateMass() 
+{
+  if ( TDatabasePDG::Instance() ) 
+  {
     TParticlePDG* particle = TDatabasePDG::Instance()->GetParticle(fPdgCode);
-    if ( particle ) {
+    if ( particle ) 
+    {
       TString particleName = particle->GetName();
       TObjArray *userIons  = FairRunSim::Instance()->GetUserDefIons();
       FairIon* ion = (FairIon*)userIons->FindObject(particleName);
-      if (ion) {
+      if (ion) 
         return ion->GetMass() + ion->GetExcEnergy();
-      } else {
+      else 
         return particle->Mass();
-      }
     }
-    else return 0.;
+    else 
+      return 0.;
   }
   return 0.;
 }
 // -------------------------------------------------------------------------
-Double_t OLVMCTrack::CalculateEnergy() {
+Double_t OLVMCTrack::CalculateEnergy() 
+{
   return TMath::Sqrt(fMass*fMass + fPx*fPx + fPy*fPy + fPz*fPz );
 }
 
