@@ -29,17 +29,17 @@ void histo(TString inputDir = "output")
     UInt_t nEvents = tree->GetEntries();
     cout << "Number of events is: " << nEvents << endl;
 
-    Int_t binNumb = 2500;
+    Int_t binNumb = 600;
     Double_t minBin = 0.;
-    Double_t maxBin = 2500.;
-    Double_t step = (maxBin - minBin) / (Double_t)binNumb;
+    Double_t maxBin = 600.;
     TH1F* histo = new TH1F("histo", "histo", binNumb, minBin, maxBin);
     Double_t minTime = 100.0e10;
     Double_t maxTime = 0.;
-    for (UInt_t i = 0; i <= nEvents; i++)
+    for (UInt_t i = 0; i < nEvents; i++)
     {
         cout << "i: " << i << endl;
         Br->GetEntry(i);
+        cout << Br << endl;
         OLVPoint* Point;
         TIter Iter(Arr);
         Int_t neutronsNum = 0;
@@ -50,11 +50,12 @@ void histo(TString inputDir = "output")
             Double_t curTimeIn = Point->GetTimeIn();
             Double_t curTimeOut = Point->GetTimeOut();
           
-            for (Int_t j = (Int_t)curTimeIn; j <= (Int_t)curTimeOut; j+=1)
+            //cout << "timeIn: " << setw(8) << curTimeIn << ", " << "timeOut: " << curTimeOut << endl;
+            for (Int_t j = (Int_t)curTimeIn; j <= (Int_t)curTimeOut; j++)
             {
             	histo->Fill(j);
+            	//cout << " j: " << j << endl;
             }
-            cout << "timeIn: " << setw(8) << curTimeIn << ", " << "timeOut: " << curTimeOut << endl;
             if (curTimeIn < minTime)
                 minTime = curTimeIn;
             if (curTimeOut > maxTime)
