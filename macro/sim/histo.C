@@ -1,6 +1,8 @@
-void histo()
+void histo(TString inputDir = "output")
 {
-    TFile* file = new TFile("sim.root", "READ");
+    TString fileName;
+    fileName.Form("%s/sim.root", inputDir.Data());
+    TFile* file = new TFile(fileName, "READ");
     if (file->IsZombie())
     {
         cerr << "File read error" << endl;
@@ -14,97 +16,61 @@ void histo()
         return;
     }
 
-    Int_t nBins = 100;
-    Double_t binMin = 0.;
-    Double_t binMax = 2400.;
-    TCanvas* c = new TCanvas("c", "canv", 1000, 1200);
-    c->cd(1);
-    tree->Draw("OVLdetectorvCubPoint.fTimeIn");
-    TH1F* histo = (TH1F*)gPad->GetListOfPrimitives()->FindObject("htemp");
-    if (!histo)
+    TBranch* Br = tree->GetBranch("OLVdetectorvCubPoint");
+    if (!Br)
     {
-        cerr << "Histo TimeIn Draw error" << endl;
-        return;
+        cerr << "Branche read error." << endl;
     }
-    histo->SetBins(nBins, binMin, binMax);
-    
-    TCanvas* canv = new TCanvas("canv", "Time", 1000, 1200);
-    canv->Divide(1, 2);
-    TH1F* inHis = new TH1F();
-    *inHis = *histo;
-    c->Close();
-    inHis->SetName("inHis");
-    inHis->SetTitle("Time in");
-    canv->cd(1);
-    inHis->Draw();
 
-    c = new TCanvas("c", "canv", 1000, 1200);
-    c->cd(1);
-    tree->Draw("OVLdetectorvCubPoint.fTimeOut");
-    histo = (TH1F*)gPad->GetListOfPrimitives()->FindObject("htemp");
-    if (!histo)
+    // Form and set adress to data arrays
+    TClonesArray* Arr = new TClonesArray("OLVPoint");
+    Br->SetAddress(&Arr);
+
+    UInt_t nEvents = tree->GetEntries();
+    cout << "Number of events is: " << nEvents << endl;
+
+    Int_t binNumb = 2500;
+    Double_t minBin = 0.;
+    Double_t maxBin = 2500.;
+    Double_t step = (maxBin - minBin) / (Double_t)binNumb;
+    TH1F* histo = new TH1F("histo", "histo", binNumb, minBin, maxBin);
+    Double_t minTime = 100.0e10;
+    Double_t maxTime = 0.;
+    for (UInt_t i = 0; i <= nEvents; i++)
     {
-        cerr << "Histo TimeOut Draw error" << endl;
-        return;
+        cout << "i: " << i << endl;
+        Br->GetEntry(i);
+        OLVPoint* Point;
+        TIter Iter(Arr);
+        Int_t neutronsNum = 0;
+        // Loop over points 
+        while ((Point = (OLVPoint*)Iter.Next())) 
+        {
+        	neutronsNum++;
+            Double_t curTimeIn = Point->GetTimeIn();
+            Double_t curTimeOut = Point->GetTimeOut();
+          
+            for (Int_t j = (Int_t)curTimeIn; j <= (Int_t)curTimeOut; j+=1)
+            {
+            	histo->Fill(j);
+            }
+            cout << "timeIn: " << setw(8) << curTimeIn << ", " << "timeOut: " << curTimeOut << endl;
+            if (curTimeIn < minTime)
+                minTime = curTimeIn;
+            if (curTimeOut > maxTime)
+                maxTime = curTimeOut;
+        } // loop over points end
+        cout << "num: " << neutronsNum << endl;
     }
-    histo->SetBins(nBins, binMin, binMax);
-
-    TH1F* outHis = new TH1F();
-    *outHis = *histo;
-    c->Close();
-    outHis->SetName("outHis");
-    outHis->SetTitle("Time Out");
-    canv->cd(2);
-    outHis->Draw();
-
-    Int_t entriesIn = inHis->GetEntries();
-    Int_t entriesOut = outHis->GetEntries();
-    Int_t maxI = max(entriesIn, entriesOut);
-    cout << "in Entries: " << entriesIn << ", out Entries: " << entriesOut << endl;	
-/*
-    // Testing bincontent
-    Int_t test = 0;
-    for (Int_t i = 0; i <= nBins; i++)
-    {
-    	cout << inHis->GetBinContent(i) << endl;
-    	test += inHis->GetBinContent(i);
-    }
-    cout << "full: " << test << endl;
-
-    test = 0;
-    for (Int_t i = 0; i <= nBins; i++)
-    {
-    	cout << outHis->GetBinContent(i) << endl;
-    	test += outHis->GetBinContent(i);
-    }
-    cout << "full: " << test << endl;
-*/
-
-    TCanvas* resCanv = new TCanvas("res", "resCanv", 1000, 1200);
-    TH1F* resHist = new TH1F("resHist", "Nutronst num vs. Time", nBins, binMin, binMax);
-    Int_t memNum = 0;
-    Double_t step = (Double_t)(binMax-binMin)/nBins;
-    Double_t time = 0.;
-    for (Int_t i = 0; i <= nBins; i++)
-    {
-    	Int_t curentNumIn = (Int_t)inHis->GetBinContent(i); // curent number for borning nutrons 
-    	Int_t curentNumOut = (Int_t)outHis->GetBinContent(i); // curent cumber for out nutrons
-    	Int_t curentNum = memNum + curentNumIn;
-    	memNum = curentNum - curentNumOut;
-    	cout << "cn: " << setw(5) << curentNum << ", born: " 
-    			<< setw(5) << curentNumIn << ", out: " 
-    			<< setw(5) << curentNumOut << ", mem: " 
-    			<< setw(5) << memNum << endl;
-
-    	for (Int_t j = 0; j < curentNum; j++)
-    	{
-    		resHist->Fill(time);
-    	}
-    	time += i*step;
-    }
-    resCanv->cd(1);
-    resHist->Draw();
-
-    canv->Close();
-    //resCanv->Close();
+    histo->Draw();
+    histo->SetLineWidth(2);
+    //TLegend* leg = histo->GetLegend();
+    //leg->SetLineWidth(5);
+    TAxis* xAx = (TAxis*)histo->GetXaxis();
+    TAxis* yAx = (TAxis*)histo->GetYaxis();
+    xAx->SetTitle("time, ns");
+    yAx->SetTitle("neutrons number");
+    yAx->SetTitleSize(0.05);
+    gPad->SetFrameLineWidth(5);
+    cout << "min: " << minTime << ", max: " << maxTime << endl;
 }

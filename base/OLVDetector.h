@@ -7,6 +7,7 @@
 
 // FairRoot
 #include "FairDetector.h"
+#include "FairVolume.h"
 
 // OLV
 #include "OLVPoint.h"
@@ -21,7 +22,10 @@ public:
     OLVDetector(const char* Name, Bool_t Active, Int_t DetId=0);
     virtual ~OLVDetector() {;}
 
-    Int_t GetParticlePDG() { return fParticlePDG; }
+    Int_t GetParticlePDG()      { return fParticlePDG; }
+
+static Double_t GetStartTime()     { return fStartTime; }
+static Double_t GetFinishTime()    { return fFinishTime; }
 
     TClonesArray* GetCollection(Int_t iColl) const;
 
@@ -42,8 +46,8 @@ private:
 
     OLVPoint* AddPoint(TClonesArray* points);
 
-    Int_t fParticlePDG;
-    Int_t fNutronsNum;
+    Int_t fParticlePDG; // TODO выпилить 
+    Int_t fNutronsNum;  // TODO выпилить
 
     //map of sensetive volumes points collection collection, fSenVolumes[senVol] = points
     std::map<TString,TClonesArray*> fSenVolumes;
@@ -75,6 +79,8 @@ private:
     TVector3        fPosInLocal;      ///< point position in sensetive volume CS
     TArrayI         fProcessesID;     ///< VMC prcess IDs in step
     
+    static Double_t        fStartTime;       ///< start time
+    static Double_t        fFinishTime;      ///< end time
     ClassDef(OLVDetector,1)
 };
 

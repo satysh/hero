@@ -6,6 +6,9 @@
 // OLV
 #include "OLVDetector.h"
 #include "OLVDetectorGeoPar.h"
+
+Double_t OLVDetector::fStartTime = 100.*1.0e09;
+Double_t OLVDetector::fFinishTime = 0.;
 //-------------------------------------------------------------------------------------------------
 OLVDetector::OLVDetector()
 : FairDetector("OLVDetector", kTRUE, -1)
@@ -76,16 +79,38 @@ void OLVDetector::Register()
 //-------------------------------------------------------------------------------------------------
 Bool_t OLVDetector::ProcessHits(FairVolume* vol) 
 {
+  static Bool_t testPid = kTRUE;
+  if (gMC->TrackPid() != 2112)
+    return kFALSE;
+  Double_t curentTime = gMC->TrackTime()*1.0e09;
+  //if (testPid)
+    //LOG(INFO) << "OLVDetector::ProcessHits(" << vol->GetName() << "), PID = " << curentTime << FairLogger::endl;
   if (gMC->IsTrackEntering()) // Return true if this is the first step of the track in the current volume
+  {
     StartNewPoint();
+    testPid = kFALSE;
+    if (curentTime < fStartTime)
+    {
+      fStartTime = curentTime;
+      LOG(INFO) << " StartTime is set: " << fStartTime << FairLogger::endl;
+    }
+  }
   
+  //LOG(INFO) << "    OLVDetector::ProcessHits Middle process, time: " << curentTime << "St: " << fStartTime << ", FT: " << fFinishTime << FairLogger::endl;
   fELoss += gMC->Edep(); // GeV //Return the energy lost in the current step
 
   if (gMC->IsTrackExiting() || //true if this is the last step of the track in the current volume 
       gMC->IsTrackStop()    || //true if the track energy has fallen below the threshold
-      gMC->IsTrackDisappeared()) 
+      gMC->IsTrackDisappeared())
+  { 
     FinishNewPoint();
-  
+    testPid=kTRUE;
+    if (curentTime > fFinishTime)
+    {
+      fFinishTime = curentTime;
+      LOG(INFO) << " FinishTime is set: " << fFinishTime << FairLogger::endl;
+    }
+  }
   return kTRUE;
 }
 //-------------------------------------------------------------------------------------------------
@@ -170,6 +195,7 @@ void OLVDetector::StartNewPoint()
   fPosIn.Vect().GetXYZ(globalPos);
   matrix.MasterToLocal(globalPos,localPos);
   fPosInLocal.SetXYZ(localPos[0],localPos[1],localPos[2]);
+  //LOG(INFO) << "  StartNewPoint(), time: " << fTimeIn << FairLogger::endl; 
 }
 //-------------------------------------------------------------------------------------------------
 void OLVDetector::FinishNewPoint() 
@@ -178,6 +204,7 @@ void OLVDetector::FinishNewPoint()
   gMC->TrackMomentum(fMomOut);
   fTimeOut = gMC->TrackTime() * 1.0e09; 
   
+  //LOG(INFO) << "  FinishNewPoint(), time: " << fTimeOut << FairLogger::endl; 
   if (fELoss > 0.) 
   {
     TClonesArray* points = fSenVolumes[gMC->CurrentVolName()];

@@ -1,10 +1,10 @@
-void sim_test(Int_t nEvents = 100, Int_t index = 0)
+void sim_test(Int_t nEvents = 100, Int_t index = 0, TString outDir = "output")
 {
   gRandom->SetSeed(index);
 
   //---------------------Files-----------------------------------------------
-  TString outFile = "sim.root";
-  TString parFile = "par.root";
+  TString outFile = outDir + "/sim.root";
+  TString parFile = outDir + "/par.root";
   // ------------------------------------------------------------------------
 
   // -----   Timer   --------------------------------------------------------
@@ -27,7 +27,7 @@ void sim_test(Int_t nEvents = 100, Int_t index = 0)
   run->AddModule(detector);
 
   Int_t pdgId = 2212; // proton 2212 // electron 11
-  Double32_t momentum = 10.;
+  Double32_t momentum = 100.;        
   FairPrimaryGenerator* primGen = new FairPrimaryGenerator();
   FairBoxGenerator* boxGen = new FairBoxGenerator(pdgId, 1);
   boxGen->SetPRange(momentum, momentum);
@@ -40,6 +40,10 @@ void sim_test(Int_t nEvents = 100, Int_t index = 0)
   run->SetGenerator(primGen);
 
   run->SetStoreTraj(kTRUE); // kFALSE
+
+  //-------Set LOG verbosity  -----------------------------------------------
+  FairLogger::GetLogger()->SetLogVerbosityLevel("LOW");
+  FairLogger::GetLogger()->SetLogScreenLevel("DEBUG");
 
   run->Init();
 
@@ -65,4 +69,6 @@ void sim_test(Int_t nEvents = 100, Int_t index = 0)
   cout << "Parameter file is par.root" << endl;
   cout << "Real time " << rtime << " s, CPU time " << ctime
                   << "s" << endl << endl;
+  cout << "MC Start Time: " << detector->GetStartTime() << endl;
+  cout << "MC Finish Time: " << detector->GetFinishTime() << endl;
 }
