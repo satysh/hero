@@ -5,7 +5,7 @@ index=1
 rm -fv *.root
 rm -fv *txt
 
-cd ../../../build
+cd ../../build
 make -j3
 cd -
 
@@ -13,7 +13,3 @@ cd -
 root -l -b -q "sim_test.C(${nev}, ${index})" > out.txt 2> err.txt
 echo err.txt:
 cat err.txt
-exit
-echo "on eventDisplay"
-read a
-root -l eventDisplay.C
