@@ -28,7 +28,6 @@ public:
     void SetParticlePDG(Int_t pdg_int = 0) { fParticlePDG = pdg_int; }
     void ConstructGeometry();
     void AddSensetive(TString name);
-    void Initialize();
     void Register();
     void EndOfEvent();
     void Print(Option_t *option="") const;
