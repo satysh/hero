@@ -1,10 +1,10 @@
-// ------------------------------------------------------------------------  
+// ------------------------------------------------------------------------
 //  ===== STANDARD ION TABLE (Z, A) =====
 //
 //      H  :  1,  1       Si : 14, 28
 //      He :  2,  4       P  : 15, 31
 //      Li :  3,  7       S  : 16, 32
-//      Be :  4,  9       Cl : 17, 35 
+//      Be :  4,  9       Cl : 17, 35
 //      B  :  5, 11       Ar : 18, 40
 //      C  :  6, 12       K  : 19, 39
 //      N  :  7, 14       Ca : 20, 40
@@ -21,14 +21,14 @@ void AddIon(const int pdg);                    //For PDG ion beam
 
 void sim_test(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output")
 {
-  
-  // -----   Particle  --------------------------------------------------------
-  Int_t pdgId = 2212; // proton 2212 // electron 11                             
-  Double32_t momentum = 1000.;
-    
 
-   //pdgId = 2212; 
-   pdgId = GetPdgCode(82,207);      // Set nuclear pdg for Ion                          
+  // -----   Particle  --------------------------------------------------------
+  Int_t pdgId = 2212; // proton 2212 // electron 11
+  Double32_t momentum = 1000.;
+
+
+   //pdgId = 2212;
+   //pdgId = GetPdgCode(82,207);      // Set nuclear pdg for Ion
 
   // ------------------------------------------------------------------------
 
@@ -69,13 +69,13 @@ void sim_test(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output")
   primGen->AddGenerator(boxGen);
 
   // ------------------------------------------------------------------------
-  AddIon(pdgId);                         //Add ion in FairRunSim 
+  AddIon(pdgId);                         //Add ion in FairRunSim
   // ------------------------------------------------------------------------
-  
+
   primGen->AddGenerator(boxGen);
   run->SetGenerator(primGen);
 
-  run->SetStoreTraj(kTRUE); // kFALSE
+  run->SetStoreTraj(kFALSE); // kFALSE
 
   //-------Set LOG verbosity  -----------------------------------------------
   FairLogger::GetLogger()->SetLogVerbosityLevel("LOW");
@@ -109,23 +109,23 @@ void sim_test(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output")
   cout << "MC Finish Time: " << detector->GetFinishTime() << endl;
 }
 int GetPdgCode(const int Z, const int A)             //For PDG ion beam
-{ 
-  if (Z == 1 && A == 1) return 2212;    
-  return 1000000000 + Z*10000 + A*10; 
+{
+  if (Z == 1 && A == 1) return 2212;
+  return 1000000000 + Z*10000 + A*10;
 }
-void AddIon(const int pdg) 
-{ 
+void AddIon(const int pdg)
+{
   if (pdg < 1000000000) return;
-  
+
   FairRunSim* run = FairRunSim::Instance();
   if (!run) return;
-  
-  int Z = (pdg-1000000000)/10000; 
+
+  int Z = (pdg-1000000000)/10000;
   int A = (pdg-1000000000-10000*Z)/10;
-  
+
   FairIon* ion = new FairIon();
   ion->SetParams(Form("ION_%03d_%03d",Z,A), Z, A, Z);
-  
+
   run->AddNewIon(ion);
 }
 
