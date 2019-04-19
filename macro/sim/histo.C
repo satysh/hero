@@ -29,49 +29,75 @@ void histo(TString inputDir = "output")
     UInt_t nEvents = tree->GetEntries();
     cout << "Number of events is: " << nEvents << endl;
 
-    Int_t binNumb = 600;
+    Int_t binNumb = 100;
     Double_t minBin = 0.;
-    Double_t maxBin = 600.;
+    Double_t maxBin = 100.;
+    Double_t binStep = (maxBin - minBin)/Double_t(binNumb);
+    cout << "binStep: " << binStep << endl;
     TH1F* histo = new TH1F("histo", "histo", binNumb, minBin, maxBin);
-    Double_t minTime = 100.0e10;
-    Double_t maxTime = 0.;
     for (UInt_t i = 0; i < nEvents; i++)
     {
-        cout << "i: " << i << endl;
+        cout << "Event: " << i << endl;
+        Double_t minTimeIn = 100.0e10;
+        Double_t maxTimeIn = 0.;
+        Double_t minTimeOut = 100.0e10;
+        Double_t maxTimeOut = 0.;
+        Double_t minLiveNutr[3] = {100.0e10, 100.0e10, 100.0e10};
+        Double_t maxLiveNutr[3] = {0., 0., 0.};
         Br->GetEntry(i);
-        cout << Br << endl;
         OLVPoint* Point;
         TIter Iter(Arr);
         Int_t neutronsNum = 0;
-        // Loop over points 
-        while ((Point = (OLVPoint*)Iter.Next())) 
+        Int_t msecNutrNum = 0;
+        // Loop over points
+        while ((Point = (OLVPoint*)Iter.Next()))
         {
         	neutronsNum++;
             Double_t curTimeIn = Point->GetTimeIn();
             Double_t curTimeOut = Point->GetTimeOut();
-          
+            if ((curTimeOut - curTimeIn) < minLiveNutr[0])
+            {
+                minLiveNutr[0] = (curTimeOut - curTimeIn);
+                minLiveNutr[1] = curTimeIn*1e-3;
+                minLiveNutr[2] = curTimeOut*1e-3;
+            }
+            if ((curTimeOut - curTimeIn) > maxLiveNutr[0])
+            {
+                maxLiveNutr[0] = (curTimeOut - curTimeIn);
+                maxLiveNutr[1] = curTimeIn*1e-3;
+                maxLiveNutr[2] = curTimeOut*1e-3;
+            }
+            if (curTimeIn < minTimeIn) { minTimeIn = curTimeIn; }
+            if (curTimeIn > maxTimeIn) { maxTimeIn = curTimeIn; }
+            if (curTimeOut < minTimeOut) { minTimeOut = curTimeOut; }
+            if (curTimeOut > maxTimeOut) { maxTimeOut = curTimeOut; }
+            if ((curTimeOut - curTimeIn)*1e-3 >= 1.) { /*cout << (curTimeOut - curTimeIn) << endl;*/ msecNutrNum++; }
+            //else continue;
             //cout << "timeIn: " << setw(8) << curTimeIn << ", " << "timeOut: " << curTimeOut << endl;
-            for (Int_t j = (Int_t)curTimeIn; j <= (Int_t)curTimeOut; j++)
+            for (Int_t j = (Int_t)curTimeIn*1e-3; j <= (Int_t)curTimeOut*1e-3; j+=(Int_t)binStep)
             {
             	histo->Fill(j);
             	//cout << " j: " << j << endl;
             }
-            if (curTimeIn < minTime)
-                minTime = curTimeIn;
-            if (curTimeOut > maxTime)
-                maxTime = curTimeOut;
         } // loop over points end
-        cout << "num: " << neutronsNum << endl;
+        cout << "All nutrons number: " << neutronsNum << endl;
+        cout << "minTimeIn: " << minTimeIn*1e-3 << ", maxTimeIn: " << maxTimeIn*1e-3 << " (msec)" << endl;
+        cout << "minTimeOut: " << minTimeOut*1e-3 << ", maxTimeOut: " << maxTimeOut*1e-3 << " (msec)" << endl;
+        cout << "msec nutrons number: " << msecNutrNum << endl;
+        cout << "INFO: nutron with min life time: " << minLiveNutr[0]*1e-3 << ", timeIn: " << minLiveNutr[1] << ", timeOut: " << minLiveNutr[2] << " (msec)" << endl;
+        cout << "INFO: nutron with max life time: " << maxLiveNutr[0]*1e-3 << ", timeIn: " << maxLiveNutr[1] << ", timeOut: " << maxLiveNutr[2] << " (msec)" << endl;
+        cout << "///////////////////////////////////" << endl;
     }
+
     histo->Draw();
     histo->SetLineWidth(2);
     //TLegend* leg = histo->GetLegend();
     //leg->SetLineWidth(5);
     TAxis* xAx = (TAxis*)histo->GetXaxis();
     TAxis* yAx = (TAxis*)histo->GetYaxis();
-    xAx->SetTitle("time, ns");
+    xAx->SetTitle("time, ms");
     yAx->SetTitle("neutrons number");
     yAx->SetTitleSize(0.05);
     gPad->SetFrameLineWidth(5);
-    cout << "min: " << minTime << ", max: " << maxTime << endl;
+    gPad->SetGrid(2, 2);
 }
