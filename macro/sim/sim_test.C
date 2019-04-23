@@ -24,7 +24,7 @@ void sim_test(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output")
 
   // -----   Particle  --------------------------------------------------------
   Int_t pdgId = 2212; // proton 2212 // electron 11
-  Double32_t momentum = 1000.;
+  Double32_t momentum = 8000.; // GeV
 
 
    //pdgId = 2212;
@@ -56,7 +56,6 @@ void sim_test(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output")
   OLVDetector* detector = new OLVDetector("OLVdetector", kTRUE);
   detector->SetGeometryFileName("OLV_detector.geo.root");
   detector->AddSensetive("vCub");
-  detector->SetParticlePDG(2112); // nutron 2112
   run->AddModule(detector);
 
 // -----   Create PrimaryGenerator   --------------------------------------
@@ -65,7 +64,7 @@ void sim_test(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output")
   boxGen->SetPRange(momentum, momentum);
   boxGen->SetThetaRange(0., 0.); // 0-90
   boxGen->SetPhiRange(0., 0.); // 0-360
-  boxGen->SetBoxXYZ(0., 0., 0., 0., -5.); // xmin, ymin, xmax, ymax, z
+  boxGen->SetBoxXYZ(0., 0., 0., 0., -50.); // xmin, ymin, xmax, ymax, z
   primGen->AddGenerator(boxGen);
 
   // ------------------------------------------------------------------------
@@ -105,8 +104,6 @@ void sim_test(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output")
   cout << "Parameter file is par.root" << endl;
   cout << "Real time " << rtime << " s, CPU time " << ctime
                   << "s" << endl << endl;
-  cout << "MC Start Time: " << detector->GetStartTime() << endl;
-  cout << "MC Finish Time: " << detector->GetFinishTime() << endl;
 }
 int GetPdgCode(const int Z, const int A)             //For PDG ion beam
 {

@@ -1,4 +1,16 @@
-/tracking/verbose 1
+#Print something
+/mcDet/printMaterials
+#/mcDet/printMaterialsProperties
+#/mcDet/printMedia
+#/mcDet/printVolumes
+
+#Magnetic fields
+#/mcDet/setIsLocalMagField true
+
+#/mcTracking/saveSecondaries SaveInStep
+#selection = DoNotSave, SaveInPreTrack, SaveInStep
+#/tracking/verbose 1
+
 
 
 

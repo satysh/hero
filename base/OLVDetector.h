@@ -20,16 +20,10 @@ public:
     OLVDetector();
 
     OLVDetector(const char* Name, Bool_t Active, Int_t DetId=0);
-    virtual ~OLVDetector() {;}
-
-    Int_t GetParticlePDG()      { return fParticlePDG; }
-
-static Double_t GetStartTime()     { return fStartTime; }
-static Double_t GetFinishTime()    { return fFinishTime; }
+    virtual ~OLVDetector() { ; }
 
     TClonesArray* GetCollection(Int_t iColl) const;
 
-    void SetParticlePDG(Int_t pdg_int = 0) { fParticlePDG = pdg_int; }
     void ConstructGeometry();
     void AddSensetive(TString name);
     void Register();
@@ -46,15 +40,12 @@ private:
 
     OLVPoint* AddPoint(TClonesArray* points);
 
-    Int_t fParticlePDG; // TODO выпилить 
-    Int_t fNutronsNum;  // TODO выпилить
-
     //map of sensetive volumes points collection collection, fSenVolumes[senVol] = points
     std::map<TString,TClonesArray*> fSenVolumes;
 
-    std::vector<TString> fSenNames;   ///< Sensetive volumes sustring, that user set 
+    std::vector<TString> fSenNames;   ///< Sensetive volumes sustring, that user set
 
-    Int_t   fVerbose;                 ///< Verbosity level                
+    Int_t   fVerbose;                 ///< Verbosity level
 
     Double_t         fFullEnergy;     ///< Sum Edep in event in sensetive volume
     Double_t         fFullLY;         ///< Sum Light Yield in event in sensetive volume
@@ -78,9 +69,7 @@ private:
     TLorentzVector  fCurMomIn;        ///< current step momentum
     TVector3        fPosInLocal;      ///< point position in sensetive volume CS
     TArrayI         fProcessesID;     ///< VMC prcess IDs in step
-    
-    static Double_t        fStartTime;       ///< start time
-    static Double_t        fFinishTime;      ///< end time
+
     ClassDef(OLVDetector,1)
 };
 
