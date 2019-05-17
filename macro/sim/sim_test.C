@@ -24,11 +24,11 @@ void sim_test(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output")
 
   // -----   Particle  --------------------------------------------------------
   Int_t pdgId = 2212; // proton 2212 // electron 11
-  Double32_t momentum = 8000.; // GeV
+  Double32_t momentum = 1000.; // GeV
 
 
    //pdgId = 2212;
-   //pdgId = GetPdgCode(82,207);      // Set nuclear pdg for Ion
+//    pdgId = GetPdgCode(6,12);      // Set nuclear pdg for Ion
 
   // ------------------------------------------------------------------------
 
@@ -54,8 +54,8 @@ void sim_test(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output")
   run->AddModule(cave);
 
   OLVDetector* detector = new OLVDetector("OLVdetector", kTRUE);
-  detector->SetGeometryFileName("OLV_detector.geo.root");
-  detector->AddSensetive("vCub");
+  detector->SetGeometryFileName("OLV_Prototyp.root");
+  detector->AddSensetive("vPlate_B10");
   run->AddModule(detector);
 
 // -----   Create PrimaryGenerator   --------------------------------------
@@ -74,7 +74,7 @@ void sim_test(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output")
   primGen->AddGenerator(boxGen);
   run->SetGenerator(primGen);
 
-  run->SetStoreTraj(kFALSE); // kFALSE
+  run->SetStoreTraj(kTRUE); // kFALSE
 
   //-------Set LOG verbosity  -----------------------------------------------
   FairLogger::GetLogger()->SetLogVerbosityLevel("LOW");
