@@ -1,3 +1,8 @@
+// STD
+#include <iostream>
+using std::cerr;
+using std::endl;
+
 // ROOT
 #include "TGeoMatrix.h"
 #include "TVirtualMC.h"
@@ -78,7 +83,9 @@ void OLVDetector::Register()
 Bool_t OLVDetector::ProcessHits(FairVolume* vol)
 {
   if (gMC->TrackPid() != 2112)
-    return kFALSE;
+    return kTRUE;
+  if ((TString)vol->GetName() != "vCub")
+    cerr << "ProcessHits(" << vol->GetName()  << ")" << endl;
   //if (testPid)
   if (gMC->IsTrackEntering()) // Return true if this is the first step of the track in the current volume
   {
@@ -118,6 +125,7 @@ void OLVDetector::Print(Option_t *option) const
 //-------------------------------------------------------------------------------------------------
 void OLVDetector::Reset()
 {
+  cerr << "Reset()" << endl;
   for(const auto &itSen: fSenVolumes)
   {
     TClonesArray* points = itSen.second;
@@ -146,6 +154,7 @@ void OLVDetector::CopyClones(TClonesArray* cl1, TClonesArray* cl2, Int_t offset)
 //-------------------------------------------------------------------------------------------------
 Bool_t OLVDetector::CheckIfSensitive(std::string name)
 {
+  cerr << "CheckIfSensitive(" << name << ")" << endl;
   TString curVolName = name;
   for(const auto &volNameSubsting: fSenNames)
   {
