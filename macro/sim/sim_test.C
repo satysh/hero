@@ -23,12 +23,12 @@ void sim_test(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output")
 {
 
   // -----   Particle  --------------------------------------------------------
-  Int_t pdgId = 2112; // proton 2212 // electron 11
+  Int_t pdgId = 2212; // proton 2212 // electron 11
   Double32_t momentum = 1000.; // GeV
 
 
-   pdgId = 2212;
-   //pdgId = GetPdgCode(82,207);      // Set nuclear pdg for Ion
+   //pdgId = 2212;
+//    pdgId = GetPdgCode(6,12);      // Set nuclear pdg for Ion
 
   // ------------------------------------------------------------------------
 
@@ -56,7 +56,6 @@ void sim_test(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output")
   OLVDetector* detector = new OLVDetector("OLVdetector", kTRUE);
   detector->SetGeometryFileName("OLV_Prototyp.root");
   detector->AddSensetive("vPlate_B10");
-  detector->AddSensetive("vPlate_B10_Roter");
   run->AddModule(detector);
 
 // -----   Create PrimaryGenerator   --------------------------------------
@@ -65,7 +64,7 @@ void sim_test(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output")
   boxGen->SetPRange(momentum, momentum);
   boxGen->SetThetaRange(0., 0.); // 0-90
   boxGen->SetPhiRange(0., 0.); // 0-360
-  boxGen->SetBoxXYZ(0., 0., 0., 0., -500.); // xmin, ymin, xmax, ymax, z
+  boxGen->SetBoxXYZ(0., 0., 0., 0., -50.); // xmin, ymin, xmax, ymax, z
   primGen->AddGenerator(boxGen);
 
   // ------------------------------------------------------------------------
