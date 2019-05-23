@@ -84,8 +84,11 @@ Bool_t OLVDetector::ProcessHits(FairVolume* vol)
 {
   if (gMC->TrackPid() != 2112)
     return kTRUE;
+  /*
   if ((TString)vol->GetName() != "vCub")
     cerr << "ProcessHits(" << vol->GetName()  << ")" << endl;
+  */
+
   //if (testPid)
   if (gMC->IsTrackEntering()) // Return true if this is the first step of the track in the current volume
   {
@@ -154,12 +157,12 @@ void OLVDetector::CopyClones(TClonesArray* cl1, TClonesArray* cl2, Int_t offset)
 //-------------------------------------------------------------------------------------------------
 Bool_t OLVDetector::CheckIfSensitive(std::string name)
 {
-  cerr << "CheckIfSensitive(" << name << ")" << endl;
   TString curVolName = name;
   for(const auto &volNameSubsting: fSenNames)
   {
     if(curVolName.Contains(volNameSubsting)){
       fSenVolumes[curVolName] = new TClonesArray("OLVPoint");
+      cerr << "CheckIfSensitive(" << name << ")" << endl;
       return kTRUE;
     }
   }
