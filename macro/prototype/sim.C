@@ -23,12 +23,10 @@ void sim(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output")
 {
 
   // -----   Particle  --------------------------------------------------------
-  Int_t pdgId = 2112; // proton 2212 // electron 11
-  Double32_t momentum = 1000.; // GeV
+  Int_t pdgId = 2212; // proton 2212 // electron 11
+  Double32_t momentum = 300.; // GeV
 
-
-   pdgId = 2212;
-   //pdgId = GetPdgCode(82,207);      // Set nuclear pdg for Ion
+  pdgId = GetPdgCode(6,12);      // Set nuclear pdg for Ion
 
   // ------------------------------------------------------------------------
 
@@ -82,7 +80,7 @@ void sim(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output")
   primGen->AddGenerator(boxGen);
   run->SetGenerator(primGen);
 
-  run->SetStoreTraj(kTRUE); // kFALSE
+  run->SetStoreTraj(kFALSE); // kFALSE
 
   //-------Set LOG verbosity  -----------------------------------------------
   FairLogger::GetLogger()->SetLogVerbosityLevel("LOW");

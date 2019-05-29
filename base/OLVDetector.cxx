@@ -82,8 +82,8 @@ void OLVDetector::Register()
 //-------------------------------------------------------------------------------------------------
 Bool_t OLVDetector::ProcessHits(FairVolume* vol)
 {
-  if (gMC->TrackPid() != 2112)
-    return kTRUE;
+  if (gMC->TrackPid() != 2112 && gMC->TrackPid() != 1000020040)
+    return kFALSE;
   /*
   if ((TString)vol->GetName() != "vCub")
     cerr << "ProcessHits(" << vol->GetName()  << ")" << endl;
@@ -128,7 +128,6 @@ void OLVDetector::Print(Option_t *option) const
 //-------------------------------------------------------------------------------------------------
 void OLVDetector::Reset()
 {
-  cerr << "Reset()" << endl;
   for(const auto &itSen: fSenVolumes)
   {
     TClonesArray* points = itSen.second;
