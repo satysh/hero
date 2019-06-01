@@ -83,18 +83,19 @@ void histo_paralell(TString inputDir = "output_paralell", Int_t NTHR = 3)
         // Loop over points
         while ((Point = (OLVPoint*)Iter.Next()))
         {
-	      if (Point->GetPID() == 1000020040)
+	        if (Point->GetPID() == 1000020040)
             alphaNum++;
           else
             neutronsNum++;
 
           // == - It writes neutrons, != - It writes alphas
-          if (Point->GetPID() == 1000020040)
+          if (Point->GetPID() != 1000020040)
             continue;
 
           Double_t curTimeIn = Point->GetTimeIn()*1e-3;
           Double_t curTimeOut = Point->GetTimeOut()*1e-3;
-
+          Double_t dTime = curTimeOut - curTimeIn;
+          //if (dTime < 1e-3) continue;
           Double_t ii = curTimeIn;
           // Loop fill hostograms
           while (ii <= curTimeOut)
