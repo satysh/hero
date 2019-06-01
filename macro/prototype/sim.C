@@ -34,8 +34,10 @@ void sim(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output")
   gRandom->SetSeed(index);
 
   //---------------------Files-----------------------------------------------
-  TString outFile = outDir + "/sim.root";
-  TString parFile = outDir + "/par.root";
+  TString outFile;
+  outFile.Form("%s/sim_%d.root", outDir.Data(), index);
+  TString parFile;
+  parFile.Form("%s/par_%d.root", outDir.Data(), index);
   // ------------------------------------------------------------------------
 
   // -----   Timer   --------------------------------------------------------

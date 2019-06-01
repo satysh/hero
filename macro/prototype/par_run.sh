@@ -1,7 +1,7 @@
 #!/bin/bash
 nev=100
-index=1
-OUTDIR=output
+OUTDIR=output_paralell
+NTHR=3
 
 rm -fv *.root
 rm -fv *txt
@@ -17,13 +17,11 @@ make -j3
 cd -
 echo -e "\e[1m\e[32m========== Compilation finished =========== \e[0m"
 
-#root -l -b -q "sim.C(${nev}, ${index})" 2> err.txt
-root -l -b -q "sim.C(${nev}, ${index}, \"${OUTDIR}\")" > ${OUTDIR}/out.txt 2> ${OUTDIR}/err.txt
+for thr in $(seq 1 ${NTHR}); do
+	echo "Starting simulation in thread ${THR}"
+	root -l -b -q "sim.C(${nev}, ${thr}, \"${OUTDIR}\")" > ${OUTDIR}/out_${thr}.txt 2> ${OUTDIR}/err_${thr}.txt &
+done
 wait
 
-echo err.txt:
-cat ${OUTDIR}/err.txt
 echo -e "\e[1m\e[32m========== Simulation finished =========== \e[0m"
 
-mv output/sim_1.root output/sim.root
-mv output/par_1.root output/par.root

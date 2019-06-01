@@ -37,20 +37,20 @@ void Config()
 /// character: eg. stepLimit+specialCuts.
 
    TG4RunConfiguration* runConfiguration
-           = new TG4RunConfiguration("geomRoot", "QBBC", "stepLimiter+specialCuts+specialControls+stackPopper");
+           = new TG4RunConfiguration("geomRoot", "QGSP_BERT_HP", "stepLimiter+specialCuts+specialControls+stackPopper");
 
 /// Create the G4 VMC
    TGeant4* geant4 = new TGeant4("TGeant4", "The Geant4 Monte Carlo", runConfiguration);
    cout << "Geant4 has been created." << endl;
 
 /// create the Specific stack
-   
+
    OLVStack *stack = new OLVStack(1000);
    //FairStack *stack = new FairStack(10000);
    stack->StoreSecondaries(kTRUE);
    stack->SetMinPoints(0);
    geant4->SetStack(stack);
-  
+
 //    if(FairRunSim::Instance()->IsExtDecayer()){
 //       TVirtualMCDecayer* decayer = TPythia6Decayer::Instance();
 //       geant4->SetExternalDecayer(decayer);
