@@ -32,27 +32,28 @@ void SetCuts()
   gMC->SetProcess("LOSS",3); /**energy loss*/
   gMC->SetProcess("MULS",1); /**multiple scattering*/
 
-  Double_t cut1 = 1.0E-9;         // MeV --> 1 keV
+  //Double_t cut1 = 1.0E-9;         // MeV --> 1 keV
   //Double_t cut1 = 1.0E-6;
+  Double_t cut1 = 0.;
   Double_t cut2 = 1.;
   //Double_t cut2 = 1.0E-6;         // MeV --> 100 keV
 //   Double_t cutb = 1.0E4;          // GeV --> 10 TeV
   Double_t tofmax = 1.E10;        // seconds
   cout << "SetCuts Macro: Setting cuts.." <<endl;
 
-  gMC->SetCut("CUTGAM",1.);   /** gammas (GeV)*/
-  gMC->SetCut("CUTGAM",1.);   /** gammas (GeV)*/
-  gMC->SetCut("CUTELE",1.);   /** electrons (GeV)*/
-  gMC->SetCut("CUTELE",1.);   /** electrons (GeV)*/
-  gMC->SetCut("CUTNEU",cut1);   /** neutral hadrons (GeV)*/
-  gMC->SetCut("CUTHAD",cut1);   /** charged hadrons (GeV)*/
-  gMC->SetCut("CUTMUO",cut2);   /** muons (GeV)*/
-  gMC->SetCut("BCUTE",cut2);    /** electron bremsstrahlung (GeV)*/
-  gMC->SetCut("BCUTM",cut2);    /** muon and hadron bremsstrahlung(GeV)*/
-  gMC->SetCut("DCUTE",1.);    /** delta-rays by electrons (GeV)*/
-  gMC->SetCut("DCUTM",cut2);    /** delta-rays by muons (GeV)*/
-  gMC->SetCut("PPCUTM",cut2);   /** direct pair production by muons (GeV)*/
-  gMC->SetCut("TOFMAX",tofmax); /**time of flight cut in seconds*/
+  gMC->SetCut("CUTGAM", 1.);   /** gammas (GeV)*/
+  gMC->SetCut("CUTGAM", 1.);   /** gammas (GeV)*/
+  gMC->SetCut("CUTELE", 1.);   /** electrons (GeV)*/
+  gMC->SetCut("CUTELE", 1.);   /** electrons (GeV)*/
+  gMC->SetCut("CUTNEU", cut1);   /** neutral hadrons (GeV)*/
+  gMC->SetCut("CUTHAD", cut1);   /** charged hadrons (GeV)*/
+  gMC->SetCut("CUTMUO", cut2);   /** muons (GeV)*/
+  gMC->SetCut("BCUTE", 1.);    /** electron bremsstrahlung (GeV)*/
+  gMC->SetCut("BCUTM", cut1);    /** muon and hadron bremsstrahlung(GeV)*/
+  gMC->SetCut("DCUTE", 1.);    /** delta-rays by electrons (GeV)*/
+  gMC->SetCut("DCUTM", cut2);    /** delta-rays by muons (GeV)*/
+  gMC->SetCut("PPCUTM", cut2);   /** direct pair production by muons (GeV)*/
+  gMC->SetCut("TOFMAX", tofmax); /**time of flight cut in seconds*/
 
 
 }

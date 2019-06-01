@@ -16,7 +16,7 @@ void histo(TString inputDir = "output")
         return;
     }
 
-    TBranch* Br[9]; 
+    TBranch* Br[9];
     Br[0] = tree->GetBranch("OLVdetectorvPlate_B10_xyz_u_fPoint");
     Br[1] = tree->GetBranch("OLVdetectorvPlate_B10_xyz_u_bPoint");
     Br[2] = tree->GetBranch("OLVdetectorvPlate_B10_xyz_d_fPoint");
@@ -52,7 +52,7 @@ void histo(TString inputDir = "output")
     cout << "binStep: " << binStep << endl;
     TH1F* histo[9];
     for (Int_t i = 0; i < 9; i++)
-    {	
+    {
     	TString histName;
     	histName.Form("hsito_%d", i);
     	histo[i] = new TH1F(histName, histName, binNumb, minBin, maxBin);
@@ -61,7 +61,7 @@ void histo(TString inputDir = "output")
     {
         cout << "Event: " << i << endl;
         for (Int_t j = 0; j < 9; j++)
-        {   
+        {
             cout << "Plate: " << j << endl;
         	Double_t minTimeIn = 100.0e10;
         	Double_t maxTimeIn = 0.;
@@ -92,6 +92,8 @@ void histo(TString inputDir = "output")
             	Double_t curTimeOut = Point->GetTimeOut()*1e-3;
 
             	Double_t dTime = curTimeOut - curTimeIn;
+                //if (dTime <= 1e-3) continue;
+
             	if ((dTime) < minLiveNutr[0])
             	{
                 	minLiveNutr[0] = dTime;
@@ -120,12 +122,12 @@ void histo(TString inputDir = "output")
         	    }
             	Double_t ii = curTimeIn;
             	while (ii <= curTimeOut)
-            	{	
+            	{
             		histo[j]->Fill((Float_t)ii);
                 	ii += binStep;
             	}
         	} // loop over points end
-            
+
         	cout << "All neutrons number: " << neutronsNum << endl;
             cout << "Alpha number is: " << alphaNum << endl;
         	cout << "minTimeIn: " << minTimeIn << ", maxTimeIn: " << maxTimeIn << " (mksec)" << endl;
@@ -157,9 +159,9 @@ void histo(TString inputDir = "output")
     	yAx->SetTitle("neutrons number");
     	yAx->SetTitleSize(0.05);
     	gPad->SetFrameLineWidth(5);
-    	gPad->SetGrid(2, 2);	
-    } 
-	
+    	gPad->SetGrid(2, 2);
+    }
+
 	TFile* outFile = new TFile("histo_out.root", "RECREATE");
 	for (Int_t i = 0; i < 9; i++)
 	{

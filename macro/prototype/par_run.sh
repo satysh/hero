@@ -25,3 +25,4 @@ wait
 
 echo -e "\e[1m\e[32m========== Simulation finished =========== \e[0m"
 
+root -l histo_paralell.C
