@@ -148,7 +148,9 @@ void histo_paralell(TString inputDir = "output_paralell", Int_t NTHR = 3)
     gPad->SetGrid(2, 2);
   }
 
-  TFile* outFile = new TFile("histo_out.root", "RECREATE");
+  TString outFileName = inputDir + "/" + "histo_out.root";
+
+  TFile* outFile = new TFile(outFileName, "RECREATE");
   for (Int_t i = 0; i < 9; i++)
   {
     histo[i]->Write();
