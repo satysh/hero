@@ -1,9 +1,9 @@
-void energy(TString inputDir = "output_paralell", Int_t NTHR = 3)
+void energy(TString inputDir = "arhiv/Ilyas", Int_t NTHR = 16)
 {
   //========== Histogram form =========================================
-  Int_t binNumb = 1000;
+  Int_t binNumb = 100000;
   Double_t minBin = 0.;
-  Double_t maxBin = 3.;
+  Double_t maxBin = 10;
   Double_t binStep = (maxBin - minBin)/Double_t(binNumb);
   cout << "binStep: " << binStep << endl;
   TString fileName;
@@ -65,7 +65,7 @@ void energy(TString inputDir = "output_paralell", Int_t NTHR = 3)
     // Form and set adress to data arrays
     TClonesArray* Arr[9];
     for (Int_t i = 0; i < 9; i++)
-    {par_run.sh
+    {
       Arr[i] = new TClonesArray("OLVPoint");
       Br[i]->SetAddress(&Arr[i]);
     }
@@ -93,8 +93,9 @@ void energy(TString inputDir = "output_paralell", Int_t NTHR = 3)
 
           Double_t curPIn = Point->GetPIn();
           Double_t curPIn2 = curPIn*curPIn;
-          Double_t inEnergy = curPIn2 + pMass*pMass;
-          histo[j]->Fill(inEnergy);
+          Double_t inEnergy = sqrt(curPIn2 + pMass*pMass);
+          inEnergy -= pMass;
+          histo[j]->Fill(1000.*inEnergy);
     
         } // loop over points end
       } // loop over plates end
@@ -121,7 +122,7 @@ void energy(TString inputDir = "output_paralell", Int_t NTHR = 3)
     histo[i]->SetLineWidth(2);
     TAxis* xAx = (TAxis*)histo[i]->GetXaxis();
     TAxis* yAx = (TAxis*)histo[i]->GetYaxis();
-    xAx->SetTitle("born Energy, GeV");
+    xAx->SetTitle("born Energy, MeV");
     yAx->SetTitle("number");
     yAx->SetTitleSize(0.05);
     gPad->SetFrameLineWidth(5);
