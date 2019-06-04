@@ -26,7 +26,7 @@ void sim(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output")
   Int_t pdgId = 2212; // proton 2212 // electron 11
   Double32_t momentum = 300.; // GeV
 
-  pdgId = GetPdgCode(6,12);      // Set nuclear pdg for Ion
+  pdgId = GetPdgCode(26,56);      // Set nuclear pdg for Ion
 
   // ------------------------------------------------------------------------
 
