@@ -86,7 +86,7 @@ void sim(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output")
 
   //-------Set LOG verbosity  -----------------------------------------------
   FairLogger::GetLogger()->SetLogVerbosityLevel("LOW");
-  FairLogger::GetLogger()->SetLogScreenLevel("DEBUG");
+  FairLogger::GetLogger()->SetLogScreenLevel("INFO");
 
   run->Init();
 

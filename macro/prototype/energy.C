@@ -1,7 +1,7 @@
-void energy(TString inputDir = "arhiv/Ilyas", Int_t NTHR = 16)
+void energy(TString inputDir = "output_paralell", Int_t NTHR = 16)
 {
   //========== Histogram form =========================================
-  Int_t binNumb = 100000;
+  Int_t binNumb = 1000;
   Double_t minBin = 0.;
   Double_t maxBin = 10;
   Double_t binStep = (maxBin - minBin)/Double_t(binNumb);
@@ -18,15 +18,15 @@ void energy(TString inputDir = "arhiv/Ilyas", Int_t NTHR = 16)
   TString partName = "neutron";
   TParticlePDG*   partPDG;
   partPDG = TDatabasePDG::Instance()->GetParticle(partName);
-  if (!partPDG ) 
+  if (!partPDG )
   {
-    cerr << partName << " doesn't exit!" << endl; 
+    cerr << partName << " doesn't exit!" << endl;
     return;
   }
 
   Double_t pMass = partPDG->Mass();
-  cout << "Particle mass is " << pMass << endl; 
-
+  cout << "Particle mass is " << pMass << endl;
+  pMass = 3.72737924; // alpha mass
   // Loop over THR start
   for (Int_t THR = 1; THR <= NTHR; THR++)
   {
@@ -96,7 +96,7 @@ void energy(TString inputDir = "arhiv/Ilyas", Int_t NTHR = 16)
           Double_t inEnergy = sqrt(curPIn2 + pMass*pMass);
           inEnergy -= pMass;
           histo[j]->Fill(1000.*inEnergy);
-    
+
         } // loop over points end
       } // loop over plates end
     } // loop over Events end
