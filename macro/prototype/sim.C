@@ -72,7 +72,7 @@ void sim(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output")
   boxGen->SetPRange(momentum, momentum);
   boxGen->SetThetaRange(0., 0.); // 0-90
   boxGen->SetPhiRange(0., 0.); // 0-360
-  boxGen->SetBoxXYZ(0., 0., 0., 0., -500.); // xmin, ymin, xmax, ymax, z
+  boxGen->SetBoxXYZ(-4., 3., -4., 3., -500.); // xmin, ymin, xmax, ymax, z
   primGen->AddGenerator(boxGen);
 
   // ------------------------------------------------------------------------
@@ -82,7 +82,7 @@ void sim(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output")
   primGen->AddGenerator(boxGen);
   run->SetGenerator(primGen);
 
-  run->SetStoreTraj(kFALSE); // kFALSE
+  run->SetStoreTraj(kTRUE); // kFALSE
 
   //-------Set LOG verbosity  -----------------------------------------------
   FairLogger::GetLogger()->SetLogVerbosityLevel("LOW");
