@@ -19,7 +19,7 @@ void eventDisplay(TString inputDir = "output")
   FairMCPointDraw* Points = new FairMCPointDraw ("OLVdetectorvCubPoint", kRed, kFullSquare);
 
 
-  //fMan->AddTask(Track);
+  fMan->AddTask(Track);
   fMan->AddTask(Points);
 
   fMan->Init();
