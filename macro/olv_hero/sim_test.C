@@ -54,9 +54,8 @@ void sim_test(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output")
   run->AddModule(cave);
 
   OLVDetector* detector = new OLVDetector("OLVdetector", kTRUE);
-  detector->SetGeometryFileName("OLV_Prototyp.root");
-  detector->AddSensetive("vPlate_B10");
-  detector->AddSensetive("vPlate_B10_Roter");
+  detector->SetGeometryFileName("OLV_detector.geo.root");
+  detector->AddSensetive("vCub");
   run->AddModule(detector);
 
 // -----   Create PrimaryGenerator   --------------------------------------

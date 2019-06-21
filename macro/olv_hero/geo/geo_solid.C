@@ -25,7 +25,7 @@ void geo_solid()
     TGeoVolume* top = new TGeoVolumeAssembly("TOP");
     gGeoManager->SetTopVolume(top);
     // --------------------------------------------------------------------------
-    
+
     // -----------------   Get and create the required media    -----------------
     FairGeoMedia*   geoMedia = geoFace->getMedia();
     FairGeoBuilder* geoBuild = geoLoad->getGeoBuilder();
@@ -38,14 +38,13 @@ void geo_solid()
 
 
     // Shapes and volumes ---------------------------------------------------------------
-    
+
     TGeoVolume* vCub = gGeoManager->MakeBox("vCub", Scint, dx, dy, dz);
 
     // Container for 1 detector
     TGeoVolumeAssembly* vDetContainer = new TGeoVolumeAssembly("vDetContainer");
 
     // Volume hierarchy -----------------------------------------------------------------
-    TGeoTranslation* tSemi = new TGeoTranslation("tSemi", 0., 0., 20.);
     vDetContainer->AddNode(vCub, 1);
 
     top->AddNode(vDetContainer, 1);
