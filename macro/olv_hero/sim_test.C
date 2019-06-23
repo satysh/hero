@@ -60,18 +60,13 @@ void sim_test(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output")
 
 // -----   Create PrimaryGenerator   --------------------------------------
   FairPrimaryGenerator* primGen = new FairPrimaryGenerator();
-  FairBoxGenerator* boxGen = new FairBoxGenerator(pdgId, 1);
-  boxGen->SetPRange(momentum, momentum);
-  boxGen->SetThetaRange(0., 0.); // 0-90
-  boxGen->SetPhiRange(0., 0.); // 0-360
-  boxGen->SetBoxXYZ(0., 0., 0., 0., -500.); // xmin, ymin, xmax, ymax, z
-  primGen->AddGenerator(boxGen);
+  OLVESphereGenerator* sphereGen = new OLVESphereGenerator(pdgId, 1);
 
   // ------------------------------------------------------------------------
-  AddIon(pdgId);                         //Add ion in FairRunSim
+  //AddIon(pdgId);
   // ------------------------------------------------------------------------
 
-  primGen->AddGenerator(boxGen);
+  primGen->AddGenerator(sphereGen);
   run->SetGenerator(primGen);
 
   run->SetStoreTraj(kTRUE); // kFALSE
