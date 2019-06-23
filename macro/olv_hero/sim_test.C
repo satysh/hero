@@ -60,7 +60,7 @@ void sim_test(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output")
 
 // -----   Create PrimaryGenerator   --------------------------------------
   FairPrimaryGenerator* primGen = new FairPrimaryGenerator();
-  OLVESphereGenerator* sphereGen = new OLVESphereGenerator(pdgId, 1);
+  OLVESphereGenerator* sphereGen = new OLVESphereGenerator(pdgId, 1000);
 
   // ------------------------------------------------------------------------
   //AddIon(pdgId);
