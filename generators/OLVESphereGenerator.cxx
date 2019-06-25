@@ -52,11 +52,15 @@ Bool_t OLVESphereGenerator::Init()
 {
   TDatabasePDG* pdgBase = TDatabasePDG::Instance();
   TParticlePDG* particle = pdgBase->GetParticle(fPID);
-
-  if (! particle) {
-    Fatal("OLVESphereGenerator","PDG code %d not defined.",fPID);
+  if (! pdgBase) {
+  	LOG(DEBUG) << "OLVESphereGenerator pdg Base is not availble!" << FairLogger::endl;
+  	return kFALSE;
   }
-
+  else if (! particle) {
+    Fatal("OLVESphereGenerator","PDG code %d not defined.",fPID);
+    return kFALSE;
+  }
+  return kTRUE;
 }
 
 Bool_t OLVESphereGenerator::ReadEvent(FairPrimaryGenerator* primGen)
