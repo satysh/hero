@@ -41,18 +41,18 @@ void SetCuts()
   Double_t tofmax = 1.E10;        // seconds
   cout << "SetCuts Macro: Setting cuts.." <<endl;
 
-  gMC->SetCut("CUTGAM", 1.);   /** gammas (GeV)*/
-  gMC->SetCut("CUTGAM", 1.);   /** gammas (GeV)*/
-  gMC->SetCut("CUTELE", 1.);   /** electrons (GeV)*/
-  gMC->SetCut("CUTELE", 1.);   /** electrons (GeV)*/
+  gMC->SetCut("CUTGAM", 1000.);   /** gammas (GeV)*/
+  gMC->SetCut("CUTGAM", 1000.);   /** gammas (GeV)*/
+  gMC->SetCut("CUTELE", 1000.);   /** electrons (GeV)*/
+  gMC->SetCut("CUTELE", 1000.);   /** electrons (GeV)*/
   gMC->SetCut("CUTNEU", cut1);   /** neutral hadrons (GeV)*/
   gMC->SetCut("CUTHAD", cut1);   /** charged hadrons (GeV)*/
-  gMC->SetCut("CUTMUO", cut2);   /** muons (GeV)*/
-  gMC->SetCut("BCUTE", 1.);    /** electron bremsstrahlung (GeV)*/
+  gMC->SetCut("CUTMUO", 1000.);   /** muons (GeV)*/
+  gMC->SetCut("BCUTE", 1000.);    /** electron bremsstrahlung (GeV)*/
   gMC->SetCut("BCUTM", cut1);    /** muon and hadron bremsstrahlung(GeV)*/
-  gMC->SetCut("DCUTE", 1.);    /** delta-rays by electrons (GeV)*/
-  gMC->SetCut("DCUTM", cut2);    /** delta-rays by muons (GeV)*/
-  gMC->SetCut("PPCUTM", cut2);   /** direct pair production by muons (GeV)*/
+  gMC->SetCut("DCUTE", 1000.);    /** delta-rays by electrons (GeV)*/
+  gMC->SetCut("DCUTM", 1000.);    /** delta-rays by muons (GeV)*/
+  gMC->SetCut("PPCUTM", 1000.);   /** direct pair production by muons (GeV)*/
   gMC->SetCut("TOFMAX", tofmax); /**time of flight cut in seconds*/
 
 

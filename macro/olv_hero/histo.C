@@ -31,8 +31,8 @@ void histo(TString inputDir = "output")
     UInt_t allNeutrons = 0;
     UInt_t allMksecNeutrons = 0;
 
-    Int_t binNumb = 1000;
-    Double_t minBin = 0.;
+    Int_t binNumb = 10000;
+    Double_t minBin = -10.;
     Double_t maxBin = 60.;
     Double_t binStep = (maxBin - minBin)/Double_t(binNumb);
     cout << "binStep: " << binStep << endl;
@@ -56,7 +56,7 @@ void histo(TString inputDir = "output")
         // Loop over points
         while ((Point = (OLVPoint*)Iter.Next()))
         {
-            if (Point->GetPID() != 2112)
+            if (Point->GetPID() == 2112)
             {
                 //cout << Point->GetPID() << endl;
                 continue;
@@ -134,7 +134,7 @@ void histo(TString inputDir = "output")
     gPad->SetFrameLineWidth(5);
     gPad->SetGrid(2, 2);
 
-    TCanvas* c2 = new TCanvas("c2", "c2", 800, 1000);
-    c2->cd();
-    EHist->Draw();  
+    //TCanvas* c2 = new TCanvas("c2", "c2", 800, 1000);
+    //c2->cd();
+    //EHist->Draw();  
 }
