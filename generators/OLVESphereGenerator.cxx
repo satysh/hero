@@ -68,7 +68,7 @@ Bool_t OLVESphereGenerator::ReadEvent(FairPrimaryGenerator* primGen)
   for (Int_t i = 0; i < fMult; i++) {
 
     Double32_t Radius = 500., pabs = 1000., pt, theta = 0., phi = 0., px, py, pz;
-    gRandom->Uniform(pabs-1., pabs+1.);
+    pabs = gRandom->Gaus(pabs, 10.);
 
     theta = gRandom->Uniform(0.*TMath::DegToRad(), 180.*TMath::DegToRad());
     phi = gRandom->Uniform(0.*TMath::DegToRad(), 360.*TMath::DegToRad());
