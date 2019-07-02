@@ -12,7 +12,7 @@ else
 fi
 echo -e "\e[1m\e[32m========== Clean finished =========== \e[0m"
 
-cd ../../../build
+cd ../../build
 make -j3
 cd -
 echo -e "\e[1m\e[32m========== Compilation finished =========== \e[0m"

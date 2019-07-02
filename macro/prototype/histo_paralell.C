@@ -1,18 +1,24 @@
 void histo_paralell(TString inputDir = "output_paralell", Int_t NTHR = 3)
 {
   //========== Histogram form =========================================
-  Int_t binNumb = 1000;
+  Int_t binNumb = 1000000;
   Double_t minBin = 0.;
-  Double_t maxBin = 60.;
+  Double_t maxBin = 16.;
   Double_t binStep = (maxBin - minBin)/Double_t(binNumb);
   cout << "binStep: " << binStep << endl;
   TString fileName;
-  TH1F* histo[9];
+  TH1F* histo[9], *sr_histo[9],*out_histo[9];
   for (Int_t i = 0; i < 9; i++)
   {
     TString histName;
-    histName.Form("hsito_%d", i);
+    histName.Form("Detector_%d", i);
+    TString sr_histName;
+    sr_histName.Form("sr_hsito_%d", i);
+    TString out_histName;
+    out_histName.Form("out_histo%d", i);
     histo[i] = new TH1F(histName, histName, binNumb, minBin, maxBin);
+    sr_histo[i] = new TH1F(sr_histName, sr_histName, 100000, 0, 16);
+    out_histo[i] = new TH1F(out_histName, out_histName, 1000000, 0, 16);
   }
   //===================================================================
   Int_t chekerNumberOfHistosMemersByPlates[9] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -98,14 +104,21 @@ void histo_paralell(TString inputDir = "output_paralell", Int_t NTHR = 3)
           //if (dTime < 1e-3) continue;
           Double_t ii = curTimeIn;
           // Loop fill hostograms
+//           sr_histo[j]->StatOverflows(kTRUE); 
+          sr_histo[j]->Fill(dTime);
+//           out_histo[j]->StatOverflows(kTRUE); 
+          out_histo[j]->Fill(curTimeOut);
           while (ii <= curTimeOut)
           {
             //chekerNumberOfHistosMemersByPlates[j]++;
+//               histo[j]->StatOverflows(kTRUE);
             histo[j]->Fill((Float_t)ii);
             ii += binStep;
           }
           chekerNumberOfHistosMemersByPlates[j]++;
         } // loop over points end
+        
+        
         cout << " neutronsNum: " << neutronsNum << endl;
         cout << " alphaNum: " << alphaNum << endl;
         THRNeutrons += neutronsNum;
@@ -132,6 +145,12 @@ void histo_paralell(TString inputDir = "output_paralell", Int_t NTHR = 3)
   TCanvas* canv[9];
   for (Int_t i = 0; i < 9; i++)
   {
+/*    TString sr_canvName;
+    sr_canvName.Form("sr_canv_%d", i);
+    sr_canv[i] = new TCanvas(sr_canvName, sr_canvName, 800, 1000);
+    sr_canv[i]->cd();
+    sr_histo->Draw(); */ 
+    
     TString canvName;
     canvName.Form("canv_%d", i);
     canv[i] = new TCanvas(canvName, canvName, 800, 1000);
@@ -141,11 +160,12 @@ void histo_paralell(TString inputDir = "output_paralell", Int_t NTHR = 3)
     histo[i]->SetLineWidth(2);
     TAxis* xAx = (TAxis*)histo[i]->GetXaxis();
     TAxis* yAx = (TAxis*)histo[i]->GetYaxis();
-    xAx->SetTitle("time, mks");
-    yAx->SetTitle("neutrons number");
-    yAx->SetTitleSize(0.05);
+    xAx->SetTitle("time, us");
+    yAx->SetTitle("neutrons");
+    yAx->SetTitleSize(0.06);
     gPad->SetFrameLineWidth(5);
     gPad->SetGrid(2, 2);
+    
   }
 
   TString outFileName = inputDir + "/" + "histo_out.root";
@@ -153,6 +173,9 @@ void histo_paralell(TString inputDir = "output_paralell", Int_t NTHR = 3)
   TFile* outFile = new TFile(outFileName, "RECREATE");
   for (Int_t i = 0; i < 9; i++)
   {
+      cout<<"MEAN"<<"   "<<i<<"     "<<out_histo[i]->GetMean()<<"    "<<histo[i]->GetMean()<<endl;  
     histo[i]->Write();
+    sr_histo[i]->Write();
+    out_histo[i]->Write();
   }
 }
