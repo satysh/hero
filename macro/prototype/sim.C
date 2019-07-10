@@ -80,7 +80,7 @@ void sim(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output", Int_t Io
   boxGen->SetEkinRange(momentum, momentum);
   boxGen->SetThetaRange(0., 0.); // 0-90
   boxGen->SetPhiRange(0., 0.); // 0-360
-  boxGen->SetBoxXYZ(-4., 3., -4., 3., -500.); // xmin, ymin, xmax, ymax, z
+  boxGen->SetBoxXYZ(0., 0., 0., 0., -500.); // xmin, ymin, xmax, ymax, z
   primGen->AddGenerator(boxGen);
 
   // ------------------------------------------------------------------------
