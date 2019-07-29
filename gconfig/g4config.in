@@ -9,7 +9,7 @@
 
 #/mcTracking/saveSecondaries SaveInStep
 #selection = DoNotSave, SaveInPreTrack, SaveInStep
-/tracking/verbose 0
+/tracking/verbose 1
 
 
 

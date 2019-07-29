@@ -2,14 +2,14 @@
 
 outdir=output
 
-nev=10
+nev=1
 nth=3
 
 cd ../../../build/
 make -j${nth}
 wait
 cd -
-echo "All compiled!"
+echo -e "\e[1m\e[32m========== All compiled! ================ \e[0m"
 
 cd ../../geometry
 rm -fv time_test_geo.root
@@ -21,12 +21,19 @@ else
     mkdir ${outdir}
 fi
 
-echo "Cleanup finished!"
+echo -e "\e[1m\e[32m========== Cleanup finished! ============ \e[0m"
 
 root -l -b -q geo/geo.C
 wait
-echo "Geometry created!"
+echo -e "\e[1m\e[32m========== Geometry created! ============ \e[0m"
 
+echo -e "\e[1m\e[32m========== Simulation started! ========== \e[0m"
 root -l -b -q "sim.C(${nev}, \"${outdir}\")" > ${outdir}/out.txt 2> ${outdir}/err.txt &
+sleep 1
+echo -e "\e[1m\e[31m... \e[0m"
+sleep 1
+echo -e "\e[1m\e[31m..... \e[0m"
+sleep 1
+echo -e "\e[1m\e[31m....... \e[0m"
 wait
-echo "Simulations finished!"
+echo -e "\e[1m\e[32m========== Simulation finished! ========== \e[0m"
