@@ -1,7 +1,7 @@
 void eventDisplay(TString inputDir = "output")
 {
-  TString parFileName = inputDir + "/par_1.root";
-  TString simFileName = inputDir + "/sim_1.root";
+  TString parFileName = inputDir + "/par.root";
+  TString simFileName = inputDir + "/sim.root";
   TString outFileName = inputDir + "/eventDisplay.root";
 
   FairRunAna* fRun = new FairRunAna();
@@ -16,12 +16,14 @@ void eventDisplay(TString inputDir = "output")
 
   FairEventManager* fMan = new FairEventManager();
   FairMCTracks* Track = new FairMCTracks ("Monte-Carlo Tracks");
-  FairMCPointDraw* Points = new FairMCPointDraw ("OLVdetectorbox1Point", kRed, kFullSquare);
-  FairMCPointDraw* Points2 = new FairMCPointDraw ("OLVdetectorbox2Point", kRed, kFullSquare);
+  FairMCPointDraw* Points = new FairMCPointDraw ("OLVdetectorbox0Point", kRed, kFullSquare);
+  FairMCPointDraw* Points2 = new FairMCPointDraw ("OLVdetectorbox1Point", kRed, kFullSquare);
+  FairMCPointDraw* Points3 = new FairMCPointDraw ("OLVdetectorbox2Point", kRed, kFullSquare);
 
   fMan->AddTask(Track);
   fMan->AddTask(Points);
   fMan->AddTask(Points2);
+  fMan->AddTask(Points3);
 
   fMan->Init();
 }

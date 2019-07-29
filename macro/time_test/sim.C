@@ -1,18 +1,14 @@
-void sim(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output")
+void sim(Int_t nEvents = 1, TString outDir = "output")
 {
 
-  // -----   Particle  --------------------------------------------------------
+  // -----   Particle  ------------------------------------------------------
   Int_t pdgId = 2212; // proton 2212 // electron 11
   Double32_t eKin = 300.; // GeV
   // ------------------------------------------------------------------------
 
-  gRandom->SetSeed(index);
-
   //---------------------Files-----------------------------------------------
-  TString outFile;
-  outFile.Form("%s/sim_%d.root", outDir.Data(), index);
-  TString parFile;
-  parFile.Form("%s/par_%d.root", outDir.Data(), index);
+  TString outFile = outDir + "/" + "sim.root";
+  TString parFile = outDir + "/" + "par.root";
   // ------------------------------------------------------------------------
 
   // -----   Timer   --------------------------------------------------------
@@ -30,6 +26,7 @@ void sim(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output")
 
   OLVDetector* detector = new OLVDetector("OLVdetector", kTRUE);
   detector->SetGeometryFileName("time_test_geo.root");
+  detector->AddSensetive("box0");
   detector->AddSensetive("box1");
   detector->AddSensetive("box2");
   run->AddModule(detector);

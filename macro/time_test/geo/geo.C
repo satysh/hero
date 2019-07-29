@@ -42,16 +42,18 @@ void geo()
   TGeoMedium* Mylar = gGeoManager->GetMedium("mylar");
   if (!Mylar ) Fatal("Main", "Medium  Mylar is not found");
 
-  TGeoVolume* box0 = gGeoManager->MakeBox("box0", Vac, 100., 100., 100.);
+  TGeoVolume* container = gGeoManager->MakeBox("container", Vac, 100., 100., 100.);
   Double_t sizeX = 10.;
-  Double_t sizeZ = 0.0001;
+  Double_t sizeZ = 2.;
   Double_t dS = 10.;
+  TGeoVolume* box0 = gGeoManager->MakeBox("box0", Vac, 0.5*sizeX, 0.5*sizeX, 0.5*sizeZ);
   TGeoVolume* box1 = gGeoManager->MakeBox("box1", Vac, 0.5*sizeX, 0.5*sizeX, 0.5*sizeZ);
   TGeoVolume* box2 = gGeoManager->MakeBox("box2", Vac, 0.5*sizeX, 0.5*sizeX, 0.5*sizeZ);
 
-  box0->AddNode(box1, 1, new TGeoTranslation(0., 0., 0.5*sizeZ + dS));
-  box0->AddNode(box2, 1, new TGeoTranslation(0., 0., sizeZ + 2.*dS));
-  top->AddNode(box0, 1);
+  container->AddNode(box0, 1, new TGeoTranslation(0., 0., 0.));
+  container->AddNode(box1, 1, new TGeoTranslation(0., 0., 0.5*sizeZ + dS));
+  container->AddNode(box2, 1, new TGeoTranslation(0., 0., sizeZ + 2.*dS));
+  top->AddNode(container, 1);
 
   // ---------------   Finish   -----------------------------------------------
   gGeoManager->SetTopVolume(top);

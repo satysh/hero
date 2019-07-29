@@ -3,10 +3,10 @@
 outdir=output
 
 nev=10
-nth=1
+nth=3
 
 cd ../../../build/
-make -j3
+make -j${nth}
 wait
 cd -
 echo "All compiled!"
@@ -27,9 +27,6 @@ root -l -b -q geo/geo.C
 wait
 echo "Geometry created!"
 
-for i in $(seq 1 ${nth});do
-    root -l -b -q "sim.C(${nev}, ${i}, \"${outdir}\")" > ${outdir}/out_${i}.txt 2> ${outdir}/err_${i}.txt &
-    echo "Simulation ${i}"
-done
+root -l -b -q "sim.C(${nev}, \"${outdir}\")" > ${outdir}/out.txt 2> ${outdir}/err.txt &
 wait
 echo "Simulations finished!"
