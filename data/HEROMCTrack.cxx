@@ -6,10 +6,10 @@
 // FAIRROOT
 #include "FairRunSim.h"
 
-// OLV
-#include "OLVMCTrack.h"
+// HERO
+#include "HEROMCTrack.h"
 
-OLVMCTrack::OLVMCTrack()
+HEROMCTrack::HEROMCTrack()
   : TObject(),
     fPdgCode(0),
     fMotherId(-1),
@@ -24,7 +24,7 @@ OLVMCTrack::OLVMCTrack()
 {
 }
 
-OLVMCTrack::OLVMCTrack(Int_t pdgCode, Int_t motherId, Double_t px,
+HEROMCTrack::HEROMCTrack(Int_t pdgCode, Int_t motherId, Double_t px,
            Double_t py, Double_t pz, Double_t x, Double_t y,
            Double_t z, Double_t t, Int_t nPoints = 0)
   : TObject(),
@@ -47,7 +47,7 @@ OLVMCTrack::OLVMCTrack(Int_t pdgCode, Int_t motherId, Double_t px,
   fEnergy = CalculateEnergy();
 }
 
-OLVMCTrack::OLVMCTrack(const OLVMCTrack& track)
+HEROMCTrack::HEROMCTrack(const HEROMCTrack& track)
   : TObject(track),
     fPdgCode(track.fPdgCode),
     fMotherId(track.fMotherId),
@@ -64,7 +64,7 @@ OLVMCTrack::OLVMCTrack(const OLVMCTrack& track)
 {
 }
 
-OLVMCTrack::OLVMCTrack(TParticle* part)
+HEROMCTrack::HEROMCTrack(TParticle* part)
   : TObject(),
     fPdgCode(part->GetPdgCode()),
     fMotherId(part->GetMother(0)),
@@ -83,21 +83,21 @@ OLVMCTrack::OLVMCTrack(TParticle* part)
     fEnergy = CalculateEnergy();
 }
 
-OLVMCTrack::~OLVMCTrack() 
+HEROMCTrack::~HEROMCTrack() 
 {
 }
 
-void OLVMCTrack::Print(Int_t trackId) const 
+void HEROMCTrack::Print(Int_t trackId) const 
 {
   /* TODO*/
 }
 
-Double_t OLVMCTrack::GetMass() const 
+Double_t HEROMCTrack::GetMass() const 
 {
   return fMass;
 }
 
-Double_t OLVMCTrack::GetCharge() const 
+Double_t HEROMCTrack::GetCharge() const 
 {
   if ( TDatabasePDG::Instance() ) 
   {
@@ -108,47 +108,47 @@ Double_t OLVMCTrack::GetCharge() const
   return 0.;
 }
 
-Double_t OLVMCTrack::GetRapidity() const 
+Double_t HEROMCTrack::GetRapidity() const 
 {
   Double_t e = fEnergy;
   Double_t y = 0.5 * TMath::Log( (e+fPz) / (e-fPz) );
   return y;
 }
 
-Int_t OLVMCTrack::GetNPoints(Int_t detId) const 
+Int_t HEROMCTrack::GetNPoints(Int_t detId) const 
 {
   /* TODO */
     return 0;
 }
 
 
-void OLVMCTrack::SetNPoints(Int_t iDet, Int_t nPoints) 
+void HEROMCTrack::SetNPoints(Int_t iDet, Int_t nPoints) 
 {
   /* TODO */
 }
 
 
-TLorentzVector OLVMCTrack::GetVector()
+TLorentzVector HEROMCTrack::GetVector()
 {
   fMomentum.SetXYZT(fPx,fPy,fPz,fEnergy);
   return fMomentum;
 }
 
-Double_t OLVMCTrack::GetTheta()
+Double_t HEROMCTrack::GetTheta()
 {
   fMomentum.SetXYZT(fPx,fPy,fPz,fEnergy);
   fTheta = fMomentum.Theta();
   return fTheta;
 }
 
-Double_t OLVMCTrack::GetPhi()
+Double_t HEROMCTrack::GetPhi()
 {
   fMomentum.SetXYZT(fPx,fPy,fPz,fEnergy);
   fPhi = fMomentum.Phi();
   return fPhi;
 }
 
-Double_t OLVMCTrack::CalculateMass() 
+Double_t HEROMCTrack::CalculateMass() 
 {
   if ( TDatabasePDG::Instance() ) 
   {
@@ -169,10 +169,10 @@ Double_t OLVMCTrack::CalculateMass()
   return 0.;
 }
 // -------------------------------------------------------------------------
-Double_t OLVMCTrack::CalculateEnergy() 
+Double_t HEROMCTrack::CalculateEnergy() 
 {
   return TMath::Sqrt(fMass*fMass + fPx*fPx + fPy*fPy + fPz*fPz );
 }
 
 
-ClassImp(OLVMCTrack)
+ClassImp(HEROMCTrack)

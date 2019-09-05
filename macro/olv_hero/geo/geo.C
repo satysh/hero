@@ -1,4 +1,4 @@
-void geo_solid()
+void geo()
 {
     Double_t dx = 150.;
     Double_t dy = 150.;
@@ -16,30 +16,24 @@ void geo_solid()
     // --------------------------------------------------------------------------
 
     // -------   Geometry file name (output)   ----------------------------------
-    TString geoFileName = geoPath + "/geometry/OLV_detector.geo.root";
+    TString geoFileName = geoPath + "/geometry/HERO_detector.geo.root";
     // --------------------------------------------------------------------------
 
     // --------------   Create geometry and top volume  -------------------------
     gGeoManager = (TGeoManager*)gROOT->FindObject("FAIRGeom");
     gGeoManager->SetName("DETgeom");
     TGeoVolume* top = new TGeoVolumeAssembly("TOP");
-    gGeoManager->SetTopVolume(top);
     // --------------------------------------------------------------------------
-    
-    // -----------------   Get and create the required media    -----------------
-    FairGeoMedia*   geoMedia = geoFace->getMedia();
-    FairGeoBuilder* geoBuild = geoLoad->getGeoBuilder();
 
-    FairGeoMedium    * SCint  = geoMedia->getMedium("FscScintVB");
-    if ( ! SCint ) Fatal("Main", "FairMedium FscScintVB not found");
-    geoBuild->createMedium(SCint);
-    TGeoMedium* Scint = gGeoManager->GetMedium("FscScintVB");
-    if ( ! Scint ) Fatal("Main", "Medium FscScintVB not found");
 
+    // Materials and media -------------------------------------------------------------
+    TGeoMaterial* cubMat = new TGeoMaterial("CsI", 1., 1., 1.);
+    TGeoMedium* cubMed = new TGeoMedium("cubMed", 1, cubMat);
 
     // Shapes and volumes ---------------------------------------------------------------
-    
-    TGeoVolume* vCub = gGeoManager->MakeBox("vCub", Scint, dx, dy, dz);
+
+    TGeoBBox* sCub = new TGeoBBox("sCub", dx, dy, dz);
+    TGeoVolume* vCub = new TGeoVolume("vCub", sCub, cubMed);
 
     // Container for 1 detector
     TGeoVolumeAssembly* vDetContainer = new TGeoVolumeAssembly("vDetContainer");
@@ -65,4 +59,3 @@ void geo_solid()
     geoFile->Close();
     // --------------------------------------------------------------------------
 }
-

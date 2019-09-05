@@ -1,4 +1,4 @@
-void geo()
+void geo_solid()
 {
     Double_t dx = 150.;
     Double_t dy = 150.;
@@ -16,30 +16,35 @@ void geo()
     // --------------------------------------------------------------------------
 
     // -------   Geometry file name (output)   ----------------------------------
-    TString geoFileName = geoPath + "/geometry/OLV_detector.geo.root";
+    TString geoFileName = geoPath + "/geometry/HERO_detector.geo.root";
     // --------------------------------------------------------------------------
 
     // --------------   Create geometry and top volume  -------------------------
     gGeoManager = (TGeoManager*)gROOT->FindObject("FAIRGeom");
     gGeoManager->SetName("DETgeom");
     TGeoVolume* top = new TGeoVolumeAssembly("TOP");
+    gGeoManager->SetTopVolume(top);
     // --------------------------------------------------------------------------
 
+    // -----------------   Get and create the required media    -----------------
+    FairGeoMedia*   geoMedia = geoFace->getMedia();
+    FairGeoBuilder* geoBuild = geoLoad->getGeoBuilder();
 
-    // Materials and media -------------------------------------------------------------
-    TGeoMaterial* cubMat = new TGeoMaterial("CsI", 1., 1., 1.);
-    TGeoMedium* cubMed = new TGeoMedium("cubMed", 1, cubMat);
+    FairGeoMedium    * SCint  = geoMedia->getMedium("FscScintVB");
+    if ( ! SCint ) Fatal("Main", "FairMedium FscScintVB not found");
+    geoBuild->createMedium(SCint);
+    TGeoMedium* Scint = gGeoManager->GetMedium("FscScintVB");
+    if ( ! Scint ) Fatal("Main", "Medium FscScintVB not found");
+
 
     // Shapes and volumes ---------------------------------------------------------------
 
-    TGeoBBox* sCub = new TGeoBBox("sCub", dx, dy, dz);
-    TGeoVolume* vCub = new TGeoVolume("vCub", sCub, cubMed);
+    TGeoVolume* vCub = gGeoManager->MakeBox("vCub", Scint, dx, dy, dz);
 
     // Container for 1 detector
     TGeoVolumeAssembly* vDetContainer = new TGeoVolumeAssembly("vDetContainer");
 
     // Volume hierarchy -----------------------------------------------------------------
-    TGeoTranslation* tSemi = new TGeoTranslation("tSemi", 0., 0., 20.);
     vDetContainer->AddNode(vCub, 1);
 
     top->AddNode(vDetContainer, 1);
@@ -59,3 +64,4 @@ void geo()
     geoFile->Close();
     // --------------------------------------------------------------------------
 }
+

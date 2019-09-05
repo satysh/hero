@@ -13,17 +13,17 @@ using std::pair;
 #include "FairMCPoint.h"
 #include "FairRootManager.h"
 
-// OLV
-#include "OLVStack.h"
-#include "OLVMCTrack.h"
+// HERO
+#include "HEROStack.h"
+#include "HEROMCTrack.h"
 
 
 // -----   Default constructor   -------------------------------------------
-OLVStack::OLVStack(Int_t size)
+HEROStack::HEROStack(Int_t size)
   : FairGenericStack(),
     fStack(),
     fParticles(new TClonesArray("TParticle", size)),
-    fTracks(new TClonesArray("OLVMCTrack", size)),
+    fTracks(new TClonesArray("HEROMCTrack", size)),
     fStoreMap(),
     fStoreIter(),
     fIndexMap(),
@@ -47,7 +47,7 @@ OLVStack::OLVStack(Int_t size)
 
 
 // -----   Destructor   ----------------------------------------------------
-OLVStack::~OLVStack()
+HEROStack::~HEROStack()
 {
   if (fParticles) {
     fParticles->Delete();
@@ -60,7 +60,7 @@ OLVStack::~OLVStack()
 }
 // -------------------------------------------------------------------------
 
-void OLVStack::PushTrack(Int_t toBeDone, Int_t parentId, Int_t pdgCode,
+void HEROStack::PushTrack(Int_t toBeDone, Int_t parentId, Int_t pdgCode,
                          Double_t px, Double_t py, Double_t pz,
                          Double_t e, Double_t vx, Double_t vy, Double_t vz,
                          Double_t time, Double_t polx, Double_t poly,
@@ -78,7 +78,7 @@ void OLVStack::PushTrack(Int_t toBeDone, Int_t parentId, Int_t pdgCode,
 
 
 // -----   Virtual public method PushTrack   -------------------------------
-void OLVStack::PushTrack(Int_t toBeDone, Int_t parentId, Int_t pdgCode,
+void HEROStack::PushTrack(Int_t toBeDone, Int_t parentId, Int_t pdgCode,
                          Double_t px, Double_t py, Double_t pz,
                          Double_t e, Double_t vx, Double_t vy, Double_t vz,
                          Double_t time, Double_t polx, Double_t poly,
@@ -123,7 +123,7 @@ void OLVStack::PushTrack(Int_t toBeDone, Int_t parentId, Int_t pdgCode,
 
 
 // -----   Virtual method PopNextTrack   -----------------------------------
-TParticle* OLVStack::PopNextTrack(Int_t& iTrack)
+TParticle* HEROStack::PopNextTrack(Int_t& iTrack)
 {
   //cerr << "PopNextTrack " << iTrack << endl;
   // If end of stack: Return empty pointer
@@ -152,7 +152,7 @@ TParticle* OLVStack::PopNextTrack(Int_t& iTrack)
 
 
 // -----   Virtual method PopPrimaryForTracking   --------------------------
-TParticle* OLVStack::PopPrimaryForTracking(Int_t iPrim)
+TParticle* HEROStack::PopPrimaryForTracking(Int_t iPrim)
 {
   //cerr << "PopPrimaryForTracking " << iPrim << endl;
   // Get the iPrimth particle from the fStack TClonesArray. This
@@ -178,7 +178,7 @@ TParticle* OLVStack::PopPrimaryForTracking(Int_t iPrim)
 
 
 // -----   Virtual public method GetCurrentTrack   -------------------------
-TParticle* OLVStack::GetCurrentTrack() const
+TParticle* HEROStack::GetCurrentTrack() const
 {
   
   TParticle* currentPart = GetParticle(fCurrentTrack);
@@ -193,7 +193,7 @@ TParticle* OLVStack::GetCurrentTrack() const
 
 
 // -----   Public method AddParticle   -------------------------------------
-void OLVStack::AddParticle(TParticle* oldPart)
+void HEROStack::AddParticle(TParticle* oldPart)
 {
   //cerr << "AddParticle " << endl;
   TClonesArray& array = *fParticles;
@@ -207,7 +207,7 @@ void OLVStack::AddParticle(TParticle* oldPart)
 
 
 // -----   Public method FillTrackArray   ----------------------------------
-void OLVStack::FillTrackArray()
+void HEROStack::FillTrackArray()
 {
 
   // std::cout << "Filling MCTrack array..." << std::endl;
@@ -229,8 +229,8 @@ void OLVStack::FillTrackArray()
     Bool_t store = (*fStoreIter).second;
     //cerr << "store = " << store << endl;
     if (store) {
-      OLVMCTrack* track =
-        new( (*fTracks)[fNTracks]) OLVMCTrack(GetParticle(iPart));
+      HEROMCTrack* track =
+        new( (*fTracks)[fNTracks]) HEROMCTrack(GetParticle(iPart));
       fIndexMap[iPart] = fNTracks;
       // --> Set the number of points in the detectors for this track
       /*for (Int_t iDet=kREF; iDet<=kPSD; iDet++) {
@@ -254,7 +254,7 @@ void OLVStack::FillTrackArray()
 
 
 // -----   Public method UpdateTrackIndex   --------------------------------
-void OLVStack::UpdateTrackIndex(TRefArray* detList)
+void HEROStack::UpdateTrackIndex(TRefArray* detList)
 {
 
   // std::cout << "Updating track indizes..." << std::endl;
@@ -262,7 +262,7 @@ void OLVStack::UpdateTrackIndex(TRefArray* detList)
 
   // First update mother ID in MCTracks
   for (Int_t i=0; i<fNTracks; i++) {
-    OLVMCTrack* track = (OLVMCTrack*)fTracks->At(i);
+    HEROMCTrack* track = (HEROMCTrack*)fTracks->At(i);
     Int_t iMotherOld = track->GetMotherId();
     fIndexIter = fIndexMap.find(iMotherOld);
     if (fIndexIter == fIndexMap.end()) {
@@ -312,7 +312,7 @@ void OLVStack::UpdateTrackIndex(TRefArray* detList)
 
 
 // -----   Public method Reset   -------------------------------------------
-void OLVStack::Reset()
+void HEROStack::Reset()
 {
   fIndex = 0;
   fCurrentTrack = -1;
@@ -327,7 +327,7 @@ void OLVStack::Reset()
 
 
 // -----   Public method Register   ----------------------------------------
-void OLVStack::Register()
+void HEROStack::Register()
 {
   FairRootManager::Instance()->Register("MCTrack", "Stack", fTracks,kTRUE);
 }
@@ -336,7 +336,7 @@ void OLVStack::Register()
 
 
 // -----   Public method Print  --------------------------------------------
-void OLVStack::Print(Int_t iVerbose) const
+void HEROStack::Print(Int_t iVerbose) const
 {
   // std::cout << "Number of primaries        = "
   //           << fNPrimaries << std::endl;
@@ -345,7 +345,7 @@ void OLVStack::Print(Int_t iVerbose) const
   // std::cout << "Number of tracks in output = "
   //           << fNTracks << std::endl;
   /*for (Int_t iTrack=0; iTrack<fNTracks; iTrack++) {
-    ((OLVMCTrack*) fTracks->At(iTrack))->Print(iTrack);
+    ((HEROMCTrack*) fTracks->At(iTrack))->Print(iTrack);
   }*/
 }
 // -------------------------------------------------------------------------
@@ -353,7 +353,7 @@ void OLVStack::Print(Int_t iVerbose) const
 
 
 // -----   Public method AddPoint (for current track)   --------------------
-void OLVStack::AddPoint(Int_t detId)
+void HEROStack::AddPoint(Int_t detId)
 {
   Int_t iDet = detId;
   pair<Int_t, Int_t> a(fCurrentTrack, iDet);
@@ -365,7 +365,7 @@ void OLVStack::AddPoint(Int_t detId)
 
 
 // -----   Public method AddPoint (for arbitrary track)  -------------------
-void OLVStack::AddPoint(Int_t detId, Int_t iTrack)
+void HEROStack::AddPoint(Int_t detId, Int_t iTrack)
 {
   if ( iTrack < 0 ) { return; }
   Int_t iDet = detId;
@@ -379,7 +379,7 @@ void OLVStack::AddPoint(Int_t detId, Int_t iTrack)
 
 
 // -----   Virtual method GetCurrentParentTrackNumber   --------------------
-Int_t OLVStack::GetCurrentParentTrackNumber() const
+Int_t HEROStack::GetCurrentParentTrackNumber() const
 { 
   TParticle* currentPart = GetCurrentTrack();
   //cerr << "GetCurrentParentTrackNumber " <<currentPart->GetFirstMother() << endl;
@@ -391,7 +391,7 @@ Int_t OLVStack::GetCurrentParentTrackNumber() const
 
 
 // -----   Public method GetParticle   -------------------------------------
-TParticle* OLVStack::GetParticle(Int_t trackID) const
+TParticle* HEROStack::GetParticle(Int_t trackID) const
 {
 
   if (trackID < 0 || trackID >= fNParticles) {
@@ -406,7 +406,7 @@ TParticle* OLVStack::GetParticle(Int_t trackID) const
 
 
 // -----   Private method SelectTracks   -----------------------------------
-void OLVStack::SelectTracks()
+void HEROStack::SelectTracks()
 {
 
   // cerr << "SelectTracks" << endl;
@@ -471,6 +471,6 @@ void OLVStack::SelectTracks()
 
 
 
-ClassImp(OLVStack)
+ClassImp(HEROStack)
 
 

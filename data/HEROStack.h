@@ -1,5 +1,5 @@
-#ifndef OLVStack_H
-#define OLVStack_H
+#ifndef HEROStack_H
+#define HEROStack_H
 
 // STD
 #include <stack>
@@ -9,7 +9,7 @@
 
 class TClonesArray;
 
-class OLVStack : public FairGenericStack
+class HEROStack : public FairGenericStack
 {
 
  public:
@@ -17,11 +17,11 @@ class OLVStack : public FairGenericStack
   /** Default constructor
    *param size  Estimated track number
    **/
-  OLVStack(Int_t size = 100);
+  HEROStack(Int_t size = 100);
 
 
   /** Destructor  **/
-  virtual ~OLVStack();
+  virtual ~HEROStack();
 
   virtual void PushTrack(Int_t toBeDone, Int_t parentID, Int_t pdgCode,
 			 Double_t px, Double_t py, Double_t pz,
@@ -206,10 +206,10 @@ class OLVStack : public FairGenericStack
   /** Mark tracks for output using selection criteria  **/
   void SelectTracks();
 
-  OLVStack(const OLVStack&);
-  OLVStack& operator=(const OLVStack&);
+  HEROStack(const HEROStack&);
+  HEROStack& operator=(const HEROStack&);
 
-  ClassDef(OLVStack,1)
+  ClassDef(HEROStack,1)
 
 
 };

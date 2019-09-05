@@ -27,8 +27,8 @@ void sim_test(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output")
   Double32_t momentum = 1000.; // GeV
 
 
-   pdgId = 2212;
-   //pdgId = GetPdgCode(82,207);      // Set nuclear pdg for Ion
+  pdgId = 2212;
+  //pdgId = GetPdgCode(82,207);      // Set nuclear pdg for Ion
 
   // ------------------------------------------------------------------------
 
@@ -53,23 +53,20 @@ void sim_test(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output")
   cave->SetGeometryFileName("cave.geo");
   run->AddModule(cave);
 
-  OLVDetector* detector = new OLVDetector("OLVdetector", kTRUE);
-  detector->SetGeometryFileName("OLV_Prototyp.root");
-  detector->AddSensetive("vPlate_B10");
-  detector->AddSensetive("vPlate_B10_Roter");
+  HERODetector* detector = new HERODetector("HEROdetector", kTRUE);
+  detector->SetGeometryFileName("HERO_detector.geo.root");
+  detector->AddSensetive("vCub");
   run->AddModule(detector);
 
 // -----   Create PrimaryGenerator   --------------------------------------
   FairPrimaryGenerator* primGen = new FairPrimaryGenerator();
   FairBoxGenerator* boxGen = new FairBoxGenerator(pdgId, 1);
-  boxGen->SetPRange(momentum, momentum);
+  boxGen->SetEkinRange(momentum, momentum);
   boxGen->SetThetaRange(0., 0.); // 0-90
   boxGen->SetPhiRange(0., 0.); // 0-360
   boxGen->SetBoxXYZ(0., 0., 0., 0., -500.); // xmin, ymin, xmax, ymax, z
-  primGen->AddGenerator(boxGen);
-
   // ------------------------------------------------------------------------
-  AddIon(pdgId);                         //Add ion in FairRunSim
+  //AddIon(pdgId);
   // ------------------------------------------------------------------------
 
   primGen->AddGenerator(boxGen);

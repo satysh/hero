@@ -16,10 +16,10 @@ void eventDisplay(TString inputDir = "output")
 
   FairEventManager* fMan = new FairEventManager();
   FairMCTracks* Track = new FairMCTracks ("Monte-Carlo Tracks");
-  FairMCPointDraw* Points = new FairMCPointDraw ("OLVdetectorvCubPoint", kRed, kFullSquare);
+  FairMCPointDraw* Points = new FairMCPointDraw ("HEROdetectorvCubPoint", kRed, kFullSquare);
 
 
-  //fMan->AddTask(Track);
+  fMan->AddTask(Track);
   fMan->AddTask(Points);
 
   fMan->Init();

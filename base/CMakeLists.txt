@@ -1,4 +1,4 @@
-# Create a library called "libOLVDetectors" which includes the source files given in
+# Create a library called "libHERODetectors" which includes the source files given in
 # the array .
 # The extension is already found.  Any number of sources could be listed here.
 
@@ -25,16 +25,15 @@ ${GEANT4VMC_LIBRARY_DIR}
 link_directories( ${LINK_DIRECTORIES})
 
 set(SRCS
-OLVDetector.cxx
-OLVDetectorGeoPar.cxx
+HERODetector.cxx
 )
 
 # fill list of header files from list of source files
 # by exchanging the file extension
 CHANGE_FILE_EXTENSION(*.cxx *.h HEADERS "${SRCS}")
 
-Set(LINKDEF OLVBaseLinkDef.h)
-Set(LIBRARY_NAME OLVBase)
+Set(LINKDEF HEROBaseLinkDef.h)
+Set(LIBRARY_NAME HEROBase)
 Set(DEPENDENCIES Base Core)
 
 GENERATE_LIBRARY()

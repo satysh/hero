@@ -1,7 +1,7 @@
-void energy(TString inputDir = "arhiv/Ilyas", Int_t NTHR = 16)
+void energy(TString inputDir = "output_paralell", Int_t NTHR = 16)
 {
   //========== Histogram form =========================================
-  Int_t binNumb = 100000;
+  Int_t binNumb = 1000;
   Double_t minBin = 0.;
   Double_t maxBin = 10;
   Double_t binStep = (maxBin - minBin)/Double_t(binNumb);
@@ -18,15 +18,15 @@ void energy(TString inputDir = "arhiv/Ilyas", Int_t NTHR = 16)
   TString partName = "neutron";
   TParticlePDG*   partPDG;
   partPDG = TDatabasePDG::Instance()->GetParticle(partName);
-  if (!partPDG ) 
+  if (!partPDG )
   {
-    cerr << partName << " doesn't exit!" << endl; 
+    cerr << partName << " doesn't exit!" << endl;
     return;
   }
 
   Double_t pMass = partPDG->Mass();
-  cout << "Particle mass is " << pMass << endl; 
-
+  cout << "Particle mass is " << pMass << endl;
+  pMass = 3.72737924; // alpha mass
   // Loop over THR start
   for (Int_t THR = 1; THR <= NTHR; THR++)
   {
@@ -39,7 +39,7 @@ void energy(TString inputDir = "arhiv/Ilyas", Int_t NTHR = 16)
       return;
     }
     // Finding the tree in root file
-    TTree* tree = (TTree*)file->Get("OLV");
+    TTree* tree = (TTree*)file->Get("HERO");
     if (!tree)
     {
       cerr << "Tree read error" << endl;
@@ -47,15 +47,15 @@ void energy(TString inputDir = "arhiv/Ilyas", Int_t NTHR = 16)
     }
     // Branches reding
     TBranch* Br[9];
-    Br[0] = tree->GetBranch("OLVdetectorvPlate_B10_xyz_u_fPoint");
-    Br[1] = tree->GetBranch("OLVdetectorvPlate_B10_xyz_u_bPoint");
-    Br[2] = tree->GetBranch("OLVdetectorvPlate_B10_xyz_d_fPoint");
-    Br[3] = tree->GetBranch("OLVdetectorvPlate_B10_xyz_d_bPoint");
-    Br[4] = tree->GetBranch("OLVdetectorvPlate_B10_yxz_l_fPoint");
-    Br[5] = tree->GetBranch("OLVdetectorvPlate_B10_yxz_l_bPoint");
-    Br[6] = tree->GetBranch("OLVdetectorvPlate_B10_yxz_r_fPoint");
-    Br[7] = tree->GetBranch("OLVdetectorvPlate_B10_yxz_r_bPoint");
-    Br[8] = tree->GetBranch("OLVdetectorvPlate_B10_xzy_fPoint");
+    Br[0] = tree->GetBranch("HEROdetectorvPlate_B10_xyz_u_fPoint");
+    Br[1] = tree->GetBranch("HEROdetectorvPlate_B10_xyz_u_bPoint");
+    Br[2] = tree->GetBranch("HEROdetectorvPlate_B10_xyz_d_fPoint");
+    Br[3] = tree->GetBranch("HEROdetectorvPlate_B10_xyz_d_bPoint");
+    Br[4] = tree->GetBranch("HEROdetectorvPlate_B10_yxz_l_fPoint");
+    Br[5] = tree->GetBranch("HEROdetectorvPlate_B10_yxz_l_bPoint");
+    Br[6] = tree->GetBranch("HEROdetectorvPlate_B10_yxz_r_fPoint");
+    Br[7] = tree->GetBranch("HEROdetectorvPlate_B10_yxz_r_bPoint");
+    Br[8] = tree->GetBranch("HEROdetectorvPlate_B10_xzy_fPoint");
     for (Int_t i = 0; i < 9; i++)
     if (!Br[i])
     {
@@ -66,7 +66,7 @@ void energy(TString inputDir = "arhiv/Ilyas", Int_t NTHR = 16)
     TClonesArray* Arr[9];
     for (Int_t i = 0; i < 9; i++)
     {
-      Arr[i] = new TClonesArray("OLVPoint");
+      Arr[i] = new TClonesArray("HEROPoint");
       Br[i]->SetAddress(&Arr[i]);
     }
     UInt_t nEvents = tree->GetEntries();
@@ -79,13 +79,13 @@ void energy(TString inputDir = "arhiv/Ilyas", Int_t NTHR = 16)
       for (Int_t j = 0; j < 9; j++)
       {
         Br[j]->GetEntry(i);
-        OLVPoint* Point;
+        HEROPoint* Point;
         TIter Iter(Arr[j]);
         Int_t neutronsNum = 0;
         Int_t alphaNum = 0;
 
         // Loop over points
-        while ((Point = (OLVPoint*)Iter.Next()))
+        while ((Point = (HEROPoint*)Iter.Next()))
         {
           // == - It writes neutrons, != - It writes alphas
           if (Point->GetPID() != 1000020040)
@@ -96,7 +96,7 @@ void energy(TString inputDir = "arhiv/Ilyas", Int_t NTHR = 16)
           Double_t inEnergy = sqrt(curPIn2 + pMass*pMass);
           inEnergy -= pMass;
           histo[j]->Fill(1000.*inEnergy);
-    
+
         } // loop over points end
       } // loop over plates end
     } // loop over Events end

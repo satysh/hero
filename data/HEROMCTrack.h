@@ -1,5 +1,5 @@
-#ifndef OLVMCTRACK_H_
-#define OLVMCTRACK_H_
+#ifndef HEROMCTRACK_H_
+#define HEROMCTRACK_H_
 
 // ROOT
 #include "TObject.h"
@@ -8,30 +8,30 @@
 #include "TLorentzVector.h"
 #include "TParticle.h"
 
-class OLVMCTrack : public TObject
+class HEROMCTrack : public TObject
 {
 
  public:
 
   /**  Default constructor  **/
-  OLVMCTrack();
+  HEROMCTrack();
 
 
   /**  Standard constructor  **/
-  OLVMCTrack(Int_t pdgCode, Int_t motherID, Double_t px, Double_t py,
+  HEROMCTrack(Int_t pdgCode, Int_t motherID, Double_t px, Double_t py,
        Double_t pz, Double_t x, Double_t y, Double_t z,
        Double_t t, Int_t nPoints);
 
   /**  Copy constructor  **/
-  OLVMCTrack(const OLVMCTrack& track);
+  HEROMCTrack(const HEROMCTrack& track);
 
 
   /**  Constructor from TParticle  **/
-  OLVMCTrack(TParticle* particle);
+  HEROMCTrack(TParticle* particle);
 
 
   /**  Destructor  **/
-  virtual ~OLVMCTrack();
+  virtual ~HEROMCTrack();
 
 
   /**  Output to screen  **/
@@ -88,7 +88,7 @@ private:
 
   TLorentzVector fMomentum;
 
-  ClassDef(OLVMCTrack,2);
+  ClassDef(HEROMCTrack,2);
 };
 
-#endif /* OLVMCTRACK_H_ */
+#endif /* HEROMCTRACK_H_ */

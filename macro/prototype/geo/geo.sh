@@ -1,4 +1,4 @@
 #!/bin/bash
 
-rm -fv ../../../geometry/OLV_Prototyp.root
-root -l Prototyp_test.C
+rm -fv ../../../geometry/HERO_Prototype.root
+root -l -q Prototyp_test.C

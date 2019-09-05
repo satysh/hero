@@ -1,4 +1,4 @@
-void Prototyp_test()
+void Prototyp_test_Al_and_P()
 {
     typedef struct{
         Double_t dx = 12.;
@@ -30,7 +30,7 @@ void Prototyp_test()
     // --------------------------------------------------------------------------
 
     // -------   Geometry file name (output)   ----------------------------------
-    TString geoFileName = geoPath + "/geometry/HERO_Prototype.root";
+    TString geoFileName = geoPath + "/geometry/HERO_Prototyp.root";
     // --------------------------------------------------------------------------
 
     // --------------   Create geometry and top volume  -------------------------
@@ -52,24 +52,35 @@ void Prototyp_test()
     if ( ! Scint ) Fatal("Main", "Medium FscScintVB not found");
 
     //------------------  Material for calorimetr   --------------
-     FairGeoMedium    * air  = geoMedia->getMedium("air");
+    FairGeoMedium    * air  = geoMedia->getMedium("air");
     if ( ! air  ) Fatal("Main", "FairMedium air   not found");
     geoBuild->createMedium(air);
     TGeoMedium* Air = gGeoManager->GetMedium("air");
     if ( !  Air ) Fatal("Main", "Medium  Air not found");
 
-      FairGeoMedium    * LEad  = geoMedia->getMedium("lead");
+    FairGeoMedium    * LEad  = geoMedia->getMedium("lead");
     if ( ! LEad ) Fatal("Main", "FairMedium LEad not found");
     geoBuild->createMedium(LEad);
     TGeoMedium* Lead = gGeoManager->GetMedium("lead");
     if ( ! Lead ) Fatal("Main", "Medium Lead not found");
 
-         FairGeoMedium    * POlysterol  = geoMedia->getMedium("FscScint");
+    FairGeoMedium    * POlysterol  = geoMedia->getMedium("FscScint");
     if ( ! POlysterol ) Fatal("Main", "FairMedium POlysterol not found");
     geoBuild->createMedium(POlysterol);
     TGeoMedium* Polysterol = gGeoManager->GetMedium("FscScint");
     if ( ! Polysterol ) Fatal("Main", "Medium FscScint not found");
+    
+    FairGeoMedium    * Aluminum  = geoMedia->getMedium("aluminium");
+    if ( ! Aluminum ) Fatal("Main", "FairMedium Aluminum not found");
+    geoBuild->createMedium(Aluminum);
+    TGeoMedium* aluminum = gGeoManager->GetMedium("aluminium");
+    if ( ! aluminum ) Fatal("Main", "Medium aluminum not found");
 
+    FairGeoMedium    * Poly  = geoMedia->getMedium("polyethylen");
+    if ( ! Poly ) Fatal("Main", "FairMedium Poly not found");
+    geoBuild->createMedium(Poly);
+    TGeoMedium* poly = gGeoManager->GetMedium("polyethylen");
+    if ( ! poly ) Fatal("Main", "Medium poly not found");
     //------------------  Material for SIZ  --------------
     Calorimetr calor;
     Plate_B10 plate;
@@ -168,10 +179,16 @@ void Prototyp_test()
 
 
     // Charge particle detection system
-    TGeoVolume* ChMP = gGeoManager->MakeBox("ChMP", Air, chmp.dx, chmp.dy, chmp.dz);
+    TGeoVolume* ChMP = gGeoManager->MakeBox("ChMP", poly, 0.5*calor.dx, 0.5*calor.dy, 0.5*7.);
     ChMP->SetFillColor(kBlack);
     ChMP->SetLineColor(kBlack);
     ChMP->SetTransparency(60);
+    
+    // Traget 
+    TGeoVolume* target = gGeoManager->MakeBox("target", aluminum, 0.5*calor.dx, 0.5*calor.dy, 0.5*4.);
+    target->SetFillColor(kRed);
+    target->SetLineColor(kRed);
+    target->SetTransparency(60);
 
     // Container
     TGeoVolume* Detector = gGeoManager->MakeBox("Detector", Air, 50., 50., 100.);
@@ -212,7 +229,8 @@ void Prototyp_test()
 
     Detector->AddNode(BOX_Lead, 1, new TGeoTranslation(0., 0., 0.));
 
-    Detector->AddNode(ChMP, 1, new TGeoTranslation(0., 0., -(Calor_Size+10.1+ chmp.dz)*0.5));
+    Detector->AddNode(ChMP, 1, new TGeoTranslation(0., 0., -(Calor_Size+10.1+7.)*0.5));
+    Detector->AddNode(target, 1, new TGeoTranslation(0., 0., -(Calor_Size+10.1+7.+4.)*0.5));
 
     top->AddNode(Detector, 1);
 
@@ -225,7 +243,7 @@ void Prototyp_test()
     //gGeoManager->CheckGeometry();
     //gGeoManager->CheckGeometryFull();
 
-    //gGeoManager->GetTopVolume()->Draw("ogl");
+    gGeoManager->GetTopVolume()->Draw("ogl");
 
     TFile* geoFile = new TFile(geoFileName, "RECREATE");
     top->Write();

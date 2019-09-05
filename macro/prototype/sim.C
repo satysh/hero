@@ -19,14 +19,21 @@
 int  GetPdgCode(const int Z, const int A);
 void AddIon(const int pdg);                    //For PDG ion beam
 
-void sim(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output")
+void sim(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output", Int_t IonIndex = 1)
 {
 
   // -----   Particle  --------------------------------------------------------
   Int_t pdgId = 2212; // proton 2212 // electron 11
-  Double32_t momentum = 300.; // GeV
-
-  pdgId = GetPdgCode(26,56);      // Set nuclear pdg for Ion
+  Double32_t momentum = 13.; // GeV
+  Int_t curZ, curA;
+  switch(IonIndex) {
+    case 1 : curZ = 1; curA = 1; break;
+    case 2 : curZ = 2; curA = 4; break;
+    case 3 : curZ = 6; curA = 12; break;
+    case 4 : curZ = 26; curA = 56; break;
+    default : cerr << "index error" << endl; return ;
+  }
+  pdgId = GetPdgCode(curZ,curA);      // Set nuclear pdg for Ion
 
   // ------------------------------------------------------------------------
 
@@ -53,8 +60,8 @@ void sim(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output")
   cave->SetGeometryFileName("cave.geo");
   run->AddModule(cave);
 
-  OLVDetector* detector = new OLVDetector("OLVdetector", kTRUE);
-  detector->SetGeometryFileName("OLV_Prototyp.root");
+  HERODetector* detector = new HERODetector("HEROdetector", kTRUE);
+  detector->SetGeometryFileName("HERO_Prototype.root");
   detector->AddSensetive("vPlate_B10_xyz_u_f");
   detector->AddSensetive("vPlate_B10_xyz_u_b");
   detector->AddSensetive("vPlate_B10_xyz_d_f");
@@ -69,7 +76,8 @@ void sim(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output")
 // -----   Create PrimaryGenerator   --------------------------------------
   FairPrimaryGenerator* primGen = new FairPrimaryGenerator();
   FairBoxGenerator* boxGen = new FairBoxGenerator(pdgId, 1);
-  boxGen->SetPRange(momentum, momentum);
+  //boxGen->SetPRange(momentum, momentum);
+  boxGen->SetEkinRange(momentum, momentum);
   boxGen->SetThetaRange(0., 0.); // 0-90
   boxGen->SetPhiRange(0., 0.); // 0-360
   boxGen->SetBoxXYZ(0., 0., 0., 0., -500.); // xmin, ymin, xmax, ymax, z
@@ -86,7 +94,7 @@ void sim(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output")
 
   //-------Set LOG verbosity  -----------------------------------------------
   FairLogger::GetLogger()->SetLogVerbosityLevel("LOW");
-  FairLogger::GetLogger()->SetLogScreenLevel("DEBUG");
+  FairLogger::GetLogger()->SetLogScreenLevel("INFO");
 
   run->Init();
 

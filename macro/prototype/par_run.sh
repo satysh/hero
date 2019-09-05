@@ -1,7 +1,7 @@
 #!/bin/bash
-nev=100
+nev=10
 OUTDIR=output_paralell
-NTHR=3
+NTHR=7
 
 rm -fv *.root
 rm -fv *txt

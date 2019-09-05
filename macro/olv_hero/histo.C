@@ -9,21 +9,21 @@ void histo(TString inputDir = "output")
         return;
     }
 
-    TTree* tree = (TTree*)file->Get("OLV");
+    TTree* tree = (TTree*)file->Get("HERO");
     if (!tree)
     {
         cerr << "Tree read error" << endl;
         return;
     }
 
-    TBranch* Br = tree->GetBranch("OLVdetectorvCubPoint");
+    TBranch* Br = tree->GetBranch("HEROdetectorvCubPoint");
     if (!Br)
     {
         cerr << "Branche read error." << endl;
     }
 
     // Form and set adress to data arrays
-    TClonesArray* Arr = new TClonesArray("OLVPoint");
+    TClonesArray* Arr = new TClonesArray("HEROPoint");
     Br->SetAddress(&Arr);
 
     UInt_t nEvents = tree->GetEntries();
@@ -48,13 +48,13 @@ void histo(TString inputDir = "output")
         Double_t minLiveNutr[4] = {100.0e10, 100.0e10, 100.0e10, 0.};
         Double_t maxLiveNutr[4] = {0., 0., 0., 0.};
         Br->GetEntry(i);
-        OLVPoint* Point;
+        HEROPoint* Point;
         TIter Iter(Arr);
         Int_t neutronsNum = 0;
         Int_t mksecNutrNum = 0;
 
         // Loop over points
-        while ((Point = (OLVPoint*)Iter.Next()))
+        while ((Point = (HEROPoint*)Iter.Next()))
         {
             if (Point->GetPID() != 2112)
             {
