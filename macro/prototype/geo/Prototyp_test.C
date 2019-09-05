@@ -30,7 +30,7 @@ void Prototyp_test()
     // --------------------------------------------------------------------------
 
     // -------   Geometry file name (output)   ----------------------------------
-    TString geoFileName = geoPath + "/geometry/OLV_Prototyp.root";
+    TString geoFileName = geoPath + "/geometry/OLV_Prototype.root";
     // --------------------------------------------------------------------------
 
     // --------------   Create geometry and top volume  -------------------------
@@ -221,11 +221,11 @@ void Prototyp_test()
     gGeoManager->SetTopVolume(top);
     gGeoManager->CloseGeometry();
     gGeoManager->CheckOverlaps(0.001);
-    gGeoManager->PrintOverlaps();
-    gGeoManager->CheckGeometry();
-    gGeoManager->CheckGeometryFull();
+    //gGeoManager->PrintOverlaps();
+    //gGeoManager->CheckGeometry();
+    //gGeoManager->CheckGeometryFull();
 
-    gGeoManager->GetTopVolume()->Draw("ogl");
+    //gGeoManager->GetTopVolume()->Draw("ogl");
 
     TFile* geoFile = new TFile(geoFileName, "RECREATE");
     top->Write();
