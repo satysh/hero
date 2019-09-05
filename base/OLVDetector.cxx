@@ -81,8 +81,10 @@ void OLVDetector::Register()
 //-------------------------------------------------------------------------------------------------
 Bool_t OLVDetector::ProcessHits(FairVolume* vol)
 {
+/*
   if (gMC->TrackPid() != 2112 && gMC->TrackPid() != 1000020040)
     return kFALSE;
+*/
   /*
   if ((TString)vol->GetName() != "vCub")
     cerr << "ProcessHits(" << vol->GetName()  << ")" << endl;
