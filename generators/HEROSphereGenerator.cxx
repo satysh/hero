@@ -1,4 +1,4 @@
-#include "OLVESphereGenerator.h"
+#include "HEROSphereGenerator.h"
 
 #include "FairPrimaryGenerator.h"
 
@@ -6,21 +6,21 @@
 #include "TDatabasePDG.h"
 #include "TMath.h"
 
-OLVESphereGenerator::OLVESphereGenerator() :
+HEROSphereGenerator::HEROSphereGenerator() :
   fPID(0),
   fMult(0),
   fX(0.), fY(0.), fZ(0.)
 {
 }
 
-OLVESphereGenerator::OLVESphereGenerator(Int_t pdgid, Int_t mult) :
+HEROSphereGenerator::HEROSphereGenerator(Int_t pdgid, Int_t mult) :
   fPID(pdgid),
   fMult(mult),
   fX(0.), fY(0.), fZ(0.)
 {
 }
 
-OLVESphereGenerator::OLVESphereGenerator(const OLVESphereGenerator& rhs) :
+HEROSphereGenerator::HEROSphereGenerator(const HEROSphereGenerator& rhs) :
   FairGenerator(rhs),
   fPID(rhs.fPID),
   fMult(rhs.fMult),
@@ -29,7 +29,7 @@ OLVESphereGenerator::OLVESphereGenerator(const OLVESphereGenerator& rhs) :
   // Copy constructor
 }
 
-OLVESphereGenerator& OLVESphereGenerator::operator=(const OLVESphereGenerator& rhs)
+HEROSphereGenerator& HEROSphereGenerator::operator=(const HEROSphereGenerator& rhs)
 {
   // Assignment operator
 
@@ -46,18 +46,18 @@ OLVESphereGenerator& OLVESphereGenerator::operator=(const OLVESphereGenerator& r
   return *this;
 }
 
-Bool_t OLVESphereGenerator::Init()
+Bool_t HEROSphereGenerator::Init()
 {
   TDatabasePDG* pdgBase = TDatabasePDG::Instance();
   TParticlePDG* particle = pdgBase->GetParticle(fPID);
 
   if (! particle) {
-    Fatal("OLVESphereGenerator","PDG code %d not defined.",fPID);
+    Fatal("HEROSphereGenerator","PDG code %d not defined.",fPID);
   }
 
 }
 
-Bool_t OLVESphereGenerator::ReadEvent(FairPrimaryGenerator* primGen)
+Bool_t HEROSphereGenerator::ReadEvent(FairPrimaryGenerator* primGen)
 {
   Double32_t pabs = 1.,pt, theta = 0., phi = 0., px, py, pz;
   pz = pabs*TMath::Cos(theta);
@@ -71,11 +71,11 @@ Bool_t OLVESphereGenerator::ReadEvent(FairPrimaryGenerator* primGen)
   return kTRUE;
 }
 
-FairGenerator* OLVESphereGenerator::CloneGenerator() const
+FairGenerator* HEROSphereGenerator::CloneGenerator() const
 {
   // Clone for worker (used in MT mode only)
 
-  return new OLVESphereGenerator(*this);
+  return new HEROSphereGenerator(*this);
 }
 
-ClassImp(OLVESphereGenerator)
+ClassImp(HEROSphereGenerator)

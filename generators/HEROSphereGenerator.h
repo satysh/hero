@@ -1,5 +1,5 @@
-#ifndef OLVE_SPHERE_GENERATOR_H
-#define OLVE_SPHERE_GENERATOR_H
+#ifndef HERO_SPHERE_GENERATOR_H
+#define HERO_SPHERE_GENERATOR_H
 
 // FAIRROOT
 #include "FairGenerator.h"
@@ -9,15 +9,15 @@
 
 class FairPrimaryGenerator;
 
-class OLVESphereGenerator : public FairGenerator
+class HEROSphereGenerator : public FairGenerator
 {
 public:
 
-  OLVESphereGenerator();
+  HEROSphereGenerator();
 
-  OLVESphereGenerator(Int_t pdgid, Int_t mult=1);
+  HEROSphereGenerator(Int_t pdgid, Int_t mult=1);
 
-  virtual ~OLVESphereGenerator() {};
+  virtual ~HEROSphereGenerator() {};
 
   Bool_t Init();
 
@@ -26,9 +26,9 @@ public:
   virtual FairGenerator* CloneGenerator() const;
 
 protected:
-    OLVESphereGenerator (const OLVESphereGenerator &);
-    OLVESphereGenerator & operator=(const OLVESphereGenerator &);
-    ClassDef(OLVESphereGenerator,4);
+    HEROSphereGenerator (const HEROSphereGenerator &);
+    HEROSphereGenerator & operator=(const HEROSphereGenerator &);
+    ClassDef(HEROSphereGenerator,4);
 
 private:
 

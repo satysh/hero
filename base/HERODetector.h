@@ -1,5 +1,5 @@
-#ifndef OLVDetector_H
-#define OLVDetector_H
+#ifndef HERODetector_H
+#define HERODetector_H
 
 // ROOT
 #include "TLorentzVector.h"
@@ -9,18 +9,18 @@
 #include "FairDetector.h"
 #include "FairVolume.h"
 
-// OLV
-#include "OLVPoint.h"
+// HERO
+#include "HEROPoint.h"
 
-class OLVDetector : public FairDetector
+class HERODetector : public FairDetector
 {
 
 public:
 
-    OLVDetector();
+    HERODetector();
 
-    OLVDetector(const char* Name, Bool_t Active, Int_t DetId=0);
-    virtual ~OLVDetector() { ; }
+    HERODetector(const char* Name, Bool_t Active, Int_t DetId=0);
+    virtual ~HERODetector() { ; }
 
     TClonesArray* GetCollection(Int_t iColl) const;
 
@@ -38,7 +38,7 @@ private:
     void StartNewPoint();
     void FinishNewPoint();
 
-    OLVPoint* AddPoint(TClonesArray* points);
+    HEROPoint* AddPoint(TClonesArray* points);
 
     //map of sensetive volumes points collection collection, fSenVolumes[senVol] = points
     std::map<TString,TClonesArray*> fSenVolumes;
@@ -70,8 +70,8 @@ private:
     TVector3        fPosInLocal;      ///< point position in sensetive volume CS
     TArrayI         fProcessesID;     ///< VMC prcess IDs in step
 
-    ClassDef(OLVDetector,1)
+    ClassDef(HERODetector,1)
 };
 
-#endif /* OLVDetector_H */
+#endif /* HERODetector_H */
 

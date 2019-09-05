@@ -4,8 +4,6 @@
 #pragma link off all classes;
 #pragma link off all functions;
 
-#pragma link C++ class OLVPoint+;
-#pragma link C++ class OLVStack+;
-#pragma link C++ class OLVMCTrack+;
+#pragma link C++ class HEROSphereGenerator+;
 
 #endif // __CINT__

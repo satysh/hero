@@ -1,11 +1,11 @@
 // FAIRROOT
 #include "FairLogger.h"
 
-// OLV
-#include "OLVPoint.h"
+// HERO
+#include "HEROPoint.h"
 
 // -----   Default constructor   -------------------------------------------
-OLVPoint::OLVPoint()
+HEROPoint::HEROPoint()
   : FairMCPoint(),
     fX_out(0.), fY_out(0.), fZ_out(0.),
     fPx_out(0.), fPy_out(0.), fPz_out(0.)
@@ -13,7 +13,7 @@ OLVPoint::OLVPoint()
 }
 // -------------------------------------------------------------------------
 // -----   Standard constructor   ------------------------------------------
-OLVPoint::OLVPoint(Int_t eventID, Int_t trackID,
+HEROPoint::HEROPoint(Int_t eventID, Int_t trackID,
 		  Int_t mot0trackID,
       Int_t volNb,
 		  Double_t mass,
@@ -35,7 +35,7 @@ OLVPoint::OLVPoint(Int_t eventID, Int_t trackID,
 
 
 // -------------------------------------------------------------------------
-OLVPoint::OLVPoint(const OLVPoint& right)
+HEROPoint::HEROPoint(const HEROPoint& right)
   : FairMCPoint(right),
     fVolNb(right.fVolNb),
     fX_out(right.fX_out), fY_out(right.fY_out), fZ_out(right.fZ_out),
@@ -49,7 +49,7 @@ OLVPoint::OLVPoint(const OLVPoint& right)
 
 
 // -----   Destructor   ----------------------------------------------------
-OLVPoint::~OLVPoint()
+HEROPoint::~HEROPoint()
 {
 }
 // -------------------------------------------------------------------------
@@ -57,9 +57,9 @@ OLVPoint::~OLVPoint()
 
 
 // -----   Public method Print   -------------------------------------------
-void OLVPoint::Print(const Option_t* opt /* = 0*/) const
+void HEROPoint::Print(const Option_t* opt /* = 0*/) const
 {
-  LOG(INFO) << "-I- OLVPoint: track " << fTrackID << " mother track = " << fMot0TrackID <<  FairLogger::endl;
+  LOG(INFO) << "-I- HEROPoint: track " << fTrackID << " mother track = " << fMot0TrackID <<  FairLogger::endl;
   LOG(INFO) << "    Position (" << fX << ", " << fY << ", " << fZ << ") cm" << FairLogger::endl;
   LOG(INFO) << "    Momentum (" << fPx << ", " << fPy << ", " << fPz << ") GeV" << FairLogger::endl;
   LOG(INFO) << "    Time " << fTime << " ns,  Length " << fLength << " cm" << FairLogger::endl;
@@ -71,7 +71,7 @@ void OLVPoint::Print(const Option_t* opt /* = 0*/) const
 
 
 // -----   Point x coordinate from linear extrapolation   ------------------
-Double_t OLVPoint::GetX(Double_t z) const
+Double_t HEROPoint::GetX(Double_t z) const
 {
   //  cout << fZ << " " << z << " " << fZ_out << endl;
   if ( (fZ_out-z)*(fZ-z) >= 0. ) return (fX_out+fX)/2.;
@@ -83,7 +83,7 @@ Double_t OLVPoint::GetX(Double_t z) const
 
 
 // -----   Point y coordinate from linear extrapolation   ------------------
-Double_t OLVPoint::GetY(Double_t z) const
+Double_t HEROPoint::GetY(Double_t z) const
 {
   if ( (fZ_out-z)*(fZ-z) >= 0. ) 
     return (fY_out+fY)/2.;
@@ -95,7 +95,7 @@ Double_t OLVPoint::GetY(Double_t z) const
 
 
 // -----   Public method IsUsable   ----------------------------------------
-Bool_t OLVPoint::IsUsable() const
+Bool_t HEROPoint::IsUsable() const
 {
   Double_t dz = fZ_out - fZ;
   if ( TMath::Abs(dz) < 1.e-4 ) 
@@ -105,26 +105,26 @@ Bool_t OLVPoint::IsUsable() const
 // -------------------------------------------------------------------------
 
 //-------------------------------------------------------------------------
-Double_t OLVPoint::GetPIn()   const{
+Double_t HEROPoint::GetPIn()   const{
   return sqrt(fPx*fPx + fPy*fPy + fPz*fPz);
 }
 //-------------------------------------------------------------------------
 
 //-------------------------------------------------------------------------
-Double_t OLVPoint::GetPOut()  const{
+Double_t HEROPoint::GetPOut()  const{
   return sqrt(fPx_out*fPx_out + fPy_out*fPy_out + fPz_out*fPz_out);
 }
 //-------------------------------------------------------------------------
-Double_t OLVPoint::GetP(Double_t pointLen) const{
+Double_t HEROPoint::GetP(Double_t pointLen) const{
   return GetPIn() + (GetPOut() - GetPIn())*pointLen/GetLength();
 }
 //-------------------------------------------------------------------------
-Double_t OLVPoint::GetTime(Double_t pointLen) const{
+Double_t HEROPoint::GetTime(Double_t pointLen) const{
   return fTime + (fTimeOut - fTime)*pointLen/GetLength();
 }
 //-------------------------------------------------------------------------
-Double_t OLVPoint::GetLength() const{
+Double_t HEROPoint::GetLength() const{
   return sqrt((fX_out-fX)*(fX_out-fX) + (fY_out-fY)*(fY_out-fY) + (fZ_out-fZ)*(fZ_out-fZ) );
 }
 //-------------------------------------------------------------------------
-ClassImp(OLVPoint)
+ClassImp(HEROPoint)

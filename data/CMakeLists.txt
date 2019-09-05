@@ -20,17 +20,17 @@ ${FAIRROOT_LIBRARY_DIR}
 link_directories( ${LINK_DIRECTORIES})
 
 set(SRCS
-OLVPoint.cxx
-OLVStack.cxx
-OLVMCTrack.cxx
+HEROPoint.cxx
+HEROStack.cxx
+HEROMCTrack.cxx
 )
 
 # fill list of header files from list of source files
 # by exchanging the file extension
 CHANGE_FILE_EXTENSION(*.cxx *.h HEADERS "${SRCS}")
 SET(HEADERS ${HEADERS})
-set(LINKDEF  OLVDataLinkDef.h)
-set(LIBRARY_NAME OLVData)
+set(LINKDEF  HERODataLinkDef.h)
+set(LIBRARY_NAME HEROData)
 set(DEPENDENCIES Base Core)
 
 GENERATE_LIBRARY()

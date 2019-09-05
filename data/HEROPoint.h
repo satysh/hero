@@ -1,6 +1,6 @@
 
-#ifndef OLVPoint_H
-#define OLVPoint_H
+#ifndef HEROPoint_H
+#define HEROPoint_H
 
 //ROOT
 #include "TVector3.h"
@@ -8,15 +8,15 @@
 // FAIRROOT
 #include "FairMCPoint.h"
 
-class OLVPoint : public FairMCPoint
+class HEROPoint : public FairMCPoint
 {
 
  public:
 
   /** Default constructor **/
-  OLVPoint();
+  HEROPoint();
 
-  OLVPoint(Int_t eventID, Int_t trackID,
+  HEROPoint(Int_t eventID, Int_t trackID,
 		  Int_t mot0trackID,
       Int_t fVolNb,
 		  Double_t mass,
@@ -26,14 +26,14 @@ class OLVPoint : public FairMCPoint
       Double_t lightYield, Int_t pid, Double_t charge) ;
       
   /** Copy constructor **/
-  OLVPoint(const OLVPoint&);
+  HEROPoint(const HEROPoint&);
   
 
   /** Destructor **/
-  virtual ~OLVPoint();
+  virtual ~HEROPoint();
 
 
-  OLVPoint& operator=(const OLVPoint&) { return *this; }
+  HEROPoint& operator=(const HEROPoint&) { return *this; }
 
 
   /** Accessors **/
@@ -109,6 +109,6 @@ class OLVPoint : public FairMCPoint
   Double32_t  fX_out,  fY_out,  fZ_out;
   Double32_t  fPx_out, fPy_out, fPz_out;
 
-  ClassDef(OLVPoint, 1)
+  ClassDef(HEROPoint, 1)
 };
 #endif

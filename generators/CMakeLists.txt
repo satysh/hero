@@ -1,4 +1,4 @@
-# Create a library called "libOLVGenerators" which includes the source files given in
+# Create a library called "libHEROGenerators" which includes the source files given in
 # the array .
 # The extension is already found.  Any number of sources could be listed here.
 
@@ -25,15 +25,15 @@ ${GEANT4VMC_LIBRARY_DIR}
 link_directories( ${LINK_DIRECTORIES})
 
 set(SRCS
-OLVESphereGenerator.cxx
+HEROSphereGenerator.cxx
 )
 
 # fill list of header files from list of source files
 # by exchanging the file extension
 CHANGE_FILE_EXTENSION(*.cxx *.h HEADERS "${SRCS}")
 
-Set(LINKDEF OLVGeneratorsLinkDef.h)
-Set(LIBRARY_NAME OLVGenerators)
+Set(LINKDEF HEROGeneratorsLinkDef.h)
+Set(LIBRARY_NAME HEROGenerators)
 Set(DEPENDENCIES Base Core)
 
 GENERATE_LIBRARY()

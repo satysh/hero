@@ -8,19 +8,19 @@ using std::endl;
 #include "TVirtualMC.h"
 #include "TParticle.h"
 
-// OLV
-#include "OLVDetector.h"
+// HERO
+#include "HERODetector.h"
 
 //-------------------------------------------------------------------------------------------------
-OLVDetector::OLVDetector()
-: FairDetector("OLVDetector", kTRUE, -1)
+HERODetector::HERODetector()
+: FairDetector("HERODetector", kTRUE, -1)
 {
   flGeoPar = new TList();
   flGeoPar->SetName( GetName());
   fVerboseLevel = 1;
 }
 //-------------------------------------------------------------------------------------------------
-OLVDetector::OLVDetector(const char* Name, Bool_t Active, Int_t DetId/*=0*/)
+HERODetector::HERODetector(const char* Name, Bool_t Active, Int_t DetId/*=0*/)
 : FairDetector(Name, Active, DetId)
 {
   flGeoPar = new TList();
@@ -28,7 +28,7 @@ OLVDetector::OLVDetector(const char* Name, Bool_t Active, Int_t DetId/*=0*/)
   fVerboseLevel = 1;
 }
 //-------------------------------------------------------------------------------------------------
-void OLVDetector::ConstructGeometry()
+void HERODetector::ConstructGeometry()
 {
   TString fileName = GetGeometryFileName();
   if(fileName.EndsWith(".root"))
@@ -49,12 +49,12 @@ void OLVDetector::ConstructGeometry()
     LOG(FATAL) << "Geometry file name is not set" << FairLogger::endl;
 }
 //-------------------------------------------------------------------------------------------------
-void OLVDetector::AddSensetive(TString name)
+void HERODetector::AddSensetive(TString name)
 {
   fSenNames.push_back(name);
 }
 //-------------------------------------------------------------------------------------------------
-TClonesArray* OLVDetector::GetCollection(Int_t iColl) const
+TClonesArray* HERODetector::GetCollection(Int_t iColl) const
 {
   if (fSenVolumes.size() > iColl)
   {
@@ -67,7 +67,7 @@ TClonesArray* OLVDetector::GetCollection(Int_t iColl) const
     return NULL;
 }
 //-------------------------------------------------------------------------------------------------
-void OLVDetector::Register()
+void HERODetector::Register()
 {
   FairRootManager* ioman = FairRootManager::Instance();
   if (!ioman)
@@ -79,7 +79,7 @@ void OLVDetector::Register()
   }
 }
 //-------------------------------------------------------------------------------------------------
-Bool_t OLVDetector::ProcessHits(FairVolume* vol)
+Bool_t HERODetector::ProcessHits(FairVolume* vol)
 {
 /*
   if (gMC->TrackPid() != 2112 && gMC->TrackPid() != 1000020040)
@@ -107,27 +107,27 @@ Bool_t OLVDetector::ProcessHits(FairVolume* vol)
   return kTRUE;
 }
 //-------------------------------------------------------------------------------------------------
-void OLVDetector::EndOfEvent()
+void HERODetector::EndOfEvent()
 {
   if (fVerbose > 1)
     Print();
   Reset();
 }
 //-------------------------------------------------------------------------------------------------
-void OLVDetector::Print(Option_t *option) const
+void HERODetector::Print(Option_t *option) const
 {
   for(const auto &itSen: fSenVolumes)
   {
     TClonesArray* points = itSen.second;
     for (Int_t i_point = 0; i_point < points->GetEntriesFast(); i_point++)
     {
-      OLVPoint* point = (OLVPoint*)points->At(i_point);
+      HEROPoint* point = (HEROPoint*)points->At(i_point);
       point->Print();
     }
   }
 }
 //-------------------------------------------------------------------------------------------------
-void OLVDetector::Reset()
+void HERODetector::Reset()
 {
   for(const auto &itSen: fSenVolumes)
   {
@@ -138,30 +138,30 @@ void OLVDetector::Reset()
   fFullLY = 0.;
 }
 //-------------------------------------------------------------------------------------------------
-void OLVDetector::CopyClones(TClonesArray* cl1, TClonesArray* cl2, Int_t offset)
+void HERODetector::CopyClones(TClonesArray* cl1, TClonesArray* cl2, Int_t offset)
 {
   Int_t nEntries = cl1->GetEntriesFast();
-  LOG(DEBUG) << "OLVDetector: " << nEntries << " entries to add" << FairLogger::endl;
+  LOG(DEBUG) << "HERODetector: " << nEntries << " entries to add" << FairLogger::endl;
   TClonesArray& clref = *cl2;
-  OLVPoint* oldpoint = NULL;
+  HEROPoint* oldpoint = NULL;
   for (Int_t i=0; i<nEntries; i++)
   {
-    oldpoint = (OLVPoint*) cl1->At(i);
+    oldpoint = (HEROPoint*) cl1->At(i);
     Int_t index = oldpoint->GetTrackID() + offset;
     oldpoint->SetTrackID(index);
-    new (clref[cl2->GetEntriesFast()]) OLVPoint(*oldpoint);
+    new (clref[cl2->GetEntriesFast()]) HEROPoint(*oldpoint);
   }
-  LOG(DEBUG) << "OLVDetector: " << cl2->GetEntriesFast() << " merged entries" << FairLogger::endl;
+  LOG(DEBUG) << "HERODetector: " << cl2->GetEntriesFast() << " merged entries" << FairLogger::endl;
 
 }
 //-------------------------------------------------------------------------------------------------
-Bool_t OLVDetector::CheckIfSensitive(std::string name)
+Bool_t HERODetector::CheckIfSensitive(std::string name)
 {
   TString curVolName = name;
   for(const auto &volNameSubsting: fSenNames)
   {
     if(curVolName.Contains(volNameSubsting)){
-      fSenVolumes[curVolName] = new TClonesArray("OLVPoint");
+      fSenVolumes[curVolName] = new TClonesArray("HEROPoint");
       cerr << "CheckIfSensitive(" << name << ")" << endl;
       return kTRUE;
     }
@@ -169,7 +169,7 @@ Bool_t OLVDetector::CheckIfSensitive(std::string name)
   return kFALSE;
 }
 //-------------------------------------------------------------------------------------------------
-void OLVDetector::StartNewPoint()
+void HERODetector::StartNewPoint()
 {
   fELoss  = 0.;
   fLightYield = 0.;
@@ -192,7 +192,7 @@ void OLVDetector::StartNewPoint()
   //LOG(INFO) << "  StartNewPoint(), time: " << fTimeIn << FairLogger::endl;
 }
 //-------------------------------------------------------------------------------------------------
-void OLVDetector::FinishNewPoint()
+void HERODetector::FinishNewPoint()
 {
   gMC->TrackPosition(fPosOut);
   gMC->TrackMomentum(fMomOut);
@@ -208,13 +208,13 @@ void OLVDetector::FinishNewPoint()
   }
 }
 //-------------------------------------------------------------------------------------------------
-OLVPoint* OLVDetector::AddPoint(TClonesArray* points)
+HEROPoint* HERODetector::AddPoint(TClonesArray* points)
 {
   TClonesArray& clref = *points;
   Int_t size = clref.GetEntriesFast();
-  return new(clref[size]) OLVPoint(fEventID, fTrackID, fMot0TrackID, fVolNb,
+  return new(clref[size]) HEROPoint(fEventID, fTrackID, fMot0TrackID, fVolNb,
     fMass, fPosIn.Vect(),fPosInLocal,fPosOut.Vect(),fMomIn.Vect(),fMomOut.Vect(),fTimeIn,
     fTimeOut,fTrackLength, fELoss, fLightYield,gMC->TrackPid(), gMC->TrackCharge());
 }
 
-ClassImp(OLVDetector)
+ClassImp(HERODetector)

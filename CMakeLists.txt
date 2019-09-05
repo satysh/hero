@@ -1,14 +1,14 @@
-# The name of our project is �OLV�. CMakeLists files in this project can
-# refer to the root source directory of the project as ${OLV_SOURCE_DIR} or
+# The name of our project is �HERO�. CMakeLists files in this project can
+# refer to the root source directory of the project as ${HERO_SOURCE_DIR} or
 # as ${CMAKE_SOURCE_DIR} and to the root binary directory of the project as
-# ${OLV_BINARY_DIR} or ${CMAKE_BINARY_DIR}.
+# ${HERO_BINARY_DIR} or ${CMAKE_BINARY_DIR}.
 
 # Check if cmake has the required version
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8.1 FATAL_ERROR)
 
 # Set name of our project to "R3BROOT". Has to be done
 # after check of cmake version
-project(OLV)
+project(HERO)
 
 # Check if the FairRoot is still in source, since Jan 2014 FairRoot
 # should be installed separately
@@ -92,17 +92,17 @@ ENDIF (NOT UNIX)
 
 #Check if necessary environment variables are set
 #If not stop execution
-IF (NOT OLV_MINIMAL)
+IF (NOT HERO_MINIMAL)
   IF (NOT DEFINED ENV{SIMPATH})
     MESSAGE(FATAL_ERROR "You did not define the environment variable SIMPATH which is nedded to find the external packages. Please set this variable and execute cmake again.")
   ENDIF (NOT DEFINED ENV{SIMPATH})
   STRING(REGEX MATCHALL "[^:]+" PATH $ENV{PATH})
   SET(SIMPATH $ENV{SIMPATH})
-ELSE (NOT OLV_MINIMAL)
+ELSE (NOT HERO_MINIMAL)
   IF (NOT DEFINED ENV{ROOTSYS})
     MESSAGE(FATAL_ERROR "You did not define the environment variable ROOTSYS which is nedded for the installation of the minimal version of FairRoot. Please set this variable and execute cmake again.")
   ENDIF (NOT DEFINED ENV{ROOTSYS})
-ENDIF (NOT OLV_MINIMAL)
+ENDIF (NOT HERO_MINIMAL)
 
 # Check if the external packages are installed into a separate install
 # directory
@@ -140,10 +140,10 @@ SetBasicVariables()
 # REQUIRED means that cmake will stop if this packages are not found
 # For example the framework can run without GEANT4, but ROOT is
 # mandatory
-IF (OLV_MINIMAL)
+IF (HERO_MINIMAL)
   MESSAGE("******* Install minimal FairRoot Version ********")
   find_package(ROOT 5.32.00 REQUIRED)
-ELSE (OLV_MINIMAL)
+ELSE (HERO_MINIMAL)
   find_package(ROOT 5.32.00 REQUIRED)
   #find_package(PLUTO REQUIRED)
   find_package(GENERATORS REQUIRED)
@@ -153,7 +153,7 @@ ELSE (OLV_MINIMAL)
   find_package(GEANT4VMC REQUIRED)
   find_package(CLHEP REQUIRED)
   find_package(RuleChecker)
-ENDIF (OLV_MINIMAL)
+ENDIF (HERO_MINIMAL)
 
 MESSAGE(STATUS "GEANT4 = " ${GEANT4_INCLUDE_DIR})
 
@@ -162,13 +162,13 @@ MESSAGE(STATUS "GEANT4 = " ${GEANT4_INCLUDE_DIR})
 SetBasicVariables()
 
 # Set the library version in the main CMakeLists.txt
-SET(OLV_MAJOR_VERSION 0)
-SET(OLV_MINOR_VERSION 0)
-SET(OLV_PATCH_VERSION 0)
-SET(OLV_VERSION "${FAIRROOT_MAJOR_VERSION}.${FAIRROOT_MINOR_VERSION}.${FAIRROOT_PATCH_VERSION}")
+SET(HERO_MAJOR_VERSION 0)
+SET(HERO_MINOR_VERSION 0)
+SET(HERO_PATCH_VERSION 0)
+SET(HERO_VERSION "${FAIRROOT_MAJOR_VERSION}.${FAIRROOT_MINOR_VERSION}.${FAIRROOT_PATCH_VERSION}")
 SET(FAIRROOT_LIBRARY_PROPERTIES ${FAIRROOT_LIBRARY_PROPERTIES}
-    VERSION "${OLV_VERSION}"
-    SOVERSION "${OLV_MAJOR_VERSION}"
+    VERSION "${HERO_VERSION}"
+    SOVERSION "${HERO_MAJOR_VERSION}"
     SUFFIX ".so"
 )
 
@@ -230,9 +230,9 @@ ENDIF (RULE_CHECKER_FOUND)
 
 MESSAGE (${ROOT_INCLUDE_DIR})
 
-IF (NOT OLV_MINIMAL)
+IF (NOT HERO_MINIMAL)
   WRITE_CONFIG_FILE(config.sh)
   WRITE_CONFIG_FILE(config.csh)
-ELSE (NOT OLV_MINIMAL)
+ELSE (NOT HERO_MINIMAL)
   WRITE_MINIMAL_CONFIG_FILE(config.sh)
-ENDIF (NOT OLV_MINIMAL)
+ENDIF (NOT HERO_MINIMAL)

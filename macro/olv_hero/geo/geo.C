@@ -16,7 +16,7 @@ void geo()
     // --------------------------------------------------------------------------
 
     // -------   Geometry file name (output)   ----------------------------------
-    TString geoFileName = geoPath + "/geometry/OLV_detector.geo.root";
+    TString geoFileName = geoPath + "/geometry/HERO_detector.geo.root";
     // --------------------------------------------------------------------------
 
     // --------------   Create geometry and top volume  -------------------------
