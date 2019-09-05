@@ -60,13 +60,13 @@ void sim_test(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output")
 
 // -----   Create PrimaryGenerator   --------------------------------------
   FairPrimaryGenerator* primGen = new FairPrimaryGenerator();
-  OLVESphereGenerator* sphereGen = new OLVESphereGenerator(pdgId, 1);
+  FairBoxGenerator* boxGen = new FairBoxGenerator(pdgId, 1);
 
   // ------------------------------------------------------------------------
   //AddIon(pdgId);
   // ------------------------------------------------------------------------
 
-  primGen->AddGenerator(sphereGen);
+  primGen->AddGenerator(boxGen);
   run->SetGenerator(primGen);
 
   run->SetStoreTraj(kTRUE); // kFALSE
