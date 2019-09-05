@@ -26,7 +26,6 @@ link_directories( ${LINK_DIRECTORIES})
 
 set(SRCS
 OLVDetector.cxx
-OLVDetectorGeoPar.cxx
 )
 
 # fill list of header files from list of source files
