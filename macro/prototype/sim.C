@@ -60,8 +60,8 @@ void sim(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output", Int_t Io
   cave->SetGeometryFileName("cave.geo");
   run->AddModule(cave);
 
-  OLVDetector* detector = new OLVDetector("OLVdetector", kTRUE);
-  detector->SetGeometryFileName("OLV_Prototype.root");
+  HERODetector* detector = new HERODetector("HEROdetector", kTRUE);
+  detector->SetGeometryFileName("HERO_Prototype.root");
   detector->AddSensetive("vPlate_B10_xyz_u_f");
   detector->AddSensetive("vPlate_B10_xyz_u_b");
   detector->AddSensetive("vPlate_B10_xyz_d_f");

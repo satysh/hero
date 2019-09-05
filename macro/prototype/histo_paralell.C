@@ -30,7 +30,7 @@ void histo_paralell(TString inputDir = "output_paralell", Int_t NTHR = 3)
       return;
     }
     // Finding the tree in root file
-    TTree* tree = (TTree*)file->Get("OLV");
+    TTree* tree = (TTree*)file->Get("HERO");
     if (!tree)
     {
       cerr << "Tree read error" << endl;
@@ -38,15 +38,15 @@ void histo_paralell(TString inputDir = "output_paralell", Int_t NTHR = 3)
     }
     // Branches reding
     TBranch* Br[9];
-    Br[0] = tree->GetBranch("OLVdetectorvPlate_B10_xyz_u_fPoint");
-    Br[1] = tree->GetBranch("OLVdetectorvPlate_B10_xyz_u_bPoint");
-    Br[2] = tree->GetBranch("OLVdetectorvPlate_B10_xyz_d_fPoint");
-    Br[3] = tree->GetBranch("OLVdetectorvPlate_B10_xyz_d_bPoint");
-    Br[4] = tree->GetBranch("OLVdetectorvPlate_B10_yxz_l_fPoint");
-    Br[5] = tree->GetBranch("OLVdetectorvPlate_B10_yxz_l_bPoint");
-    Br[6] = tree->GetBranch("OLVdetectorvPlate_B10_yxz_r_fPoint");
-    Br[7] = tree->GetBranch("OLVdetectorvPlate_B10_yxz_r_bPoint");
-    Br[8] = tree->GetBranch("OLVdetectorvPlate_B10_xzy_fPoint");
+    Br[0] = tree->GetBranch("HEROdetectorvPlate_B10_xyz_u_fPoint");
+    Br[1] = tree->GetBranch("HEROdetectorvPlate_B10_xyz_u_bPoint");
+    Br[2] = tree->GetBranch("HEROdetectorvPlate_B10_xyz_d_fPoint");
+    Br[3] = tree->GetBranch("HEROdetectorvPlate_B10_xyz_d_bPoint");
+    Br[4] = tree->GetBranch("HEROdetectorvPlate_B10_yxz_l_fPoint");
+    Br[5] = tree->GetBranch("HEROdetectorvPlate_B10_yxz_l_bPoint");
+    Br[6] = tree->GetBranch("HEROdetectorvPlate_B10_yxz_r_fPoint");
+    Br[7] = tree->GetBranch("HEROdetectorvPlate_B10_yxz_r_bPoint");
+    Br[8] = tree->GetBranch("HEROdetectorvPlate_B10_xzy_fPoint");
     for (Int_t i = 0; i < 9; i++)
     if (!Br[i])
     {
@@ -57,7 +57,7 @@ void histo_paralell(TString inputDir = "output_paralell", Int_t NTHR = 3)
     TClonesArray* Arr[9];
     for (Int_t i = 0; i < 9; i++)
     {
-      Arr[i] = new TClonesArray("OLVPoint");
+      Arr[i] = new TClonesArray("HEROPoint");
       Br[i]->SetAddress(&Arr[i]);
     }
     UInt_t nEvents = tree->GetEntries();
@@ -75,13 +75,13 @@ void histo_paralell(TString inputDir = "output_paralell", Int_t NTHR = 3)
       {
         cout << " Plate: " << j << endl;
         Br[j]->GetEntry(i);
-        OLVPoint* Point;
+        HEROPoint* Point;
         TIter Iter(Arr[j]);
         Int_t neutronsNum = 0;
         Int_t alphaNum = 0;
 
         // Loop over points
-        while ((Point = (OLVPoint*)Iter.Next()))
+        while ((Point = (HEROPoint*)Iter.Next()))
         {
 	        if (Point->GetPID() == 1000020040)
             alphaNum++;

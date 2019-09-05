@@ -30,7 +30,7 @@ void Prototyp_test()
     // --------------------------------------------------------------------------
 
     // -------   Geometry file name (output)   ----------------------------------
-    TString geoFileName = geoPath + "/geometry/OLV_Prototype.root";
+    TString geoFileName = geoPath + "/geometry/HERO_Prototype.root";
     // --------------------------------------------------------------------------
 
     // --------------   Create geometry and top volume  -------------------------
