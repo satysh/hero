@@ -5,6 +5,5 @@
 #pragma link off all functions;
 
 #pragma link C++ class OLVDetector+;
-#pragma link C++ class OLVDetectorGeoPar+;
 
 #endif // __CINT__

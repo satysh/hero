@@ -10,7 +10,6 @@ using std::endl;
 
 // OLV
 #include "OLVDetector.h"
-#include "OLVDetectorGeoPar.h"
 
 //-------------------------------------------------------------------------------------------------
 OLVDetector::OLVDetector()
