@@ -8,8 +8,7 @@ void histo_paralell(TString inputDir = "output_paralell", Int_t NTHR = 3)
   cout << "binStep: " << binStep << endl;
   TString fileName;
   TH1F* histo[9];
-  for (Int_t i = 0; i < 9; i++)
-  {
+  for (Int_t i = 0; i < 9; i++) {
     TString histName;
     histName.Form("hsito_%d", i);
     histo[i] = new TH1F(histName, histName, binNumb, minBin, maxBin);
@@ -18,21 +17,18 @@ void histo_paralell(TString inputDir = "output_paralell", Int_t NTHR = 3)
   Int_t chekerNumberOfHistosMemersByPlates[9] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
 
   // Loop over THR start
-  for (Int_t THR = 1; THR <= NTHR; THR++)
-  {
+  for (Int_t THR = 1; THR <= NTHR; THR++) {
     cout << "============ THR: " << THR << " ============" << endl;
     // Reding root file open
     fileName.Form("%s/sim_%d.root", inputDir.Data(), THR);
     TFile* file = new TFile(fileName, "READ");
-    if (file->IsZombie())
-    {
+    if (file->IsZombie()) {
       cerr << "File read error" << endl;
       return;
     }
     // Finding the tree in root file
     TTree* tree = (TTree*)file->Get("HERO");
-    if (!tree)
-    {
+    if (!tree) {
       cerr << "Tree read error" << endl;
       return;
     }
@@ -48,15 +44,13 @@ void histo_paralell(TString inputDir = "output_paralell", Int_t NTHR = 3)
     Br[7] = tree->GetBranch("HEROdetectorvPlate_B10_yxz_r_bPoint");
     Br[8] = tree->GetBranch("HEROdetectorvPlate_B10_xzy_fPoint");
     for (Int_t i = 0; i < 9; i++)
-    if (!Br[i])
-    {
-      cerr << "i:" << i << " Branche read error." << endl;
-    }
+      if (!Br[i]) {
+        cerr << "i:" << i << " Branche read error." << endl;
+      }
 
     // Form and set adress to data arrays
     TClonesArray* Arr[9];
-    for (Int_t i = 0; i < 9; i++)
-    {
+    for (Int_t i = 0; i < 9; i++) {
       Arr[i] = new TClonesArray("HEROPoint");
       Br[i]->SetAddress(&Arr[i]);
     }
@@ -66,13 +60,11 @@ void histo_paralell(TString inputDir = "output_paralell", Int_t NTHR = 3)
     UInt_t THRAlphas = 0;
 
     // Loop over events start
-    for (UInt_t i = 0; i < nEvents; i++)
-    {
+    for (UInt_t i = 0; i < nEvents; i++) {
       cout << "Event: " << i << endl;
 
       // Loop over plates start
-      for (Int_t j = 0; j < 9; j++)
-      {
+      for (Int_t j = 0; j < 9; j++) {
         cout << " Plate: " << j << endl;
         Br[j]->GetEntry(i);
         HEROPoint* Point;
@@ -81,9 +73,8 @@ void histo_paralell(TString inputDir = "output_paralell", Int_t NTHR = 3)
         Int_t alphaNum = 0;
 
         // Loop over points
-        while ((Point = (HEROPoint*)Iter.Next()))
-        {
-	        if (Point->GetPID() == 1000020040)
+        while ((Point = (HEROPoint*)Iter.Next())) {
+          if (Point->GetPID() == 1000020040)
             alphaNum++;
           else
             neutronsNum++;
@@ -98,8 +89,7 @@ void histo_paralell(TString inputDir = "output_paralell", Int_t NTHR = 3)
           //if (dTime < 1e-3) continue;
           Double_t ii = curTimeIn;
           // Loop fill hostograms
-          while (ii <= curTimeOut)
-          {
+          while (ii <= curTimeOut) {
             //chekerNumberOfHistosMemersByPlates[j]++;
             histo[j]->Fill((Float_t)ii);
             ii += binStep;
@@ -118,20 +108,17 @@ void histo_paralell(TString inputDir = "output_paralell", Int_t NTHR = 3)
 
     // Close and clear
     file->Close();
-    for (Int_t i = 0; i < 9; i++)
-    {
+    for (Int_t i = 0; i < 9; i++) {
         Br[i] = NULL;
         Arr[i]->Clear();
     }
   } // loop over THR end
 
-  for (Int_t i = 0; i < 9; i++)
-  {
+  for (Int_t i = 0; i < 9; i++) {
     cout << "Plate: " << i << ", Enries: " << chekerNumberOfHistosMemersByPlates[i] << endl;
   }
   TCanvas* canv[9];
-  for (Int_t i = 0; i < 9; i++)
-  {
+  for (Int_t i = 0; i < 9; i++) {
     TString canvName;
     canvName.Form("canv_%d", i);
     canv[i] = new TCanvas(canvName, canvName, 800, 1000);
@@ -151,8 +138,7 @@ void histo_paralell(TString inputDir = "output_paralell", Int_t NTHR = 3)
   TString outFileName = inputDir + "/" + "histo_out.root";
 
   TFile* outFile = new TFile(outFileName, "RECREATE");
-  for (Int_t i = 0; i < 9; i++)
-  {
+  for (Int_t i = 0; i < 9; i++) {
     histo[i]->Write();
   }
 }

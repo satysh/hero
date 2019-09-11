@@ -8,8 +8,7 @@ void energy(TString inputDir = "output_paralell", Int_t NTHR = 16)
   cout << "binStep: " << binStep << endl;
   TString fileName;
   TH1F* histo[9];
-  for (Int_t i = 0; i < 9; i++)
-  {
+  for (Int_t i = 0; i < 9; i++) {
     TString histName;
     histName.Form("hsito_%d", i);
     histo[i] = new TH1F(histName, histName, binNumb, minBin, maxBin);
@@ -18,8 +17,7 @@ void energy(TString inputDir = "output_paralell", Int_t NTHR = 16)
   TString partName = "neutron";
   TParticlePDG*   partPDG;
   partPDG = TDatabasePDG::Instance()->GetParticle(partName);
-  if (!partPDG )
-  {
+  if (!partPDG ) {
     cerr << partName << " doesn't exit!" << endl;
     return;
   }
@@ -28,20 +26,17 @@ void energy(TString inputDir = "output_paralell", Int_t NTHR = 16)
   cout << "Particle mass is " << pMass << endl;
   pMass = 3.72737924; // alpha mass
   // Loop over THR start
-  for (Int_t THR = 1; THR <= NTHR; THR++)
-  {
+  for (Int_t THR = 1; THR <= NTHR; THR++) {
     // Reding root file open
     fileName.Form("%s/sim_%d.root", inputDir.Data(), THR);
     TFile* file = new TFile(fileName, "READ");
-    if (file->IsZombie())
-    {
+    if (file->IsZombie()) {
       cerr << "File read error" << endl;
       return;
     }
     // Finding the tree in root file
     TTree* tree = (TTree*)file->Get("HERO");
-    if (!tree)
-    {
+    if (!tree) {
       cerr << "Tree read error" << endl;
       return;
     }
@@ -57,15 +52,13 @@ void energy(TString inputDir = "output_paralell", Int_t NTHR = 16)
     Br[7] = tree->GetBranch("HEROdetectorvPlate_B10_yxz_r_bPoint");
     Br[8] = tree->GetBranch("HEROdetectorvPlate_B10_xzy_fPoint");
     for (Int_t i = 0; i < 9; i++)
-    if (!Br[i])
-    {
+    if (!Br[i]) {
       cerr << "i:" << i << " Branche read error." << endl;
     }
 
     // Form and set adress to data arrays
     TClonesArray* Arr[9];
-    for (Int_t i = 0; i < 9; i++)
-    {
+    for (Int_t i = 0; i < 9; i++) {
       Arr[i] = new TClonesArray("HEROPoint");
       Br[i]->SetAddress(&Arr[i]);
     }
@@ -73,11 +66,9 @@ void energy(TString inputDir = "output_paralell", Int_t NTHR = 16)
     cout << "Number of events is: " << nEvents << endl;
 
     // Loop over events start
-    for (UInt_t i = 0; i < nEvents; i++)
-    {
+    for (UInt_t i = 0; i < nEvents; i++) {
       // Loop over plates start
-      for (Int_t j = 0; j < 9; j++)
-      {
+      for (Int_t j = 0; j < 9; j++) {
         Br[j]->GetEntry(i);
         HEROPoint* Point;
         TIter Iter(Arr[j]);
@@ -85,8 +76,7 @@ void energy(TString inputDir = "output_paralell", Int_t NTHR = 16)
         Int_t alphaNum = 0;
 
         // Loop over points
-        while ((Point = (HEROPoint*)Iter.Next()))
-        {
+        while ((Point = (HEROPoint*)Iter.Next())) {
           // == - It writes neutrons, != - It writes alphas
           if (Point->GetPID() != 1000020040)
             continue;
@@ -103,16 +93,14 @@ void energy(TString inputDir = "output_paralell", Int_t NTHR = 16)
 
     // Close and clear
     file->Close();
-    for (Int_t i = 0; i < 9; i++)
-    {
+    for (Int_t i = 0; i < 9; i++) {
         Br[i] = NULL;
         Arr[i]->Clear();
     }
   } // loop over THR end
 
   TCanvas* canv[9];
-  for (Int_t i = 0; i < 9; i++)
-  {
+  for (Int_t i = 0; i < 9; i++) {
     TString canvName;
     canvName.Form("canv_%d", i);
     canv[i] = new TCanvas(canvName, canvName, 800, 1000);
@@ -132,8 +120,7 @@ void energy(TString inputDir = "output_paralell", Int_t NTHR = 16)
   TString outFileName = inputDir + "/" + "energy_out.root";
 
   TFile* outFile = new TFile(outFileName, "RECREATE");
-  for (Int_t i = 0; i < 9; i++)
-  {
+  for (Int_t i = 0; i < 9; i++) {
     histo[i]->Write();
   }
 }
