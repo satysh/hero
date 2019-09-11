@@ -143,7 +143,7 @@ TParticle* HEROStack::PopNextTrack(Int_t& iTrack)
 
   fCurrentTrack = thisParticle->GetStatusCode();
   iTrack = fCurrentTrack;
-  
+
   return thisParticle;
 
 }
@@ -180,7 +180,7 @@ TParticle* HEROStack::PopPrimaryForTracking(Int_t iPrim)
 // -----   Virtual public method GetCurrentTrack   -------------------------
 TParticle* HEROStack::GetCurrentTrack() const
 {
-  
+
   TParticle* currentPart = GetParticle(fCurrentTrack);
   //cerr << "GetCurrentTrack : " <<  currentPart << endl;
   if ( ! currentPart) {
@@ -380,7 +380,7 @@ void HEROStack::AddPoint(Int_t detId, Int_t iTrack)
 
 // -----   Virtual method GetCurrentParentTrackNumber   --------------------
 Int_t HEROStack::GetCurrentParentTrackNumber() const
-{ 
+{
   TParticle* currentPart = GetCurrentTrack();
   //cerr << "GetCurrentParentTrackNumber " <<currentPart->GetFirstMother() << endl;
   if ( currentPart ) { return currentPart->GetFirstMother(); }
@@ -450,14 +450,14 @@ void HEROStack::SelectTracks()
   }
 
   // --> If flag is set, flag recursively mothers of selected tracks
-  if (fStoreMothers) 
+  if (fStoreMothers)
   {
-    for (Int_t i=0; i<fNParticles; i++) 
+    for (Int_t i=0; i<fNParticles; i++)
     {
-      if (fStoreMap[i]) 
+      if (fStoreMap[i])
       {
         Int_t iMother = GetParticle(i)->GetMother(0);
-        while(iMother >= 0) 
+        while(iMother >= 0)
         {
           fStoreMap[iMother] = kTRUE;
           iMother = GetParticle(iMother)->GetMother(0);

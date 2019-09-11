@@ -14,16 +14,16 @@ HEROPoint::HEROPoint()
 // -------------------------------------------------------------------------
 // -----   Standard constructor   ------------------------------------------
 HEROPoint::HEROPoint(Int_t eventID, Int_t trackID,
-		  Int_t mot0trackID,
+      Int_t mot0trackID,
       Int_t volNb,
-		  Double_t mass,
-		  TVector3 posIn, TVector3 posInLoc,
-		  TVector3 posOut, TVector3 momIn, TVector3 momOut,
-		  Double_t timeIn, Double_t timeOut, Double_t trackLength, Double_t eLoss, Double_t lightYield, Int_t pid, Double_t charge)
+      Double_t mass,
+      TVector3 posIn, TVector3 posInLoc,
+      TVector3 posOut, TVector3 momIn, TVector3 momOut,
+      Double_t timeIn, Double_t timeOut, Double_t trackLength, Double_t eLoss, Double_t lightYield, Int_t pid, Double_t charge)
   : FairMCPoint(trackID, -1., posIn, momIn, timeIn, 0., eLoss),
     fEventID(eventID),
     fVolNb(volNb),
-    fXlocal(posInLoc.X()),fYlocal(posInLoc.Y()), fZlocal(posInLoc.Z()), 
+    fXlocal(posInLoc.X()),fYlocal(posInLoc.Y()), fZlocal(posInLoc.Z()),
     fX_out(posOut.X()), fY_out(posOut.Y()), fZ_out(posOut.Z()),
     fPx_out(momOut.X()), fPy_out(momOut.Y()), fPz_out(momOut.Z()),
     fLightYield(lightYield), fPID(pid), fCharge(charge),fTimeIn(timeIn), fTimeOut(timeOut),
@@ -85,7 +85,7 @@ Double_t HEROPoint::GetX(Double_t z) const
 // -----   Point y coordinate from linear extrapolation   ------------------
 Double_t HEROPoint::GetY(Double_t z) const
 {
-  if ( (fZ_out-z)*(fZ-z) >= 0. ) 
+  if ( (fZ_out-z)*(fZ-z) >= 0. )
     return (fY_out+fY)/2.;
   Double_t dz = fZ_out - fZ;
   return ( fY + (z-fZ) / dz * (fY_out-fY) );
@@ -98,7 +98,7 @@ Double_t HEROPoint::GetY(Double_t z) const
 Bool_t HEROPoint::IsUsable() const
 {
   Double_t dz = fZ_out - fZ;
-  if ( TMath::Abs(dz) < 1.e-4 ) 
+  if ( TMath::Abs(dz) < 1.e-4 )
     return kFALSE;
   return kTRUE;
 }

@@ -83,23 +83,23 @@ HEROMCTrack::HEROMCTrack(TParticle* part)
     fEnergy = CalculateEnergy();
 }
 
-HEROMCTrack::~HEROMCTrack() 
+HEROMCTrack::~HEROMCTrack()
 {
 }
 
-void HEROMCTrack::Print(Int_t trackId) const 
+void HEROMCTrack::Print(Int_t trackId) const
 {
   /* TODO*/
 }
 
-Double_t HEROMCTrack::GetMass() const 
+Double_t HEROMCTrack::GetMass() const
 {
   return fMass;
 }
 
-Double_t HEROMCTrack::GetCharge() const 
+Double_t HEROMCTrack::GetCharge() const
 {
-  if ( TDatabasePDG::Instance() ) 
+  if ( TDatabasePDG::Instance() )
   {
     TParticlePDG* particle = TDatabasePDG::Instance()->GetParticle(fPdgCode);
     if ( particle ) return particle->Charge();
@@ -108,21 +108,21 @@ Double_t HEROMCTrack::GetCharge() const
   return 0.;
 }
 
-Double_t HEROMCTrack::GetRapidity() const 
+Double_t HEROMCTrack::GetRapidity() const
 {
   Double_t e = fEnergy;
   Double_t y = 0.5 * TMath::Log( (e+fPz) / (e-fPz) );
   return y;
 }
 
-Int_t HEROMCTrack::GetNPoints(Int_t detId) const 
+Int_t HEROMCTrack::GetNPoints(Int_t detId) const
 {
   /* TODO */
     return 0;
 }
 
 
-void HEROMCTrack::SetNPoints(Int_t iDet, Int_t nPoints) 
+void HEROMCTrack::SetNPoints(Int_t iDet, Int_t nPoints)
 {
   /* TODO */
 }
@@ -148,31 +148,30 @@ Double_t HEROMCTrack::GetPhi()
   return fPhi;
 }
 
-Double_t HEROMCTrack::CalculateMass() 
+Double_t HEROMCTrack::CalculateMass()
 {
-  if ( TDatabasePDG::Instance() ) 
+  if ( TDatabasePDG::Instance() )
   {
     TParticlePDG* particle = TDatabasePDG::Instance()->GetParticle(fPdgCode);
-    if ( particle ) 
+    if ( particle )
     {
       TString particleName = particle->GetName();
       TObjArray *userIons  = FairRunSim::Instance()->GetUserDefIons();
       FairIon* ion = (FairIon*)userIons->FindObject(particleName);
-      if (ion) 
+      if (ion)
         return ion->GetMass() + ion->GetExcEnergy();
-      else 
+      else
         return particle->Mass();
     }
-    else 
+    else
       return 0.;
   }
   return 0.;
 }
 // -------------------------------------------------------------------------
-Double_t HEROMCTrack::CalculateEnergy() 
+Double_t HEROMCTrack::CalculateEnergy()
 {
   return TMath::Sqrt(fMass*fMass + fPx*fPx + fPy*fPy + fPz*fPz );
 }
-
 
 ClassImp(HEROMCTrack)

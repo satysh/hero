@@ -54,7 +54,7 @@ class HEROMCTrack : public TObject
   Double_t GetPt()        const { return TMath::Sqrt(fPx*fPx+fPy*fPy); }
   Double_t GetP()         const { return TMath::Sqrt(fPx*fPx+fPy*fPy+fPz*fPz); }
   Double_t GetRapidity()  const;
-  Double_t GetTheta();   
+  Double_t GetTheta();
   Double_t GetPhi();
 
   void GetMomentum(TVector3& momentum) const;
@@ -82,9 +82,9 @@ private:
   Double32_t fPx, fPy, fPz; // Momentum components at start vertex [GeV]
   Double32_t fStartX, fStartY, fStartZ, fStartT; // Coordinates of start vertex [cm, ns]
 
-  Double_t 	fMass;
-  Double_t 	fEnergy;
-  Double_t 	fTheta,fPhi;
+  Double_t  fMass;
+  Double_t  fEnergy;
+  Double_t  fTheta,fPhi;
 
   TLorentzVector fMomentum;
 

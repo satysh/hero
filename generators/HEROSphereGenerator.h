@@ -28,15 +28,15 @@ public:
 protected:
     HEROSphereGenerator (const HEROSphereGenerator &);
     HEROSphereGenerator & operator=(const HEROSphereGenerator &);
-    ClassDef(HEROSphereGenerator,4);
 
 private:
 
   Int_t fPID;
   Int_t fMult;
 
-  Double32_t fX, fY, fZ;           // Point vertex coordinates [cm]
-};
+  Double32_t fX, fY, fZ; // Point vertex coordinates [cm]
 
+  ClassDef(HEROSphereGenerator, 4);
+};
 
 #endif
