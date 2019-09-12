@@ -99,8 +99,7 @@ Double_t HEROMCTrack::GetMass() const
 
 Double_t HEROMCTrack::GetCharge() const
 {
-  if ( TDatabasePDG::Instance() )
-  {
+  if ( TDatabasePDG::Instance() ) {
     TParticlePDG* particle = TDatabasePDG::Instance()->GetParticle(fPdgCode);
     if ( particle ) return particle->Charge();
     else return 0.;
@@ -150,11 +149,9 @@ Double_t HEROMCTrack::GetPhi()
 
 Double_t HEROMCTrack::CalculateMass()
 {
-  if ( TDatabasePDG::Instance() )
-  {
+  if ( TDatabasePDG::Instance() ) {
     TParticlePDG* particle = TDatabasePDG::Instance()->GetParticle(fPdgCode);
-    if ( particle )
-    {
+    if ( particle ) {
       TString particleName = particle->GetName();
       TObjArray *userIons  = FairRunSim::Instance()->GetUserDefIons();
       FairIon* ion = (FairIon*)userIons->FindObject(particleName);

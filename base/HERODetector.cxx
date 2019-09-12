@@ -31,13 +31,11 @@ HERODetector::HERODetector(const char* Name, Bool_t Active, Int_t DetId/*=0*/)
 void HERODetector::ConstructGeometry()
 {
   TString fileName = GetGeometryFileName();
-  if(fileName.EndsWith(".root"))
-  {
+  if(fileName.EndsWith(".root")) {
     LOG(INFO) << "Constructing geometry from ROOT file " << fileName.Data() << FairLogger::endl;
     ConstructRootGeometry();
   }
-  else if (fileName.EndsWith(".gdml"))
-  {
+  else if (fileName.EndsWith(".gdml")) {
     LOG(INFO) << "Constructing geometry from GDML file " << fileName.Data() << FairLogger::endl;
     TGeoRotation *zeroRotation = new TGeoRotation();
     zeroRotation->RotateX(0.);
@@ -56,8 +54,7 @@ void HERODetector::AddSensetive(TString name)
 //-------------------------------------------------------------------------------------------------
 TClonesArray* HERODetector::GetCollection(Int_t iColl) const
 {
-  if (fSenVolumes.size() > iColl)
-  {
+  if (fSenVolumes.size() > iColl) {
     auto it = fSenVolumes.begin();
     for (Int_t i = 0; i < iColl; i++)
       it++;
@@ -73,8 +70,7 @@ void HERODetector::Register()
   if (!ioman)
     LOG(FATAL) << "IO manager is not set" << FairLogger::endl;
 
-  for(const auto &itSen: fSenVolumes)
-  {
+  for(const auto &itSen: fSenVolumes) {
     ioman->Register(fName+itSen.first+TString("Point"),fName, itSen.second, kTRUE);
   }
 }
@@ -91,8 +87,7 @@ Bool_t HERODetector::ProcessHits(FairVolume* vol)
   */
 
   //if (testPid)
-  if (gMC->IsTrackEntering()) // Return true if this is the first step of the track in the current volume
-  {
+  if (gMC->IsTrackEntering()) { // Return true if this is the first step of the track in the current volume
     StartNewPoint();
   }
 
@@ -100,8 +95,7 @@ Bool_t HERODetector::ProcessHits(FairVolume* vol)
 
   if (gMC->IsTrackExiting() || //true if this is the last step of the track in the current volume
       gMC->IsTrackStop()    || //true if the track energy has fallen below the threshold
-      gMC->IsTrackDisappeared())
-  {
+      gMC->IsTrackDisappeared()) {
     FinishNewPoint();
   }
   return kTRUE;
@@ -116,11 +110,9 @@ void HERODetector::EndOfEvent()
 //-------------------------------------------------------------------------------------------------
 void HERODetector::Print(Option_t *option) const
 {
-  for(const auto &itSen: fSenVolumes)
-  {
+  for(const auto &itSen: fSenVolumes) {
     TClonesArray* points = itSen.second;
-    for (Int_t i_point = 0; i_point < points->GetEntriesFast(); i_point++)
-    {
+    for (Int_t i_point = 0; i_point < points->GetEntriesFast(); i_point++) {
       HEROPoint* point = (HEROPoint*)points->At(i_point);
       point->Print();
     }
@@ -129,8 +121,7 @@ void HERODetector::Print(Option_t *option) const
 //-------------------------------------------------------------------------------------------------
 void HERODetector::Reset()
 {
-  for(const auto &itSen: fSenVolumes)
-  {
+  for(const auto &itSen: fSenVolumes) {
     TClonesArray* points = itSen.second;
     points->Clear();
   }
@@ -144,8 +135,7 @@ void HERODetector::CopyClones(TClonesArray* cl1, TClonesArray* cl2, Int_t offset
   LOG(DEBUG) << "HERODetector: " << nEntries << " entries to add" << FairLogger::endl;
   TClonesArray& clref = *cl2;
   HEROPoint* oldpoint = NULL;
-  for (Int_t i=0; i<nEntries; i++)
-  {
+  for (Int_t i=0; i<nEntries; i++) {
     oldpoint = (HEROPoint*) cl1->At(i);
     Int_t index = oldpoint->GetTrackID() + offset;
     oldpoint->SetTrackID(index);
@@ -158,9 +148,8 @@ void HERODetector::CopyClones(TClonesArray* cl1, TClonesArray* cl2, Int_t offset
 Bool_t HERODetector::CheckIfSensitive(std::string name)
 {
   TString curVolName = name;
-  for(const auto &volNameSubsting: fSenNames)
-  {
-    if(curVolName.Contains(volNameSubsting)){
+  for(const auto &volNameSubsting: fSenNames) {
+    if(curVolName.Contains(volNameSubsting)) {
       fSenVolumes[curVolName] = new TClonesArray("HEROPoint");
       cerr << "CheckIfSensitive(" << name << ")" << endl;
       return kTRUE;
@@ -199,8 +188,7 @@ void HERODetector::FinishNewPoint()
   fTimeOut = gMC->TrackTime() * 1.0e09;
 
   //LOG(INFO) << "  FinishNewPoint(), time: " << fTimeOut << FairLogger::endl;
-  if (fELoss > 0.)
-  {
+  if (fELoss > 0.) {
     TClonesArray* points = fSenVolumes[gMC->CurrentVolName()];
     AddPoint(points);
     fFullEnergy += fELoss;

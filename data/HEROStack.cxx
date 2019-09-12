@@ -450,15 +450,11 @@ void HEROStack::SelectTracks()
   }
 
   // --> If flag is set, flag recursively mothers of selected tracks
-  if (fStoreMothers)
-  {
-    for (Int_t i=0; i<fNParticles; i++)
-    {
-      if (fStoreMap[i])
-      {
+  if (fStoreMothers) {
+    for (Int_t i=0; i<fNParticles; i++) {
+      if (fStoreMap[i]) {
         Int_t iMother = GetParticle(i)->GetMother(0);
-        while(iMother >= 0)
-        {
+        while(iMother >= 0) {
           fStoreMap[iMother] = kTRUE;
           iMother = GetParticle(iMother)->GetMother(0);
         }
@@ -468,8 +464,6 @@ void HEROStack::SelectTracks()
 
 }
 // -------------------------------------------------------------------------
-
-
 
 ClassImp(HEROStack)
 
