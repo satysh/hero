@@ -77,21 +77,21 @@ void HERODetector::Register()
 //-------------------------------------------------------------------------------------------------
 Bool_t HERODetector::ProcessHits(FairVolume* vol)
 {
-/*
-  if (gMC->TrackPid() != 2112 && gMC->TrackPid() != 1000020040)
-    return kFALSE;
-*/
-  /*
-  if ((TString)vol->GetName() != "vCub")
-    cerr << "ProcessHits(" << vol->GetName()  << ")" << endl;
-  */
-
+  static const Double_t constBir = 1.; // Birk's constant
   //if (testPid)
   if (gMC->IsTrackEntering()) { // Return true if this is the first step of the track in the current volume
     StartNewPoint();
   }
 
-  fELoss += gMC->Edep(); // GeV //Return the energy lost in the current step
+  fELoss += gMC->Edep(); // [GeV] It returns the energy lost in the current step
+
+  if (gMC->TrackCharge() != 0) { // uncharged particles doesn't make any light yield
+    if (gMC->TrackStep() > 0) {
+      Double_t ratiodEdx = gMC->Edep()/gMC->TrackStep(); //[GeV/cm]
+      Double_t curLightYield = gMC->Edep()/(1. + constBir*ratiodEdx); //[GeV]
+      fLightYield += curLightYield;
+    }
+  }
 
   if (gMC->IsTrackExiting() || //true if this is the last step of the track in the current volume
       gMC->IsTrackStop()    || //true if the track energy has fallen below the threshold
@@ -198,6 +198,8 @@ void HERODetector::FinishNewPoint()
 //-------------------------------------------------------------------------------------------------
 HEROPoint* HERODetector::AddPoint(TClonesArray* points)
 {
+  static const Double_t scintE = 1.; // scintillator efficiency for Birk's low
+  fLightYield *= scintE;
   TClonesArray& clref = *points;
   Int_t size = clref.GetEntriesFast();
   return new(clref[size]) HEROPoint(fEventID, fTrackID, fMot0TrackID, fVolNb,
