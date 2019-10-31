@@ -105,7 +105,7 @@ void Prototape_ECAL_whith_Boron_film()
     vCalorimetrLead->SetFillColor(kBlue);
     vCalorimetrLead->SetLineColor(kBlue);
     vCalorimetrLead->SetTransparency(60);
-   
+
     // Calorimetr Boron film
     TGeoVolume* vCalorimetrFilm = gGeoManager->MakeBox("vCalorimetrFilm", boron, 0.5*calor.dx, 0.5*calor.dy, 0.5*calor.Boron_film_z);
     vCalorimetrFilm->SetFillColor(kRed);
@@ -198,7 +198,7 @@ void Prototape_ECAL_whith_Boron_film()
 
     zz =  -0.5*Layer_Size + 0.5*calor.Scint_z + 0.5*calor.Boron_film_z;
     layer->AddNode(vCalorimetrFilm, 1, new TGeoTranslation(0., 0., zz));
-    
+
     zz =  0.5*Layer_Size - 0.5*calor.Lead_z;
     layer->AddNode(vCalorimetrLead, 1, new TGeoTranslation(0., 0., zz));
 
@@ -238,10 +238,10 @@ void Prototape_ECAL_whith_Boron_film()
     gGeoManager->CloseGeometry();
     gGeoManager->CheckOverlaps(0.001);
     gGeoManager->PrintOverlaps();
-    gGeoManager->CheckGeometry();
-    gGeoManager->CheckGeometryFull();
+    //gGeoManager->CheckGeometry();
+    //gGeoManager->CheckGeometryFull();
 
-    gGeoManager->GetTopVolume()->Draw("ogl");
+    //gGeoManager->GetTopVolume()->Draw("ogl");
 
     TFile* geoFile = new TFile(geoFileName, "RECREATE");
     top->Write();

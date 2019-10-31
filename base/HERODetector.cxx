@@ -77,7 +77,8 @@ void HERODetector::Register()
 //-------------------------------------------------------------------------------------------------
 Bool_t HERODetector::ProcessHits(FairVolume* vol)
 {
-  static const Double_t constBir = 1.; // Birk's constant
+  static const Double_t constBirPer = 20.; // [g/GeV/cm^2]
+  static const Double_t constBir = 12.6; // [cm/GeV] Birk's constant
   //if (testPid)
   if (gMC->IsTrackEntering()) { // Return true if this is the first step of the track in the current volume
     StartNewPoint();
@@ -89,7 +90,7 @@ Bool_t HERODetector::ProcessHits(FairVolume* vol)
     if (gMC->TrackStep() > 0) {
       Double_t ratiodEdx = gMC->Edep()/gMC->TrackStep(); //[GeV/cm]
       Double_t curLightYield = gMC->Edep()/(1. + constBir*ratiodEdx); //[GeV]
-      fLightYield += curLightYield;
+      fLightYield += constBirPer*curLightYield;
     }
   }
 

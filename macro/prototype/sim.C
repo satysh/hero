@@ -61,7 +61,7 @@ void sim(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output", Int_t Io
   run->AddModule(cave);
 
   HERODetector* detector = new HERODetector("HEROdetector", kTRUE);
-  detector->SetGeometryFileName("HERO_Prototype.root");
+  detector->SetGeometryFileName("OLV_Prototyp_ECAL_whith_Boron_film.root");
   detector->AddSensetive("vPlate_B10_xyz_u_f");
   detector->AddSensetive("vPlate_B10_xyz_u_b");
   detector->AddSensetive("vPlate_B10_xyz_d_f");
@@ -90,7 +90,7 @@ void sim(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output", Int_t Io
   primGen->AddGenerator(boxGen);
   run->SetGenerator(primGen);
 
-  run->SetStoreTraj(kFALSE); // kFALSE
+  run->SetStoreTraj(kTRUE); // kFALSE
 
   //-------Set LOG verbosity  -----------------------------------------------
   FairLogger::GetLogger()->SetLogVerbosityLevel("LOW");
