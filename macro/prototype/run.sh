@@ -1,6 +1,6 @@
 #!/bin/bash
-nev=10
-index=1
+nev=1000
+index=3
 OUTDIR=output
 
 rm -fv *.root

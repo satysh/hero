@@ -1,7 +1,8 @@
 #!/bin/bash
-nev=10
+nev=6000
 OUTDIR=output_paralell
-NTHR=7
+NTHR=3
+ionIndex=3
 
 rm -fv *.root
 rm -fv *txt
@@ -19,7 +20,7 @@ echo -e "\e[1m\e[32m========== Compilation finished =========== \e[0m"
 
 for thr in $(seq 1 ${NTHR}); do
 	echo "Starting simulation in thread ${THR}"
-	root -l -b -q "sim.C(${nev}, ${thr}, \"${OUTDIR}\")" > ${OUTDIR}/out_${thr}.txt 2> ${OUTDIR}/err_${thr}.txt &
+	root -l -b -q "sim.C(${nev}, ${thr}, \"${OUTDIR}\", ${ionIndex})" > ${OUTDIR}/out_${thr}.txt 2> ${OUTDIR}/err_${thr}.txt &
 done
 wait
 

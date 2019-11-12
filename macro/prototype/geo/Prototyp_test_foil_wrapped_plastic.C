@@ -51,9 +51,9 @@ void Prototyp_test_foil_wrapped_plastic()
     TGeoMedium* Scint = gGeoManager->GetMedium("FscScint");
     if ( ! Scint ) Fatal("Main", "Medium FscScintVB not found");
 
-     
-    
-    //----------------- Material for Boron(10)---------------- 
+
+
+    //----------------- Material for Boron(10)----------------
 	FairGeoMedium    * BOron  = geoMedia->getMedium("HYPboron");
     if ( ! BOron ) Fatal("Main", "FairMedium BOron not found");
     geoBuild->createMedium(BOron);
@@ -110,6 +110,9 @@ void Prototyp_test_foil_wrapped_plastic()
 
     // u is up, d is down, f is front, b is back in the code below
     // --- 10B Plates XYZ -------------------------------
+    plate.dx -= 6*10e-4;
+    plate.dy -= 6*10e-4;
+    plate.dz -= 6*10e-4;
     TGeoVolume* vPlate_B10_xyz_u_f = gGeoManager->MakeBox("vPlate_B10_xyz_u_f", Scint, 0.5*plate.dx, 0.5*plate.dy, 0.5*plate.dz);
     vPlate_B10_xyz_u_f->SetFillColor(kGreen);
     vPlate_B10_xyz_u_f->SetLineColor(kGreen);
@@ -162,52 +165,72 @@ void Prototyp_test_foil_wrapped_plastic()
     vPlate_B10_xzy_f->SetLineColor(kGreen);
     vPlate_B10_xzy_f->SetTransparency(60);
     //-----------------------------------------------------
-    
-	//---------Film u-up, d-down,l - left, r - right, f - front; position  -------
-    Double_t Film_dx= plate.dx - (6*10e-4);
-    Double_t Film_dy= plate.dy - (6*10e-4);
-    Double_t Film_dz= plate.dz - (6*10e-4);
-    cout<<"Boron"<<Film_dx<<"    "<<Film_dy<<"   "<<Film_dz<<endl;
-    //Boron
-    TGeoVolume* vBoron_Volum_u_d = gGeoManager->MakeBox("vBoron_Volum_d_u", boron, 0.5*plate.dx, 0.5*plate.dy, 0.5*plate.dz);
-    vBoron_Volum_u_d->SetFillColor(kGreen);
-    vBoron_Volum_u_d->SetLineColor(kGreen);
-    vBoron_Volum_u_d->SetTransparency(60);
-    TGeoVolume* vBoron_Volum_l_r = gGeoManager->MakeBox("vBoron_Volum_l_r", boron,  0.5*plate.dy, 0.5*plate.dx, 0.5*plate.dz);
-    vBoron_Volum_l_r->SetFillColor(kGreen);
-    vBoron_Volum_l_r->SetLineColor(kGreen);
-    vBoron_Volum_l_r->SetTransparency(60);
-    TGeoVolume* vBoron_Volum_f = gGeoManager->MakeBox("vBoron_Volum_f", boron, 0.5*plate.dx, 0.5*plate.dz, 0.5*plate.dy);
-    vBoron_Volum_f->SetFillColor(kGreen);
-    vBoron_Volum_f->SetLineColor(kGreen);
-    vBoron_Volum_f->SetTransparency(60);
-    //Air 
-    TGeoVolume* vAir_Volum_u_d = gGeoManager->MakeBox("vAir_Volum_d_u", Scint,  0.5*Film_dx, 0.5*Film_dy, 0.5*Film_dz);
-    vAir_Volum_u_d->SetFillColor(kGreen);
-    vAir_Volum_u_d->SetLineColor(kGreen);
-    vAir_Volum_u_d->SetTransparency(60);
-    TGeoVolume* vAir_Volum_l_r = gGeoManager->MakeBox("vAir_Volum_l_r", Scint,  0.5*Film_dy, 0.5*Film_dx, 0.5*Film_dz);
-    vAir_Volum_l_r->SetFillColor(kGreen);
-    vAir_Volum_l_r->SetLineColor(kGreen);
-    vAir_Volum_l_r->SetTransparency(60);
-    TGeoVolume* vAir_Volum_f = gGeoManager->MakeBox("vAir_Volum_f", Scint,  0.5*Film_dx, 0.5*Film_dz, 0.5*Film_dy);
-    vAir_Volum_f->SetFillColor(kGreen);
-    vAir_Volum_f->SetLineColor(kGreen);
-    vAir_Volum_f->SetTransparency(60);
-    //Film
-    TGeoVolume* vFilm_Volum_u_d = gGeoManager->MakeBox("vFilm_Volum_d_u", Air,0.5*plate.dx, 0.5*plate.dy, 0.5*plate.dz);
-    vFilm_Volum_u_d->SetFillColor(kGreen);
-    vFilm_Volum_u_d->SetLineColor(kGreen);
-    vFilm_Volum_u_d->SetTransparency(60);
-    TGeoVolume* vFilm_Volum_l_r = gGeoManager->MakeBox("vFilm_Volum_l_r", Air, 0.5*plate.dy, 0.5*plate.dx, 0.5*plate.dz);
-    vFilm_Volum_l_r->SetFillColor(kGreen);
-    vFilm_Volum_l_r->SetLineColor(kGreen);
-    vFilm_Volum_l_r->SetTransparency(60);
-    TGeoVolume* vFilm_Volum_f = gGeoManager->MakeBox("vFilm_Volum_f", Air,0.5*plate.dx, 0.5*plate.dz, 0.5*plate.dy);
-    vFilm_Volum_f->SetFillColor(kGreen);
-    vFilm_Volum_f->SetLineColor(kGreen);
-    vFilm_Volum_f->SetTransparency(60);
 
+	//---------Film u-up, d-down,l - left, r - right, f - front; position  -------
+    plate.dx += 6*10e-4;
+    plate.dy += 6*10e-4;
+    plate.dz += 6*10e-4;
+
+    TGeoVolume* vBoron_B10_xyz_u_f = gGeoManager->MakeBox("vBoron_B10_xyz_u_f", boron, 0.5*plate.dx, 0.5*plate.dy, 0.5*plate.dz);
+    vBoron_B10_xyz_u_f->SetFillColor(kGreen);
+    vBoron_B10_xyz_u_f->SetLineColor(kGreen);
+    vBoron_B10_xyz_u_f->SetTransparency(60);
+    vBoron_B10_xyz_u_f->AddNode(vPlate_B10_xyz_u_f, 1);
+
+    TGeoVolume* vBoron_B10_xyz_u_b = gGeoManager->MakeBox("vBoron_B10_xyz_u_b", boron, 0.5*plate.dx, 0.5*plate.dy, 0.5*plate.dz);
+    vBoron_B10_xyz_u_b->SetFillColor(kGreen);
+    vBoron_B10_xyz_u_b->SetLineColor(kGreen);
+    vBoron_B10_xyz_u_b->SetTransparency(60);
+    vBoron_B10_xyz_u_b->AddNode(vPlate_B10_xyz_u_b, 1);
+
+    TGeoVolume* vBoron_B10_xyz_d_f = gGeoManager->MakeBox("vBoron_B10_xyz_d_f", boron, 0.5*plate.dx, 0.5*plate.dy, 0.5*plate.dz);
+    vBoron_B10_xyz_d_f->SetFillColor(kGreen);
+    vBoron_B10_xyz_d_f->SetLineColor(kGreen);
+    vBoron_B10_xyz_d_f->SetTransparency(60);
+    vBoron_B10_xyz_d_f->AddNode(vPlate_B10_xyz_d_f, 1);
+
+    TGeoVolume* vBoron_B10_xyz_d_b = gGeoManager->MakeBox("vBoron_B10_xyz_d_b", boron, 0.5*plate.dx, 0.5*plate.dy, 0.5*plate.dz);
+    vBoron_B10_xyz_d_b->SetFillColor(kGreen);
+    vBoron_B10_xyz_d_b->SetLineColor(kGreen);
+    vBoron_B10_xyz_d_b->SetTransparency(60);
+    vBoron_B10_xyz_d_b->AddNode(vPlate_B10_xyz_d_b, 1);
+    //-----------------------------------------------------
+
+    // l - left, r - right in the code below
+    // --- 10B Plates YXZ -------------------------------
+    TGeoVolume* vBoron_B10_yxz_r_f = gGeoManager->MakeBox("vBoron_B10_yxz_r_f", boron, 0.5*plate.dy, 0.5*plate.dx, 0.5*plate.dz);
+    vBoron_B10_yxz_r_f->SetFillColor(kGreen);
+    vBoron_B10_yxz_r_f->SetLineColor(kGreen);
+    vBoron_B10_yxz_r_f->SetTransparency(60);
+    vBoron_B10_yxz_r_f->AddNode(vPlate_B10_yxz_r_f, 1);
+
+    TGeoVolume* vBoron_B10_yxz_r_b = gGeoManager->MakeBox("vBoron_B10_yxz_r_b", boron, 0.5*plate.dy, 0.5*plate.dx, 0.5*plate.dz);
+    vBoron_B10_yxz_r_b->SetFillColor(kGreen);
+    vBoron_B10_yxz_r_b->SetLineColor(kGreen);
+    vBoron_B10_yxz_r_b->SetTransparency(60);
+    vBoron_B10_yxz_r_b->AddNode(vPlate_B10_yxz_r_b, 1);
+
+
+    TGeoVolume* vBoron_B10_yxz_l_f = gGeoManager->MakeBox("vBoron_B10_yxz_l_f", boron, 0.5*plate.dy, 0.5*plate.dx, 0.5*plate.dz);
+    vBoron_B10_yxz_l_f->SetFillColor(kGreen);
+    vBoron_B10_yxz_l_f->SetLineColor(kGreen);
+    vBoron_B10_yxz_l_f->SetTransparency(60);
+    vBoron_B10_yxz_l_f->AddNode(vPlate_B10_yxz_l_f, 1);
+
+
+    TGeoVolume* vBoron_B10_yxz_l_b = gGeoManager->MakeBox("vBoron_B10_yxz_l_b", boron, 0.5*plate.dy, 0.5*plate.dx, 0.5*plate.dz);
+    vBoron_B10_yxz_l_b->SetFillColor(kGreen);
+    vBoron_B10_yxz_l_b->SetLineColor(kGreen);
+    vBoron_B10_yxz_l_b->SetTransparency(60);
+    vBoron_B10_yxz_l_b->AddNode(vPlate_B10_yxz_l_b, 1);
+    //-----------------------------------------------------
+
+    // --- 10B Plates XZY -------------------------------
+    TGeoVolume* vBoron_B10_xzy_f = gGeoManager->MakeBox("vBoron_B10_xzy_f", boron, 0.5*plate.dx, 0.5*plate.dz, 0.5*plate.dy);
+    vBoron_B10_xzy_f->SetFillColor(kGreen);
+    vBoron_B10_xzy_f->SetLineColor(kGreen);
+    vBoron_B10_xzy_f->SetTransparency(60);
+    vBoron_B10_xzy_f->AddNode(vPlate_B10_xzy_f, 1);
 
 
 	//--------------------------------------------------------------------------------------------------
@@ -250,38 +273,20 @@ void Prototyp_test_foil_wrapped_plastic()
          vCalorimetr->AddNode(layer, i+1, new TGeoTranslation(0., 0., zz));
     }
     cout << "calor.NLayer "<<calor.NLayer <<endl;
-    vBoron_Volum_u_d->AddNode(vAir_Volum_u_d, 1,new TGeoTranslation(0., 0., 0.));
-    vFilm_Volum_u_d->AddNode(vBoron_Volum_u_d, 1,new TGeoTranslation(0., 0., 0.));
-    vBoron_Volum_l_r->AddNode(vAir_Volum_l_r, 1,new TGeoTranslation(0., 0., 0.));
-    vFilm_Volum_l_r->AddNode(vBoron_Volum_l_r, 1,new TGeoTranslation(0., 0., 0.));
-    vBoron_Volum_f->AddNode(vAir_Volum_f, 1,new TGeoTranslation(0., 0., 0.));
-    vFilm_Volum_f->AddNode(vBoron_Volum_f, 1,new TGeoTranslation(0., 0., 0.));
 
     BOX_Air->AddNode(vCalorimetr, 1, new TGeoTranslation(0., 0., 0.));
-    
-    vPlate_B10_xyz_u_f->AddNode(vFilm_Volum_u_d, 1, new TGeoTranslation(0., 0., 0.));
-    vPlate_B10_xyz_u_b->AddNode(vFilm_Volum_u_d, 1, new TGeoTranslation(0., 0., 0.));
-    vPlate_B10_xyz_d_f->AddNode(vFilm_Volum_u_d, 1, new TGeoTranslation(0., 0., 0.));
-    vPlate_B10_xyz_d_b->AddNode(vFilm_Volum_u_d, 1, new TGeoTranslation(0., 0., 0.));
-        
-    vPlate_B10_yxz_r_f->AddNode(vFilm_Volum_l_r, 1, new TGeoTranslation(0., 0., 0.));
-    vPlate_B10_yxz_r_b->AddNode(vFilm_Volum_l_r, 1, new TGeoTranslation(0., 0., 0.));
-    vPlate_B10_yxz_l_f->AddNode(vFilm_Volum_l_r, 1, new TGeoTranslation(0., 0., 0.));
-    vPlate_B10_yxz_l_b->AddNode(vFilm_Volum_l_r, 1, new TGeoTranslation(0., 0., 0.));
 
-    vPlate_B10_xzy_f->AddNode(vFilm_Volum_f, 1, new TGeoTranslation(0., 0., 0.));
-    
-    BOX_Air->AddNode(vPlate_B10_xyz_u_f, 1, new TGeoTranslation(0., 0.5*(calor.dy+plate.dy), -0.5*plate.dz));
-    BOX_Air->AddNode(vPlate_B10_xyz_u_b, 1, new TGeoTranslation(0., 0.5*(calor.dy+plate.dy), 0.5*plate.dz));
-    BOX_Air->AddNode(vPlate_B10_xyz_d_f, 1, new TGeoTranslation(0., -0.5*(calor.dy+plate.dy), -0.5*plate.dz));
-    BOX_Air->AddNode(vPlate_B10_xyz_d_b, 1, new TGeoTranslation(0., -0.5*(calor.dy+plate.dy), 0.5*plate.dz));
+    BOX_Air->AddNode(vBoron_B10_xyz_u_f, 1, new TGeoTranslation(0., 0.5*(calor.dy+plate.dy), -0.5*plate.dz));
+    BOX_Air->AddNode(vBoron_B10_xyz_u_b, 1, new TGeoTranslation(0., 0.5*(calor.dy+plate.dy), 0.5*plate.dz));
+    BOX_Air->AddNode(vBoron_B10_xyz_d_f, 1, new TGeoTranslation(0., -0.5*(calor.dy+plate.dy), -0.5*plate.dz));
+    BOX_Air->AddNode(vBoron_B10_xyz_d_b, 1, new TGeoTranslation(0., -0.5*(calor.dy+plate.dy), 0.5*plate.dz));
 
-    BOX_Air->AddNode(vPlate_B10_yxz_r_f, 1, new TGeoTranslation(0.5*(calor.dy+plate.dy), 0., -0.5*plate.dz));
-    BOX_Air->AddNode(vPlate_B10_yxz_r_b, 1, new TGeoTranslation(0.5*(calor.dy+plate.dy), 0., 0.5*plate.dz));
-    BOX_Air->AddNode(vPlate_B10_yxz_l_f, 1, new TGeoTranslation(-0.5*(calor.dy+plate.dy), 0., -0.5*plate.dz));
-    BOX_Air->AddNode(vPlate_B10_yxz_l_b, 1, new TGeoTranslation(-0.5*(calor.dy+plate.dy), 0., 0.5*plate.dz));
+    BOX_Air->AddNode(vBoron_B10_yxz_r_f, 1, new TGeoTranslation(0.5*(calor.dy+plate.dy), 0., -0.5*plate.dz));
+    BOX_Air->AddNode(vBoron_B10_yxz_r_b, 1, new TGeoTranslation(0.5*(calor.dy+plate.dy), 0., 0.5*plate.dz));
+    BOX_Air->AddNode(vBoron_B10_yxz_l_f, 1, new TGeoTranslation(-0.5*(calor.dy+plate.dy), 0., -0.5*plate.dz));
+    BOX_Air->AddNode(vBoron_B10_yxz_l_b, 1, new TGeoTranslation(-0.5*(calor.dy+plate.dy), 0., 0.5*plate.dz));
 
-    BOX_Air->AddNode(vPlate_B10_xzy_f, 1, new TGeoTranslation(0., 0., -0.5*(plate.dy+Calor_Size) ));
+    BOX_Air->AddNode(vBoron_B10_xzy_f, 1, new TGeoTranslation(0., 0., -0.5*(plate.dy+Calor_Size) ));
 
     BOX_Lead->AddNode(BOX_Air, 1, new TGeoTranslation(0.,0., 0.));
 

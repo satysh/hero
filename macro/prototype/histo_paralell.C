@@ -80,7 +80,7 @@ void histo_paralell(TString inputDir = "output_paralell", Int_t NTHR = 3)
             neutronsNum++;
 
           // == - It writes neutrons, != - It writes alphas
-          if (Point->GetPID() == 1000020040)
+          if (Point->GetPID() != 1000020040)
             continue;
 
           Double_t curTimeIn = Point->GetTimeIn()*1e-3;

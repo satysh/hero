@@ -34,7 +34,7 @@ void sim(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output", Int_t Io
     default : cerr << "index error" << endl; return ;
   }
   pdgId = GetPdgCode(curZ,curA);      // Set nuclear pdg for Ion
-
+  Double32_t kinEnergy = curA*momentum;
   // ------------------------------------------------------------------------
 
 
@@ -61,7 +61,7 @@ void sim(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output", Int_t Io
   run->AddModule(cave);
 
   HERODetector* detector = new HERODetector("HEROdetector", kTRUE);
-  detector->SetGeometryFileName("OLV_Prototyp_ECAL_whith_Boron_film.root");
+  detector->SetGeometryFileName("OLV_Prototyp_foil_wrapped_plastic.root");
   detector->AddSensetive("vPlate_B10_xyz_u_f");
   detector->AddSensetive("vPlate_B10_xyz_u_b");
   detector->AddSensetive("vPlate_B10_xyz_d_f");
@@ -77,7 +77,7 @@ void sim(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output", Int_t Io
   FairPrimaryGenerator* primGen = new FairPrimaryGenerator();
   FairBoxGenerator* boxGen = new FairBoxGenerator(pdgId, 1);
   //boxGen->SetPRange(momentum, momentum);
-  boxGen->SetEkinRange(momentum, momentum);
+  boxGen->SetEkinRange(kinEnergy, kinEnergy);
   boxGen->SetThetaRange(0., 0.); // 0-90
   boxGen->SetPhiRange(0., 0.); // 0-360
   boxGen->SetBoxXYZ(0., 0., 0., 0., -500.); // xmin, ymin, xmax, ymax, z
@@ -90,7 +90,7 @@ void sim(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output", Int_t Io
   primGen->AddGenerator(boxGen);
   run->SetGenerator(primGen);
 
-  run->SetStoreTraj(kTRUE); // kFALSE
+  run->SetStoreTraj(kFALSE); // kFALSE
 
   //-------Set LOG verbosity  -----------------------------------------------
   FairLogger::GetLogger()->SetLogVerbosityLevel("LOW");
