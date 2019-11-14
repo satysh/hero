@@ -19,7 +19,7 @@
 int  GetPdgCode(const int Z, const int A);
 void AddIon(const int pdg);                    //For PDG ion beam
 
-void sim(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output", Int_t IonIndex = 1)
+void sim(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output", Int_t IonIndex = 1, Int_t geoIndex = 0)
 {
 
   // -----   Particle  --------------------------------------------------------
@@ -60,8 +60,21 @@ void sim(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output", Int_t Io
   cave->SetGeometryFileName("cave.geo");
   run->AddModule(cave);
 
+  TString geoFileName;
+  switch (geoIndex) {
+    case 0: geoFileName = "OLV_Prototyp_foil_wrapped_plastic_0.6.root"; break;
+    case 1: geoFileName = "OLV_Prototyp_foil_wrapped_plastic_1.2.root"; break;
+    case 2: geoFileName = "OLV_Prototyp_foil_wrapped_plastic_1.8.root"; break;
+    case 3: geoFileName = "OLV_Prototyp_foil_wrapped_plastic_2.4.root"; break;
+    case 4: geoFileName = "OLV_Prototyp_foil_wrapped_plastic_3.0.root"; break;
+    case 5: geoFileName = "OLV_Prototyp_foil_wrapped_plastic_3.6.root"; break;
+    case 6: geoFileName = "OLV_Prototyp_foil_wrapped_plastic_4.2.root"; break;
+    case 7: geoFileName = "OLV_Prototyp_foil_wrapped_plastic_4.8.root"; break;
+    case 8: geoFileName = "OLV_Prototyp_foil_wrapped_plastic_5.4.root"; break;
+    case 9: geoFileName = "OLV_Prototyp_foil_wrapped_plastic_6.0.root"; break;
+  }
   HERODetector* detector = new HERODetector("HEROdetector", kTRUE);
-  detector->SetGeometryFileName("OLV_Prototyp_foil_wrapped_plastic.root");
+  detector->SetGeometryFileName(geoFileName);
   detector->AddSensetive("vPlate_B10_xyz_u_f");
   detector->AddSensetive("vPlate_B10_xyz_u_b");
   detector->AddSensetive("vPlate_B10_xyz_d_f");
