@@ -1,5 +1,19 @@
-void Prototyp_test_foil_wrapped_plastic()
+void Prototyp_test_foil_wrapped_plastic(Int_t index = 0)
 {
+    TString postFix = "";
+    Double_t fThick;
+    switch (index) {
+        case 0 : fThick = 0.6*1e-4; postFix = "0.6"; break;
+        case 1 : fThick = 1.2*1e-4; postFix = "1.2"; break;
+        case 2 : fThick = 1.8*1e-4; postFix = "1.8"; break;
+        case 3 : fThick = 2.4*1e-4; postFix = "2.4"; break;
+        case 4 : fThick = 3.0*1e-4; postFix = "3.0"; break;
+        case 5 : fThick = 3.6*1e-4; postFix = "3.6"; break;
+        case 6 : fThick = 4.2*1e-4; postFix = "4.2"; break;
+        case 7 : fThick = 4.8*1e-4; postFix = "4.8"; break;
+        case 8 : fThick = 5.4*1e-4; postFix = "5.4"; break;
+        case 9 : fThick = 6.0*1e-4; postFix = "6.0"; break;
+    }
     typedef struct{
         Double_t dx = 12.;
         Double_t dy = 12.;
@@ -30,7 +44,7 @@ void Prototyp_test_foil_wrapped_plastic()
     // --------------------------------------------------------------------------
 
     // -------   Geometry file name (output)   ----------------------------------
-    TString geoFileName = geoPath + "/geometry/OLV_Prototyp_foil_wrapped_plastic.root";
+    TString geoFileName = geoPath + "/geometry/OLV_Prototyp_foil_wrapped_plastic_" + postFix + ".root";
     // --------------------------------------------------------------------------
 
     // --------------   Create geometry and top volume  -------------------------
@@ -110,9 +124,9 @@ void Prototyp_test_foil_wrapped_plastic()
 
     // u is up, d is down, f is front, b is back in the code below
     // --- 10B Plates XYZ -------------------------------
-    plate.dx -= 6*10e-4;
-    plate.dy -= 6*10e-4;
-    plate.dz -= 6*10e-4;
+    plate.dx -= fThick;
+    plate.dy -= fThick;
+    plate.dz -= fThick;
     TGeoVolume* vPlate_B10_xyz_u_f = gGeoManager->MakeBox("vPlate_B10_xyz_u_f", Scint, 0.5*plate.dx, 0.5*plate.dy, 0.5*plate.dz);
     vPlate_B10_xyz_u_f->SetFillColor(kGreen);
     vPlate_B10_xyz_u_f->SetLineColor(kGreen);
@@ -167,9 +181,9 @@ void Prototyp_test_foil_wrapped_plastic()
     //-----------------------------------------------------
 
 	//---------Film u-up, d-down,l - left, r - right, f - front; position  -------
-    plate.dx += 6*10e-4;
-    plate.dy += 6*10e-4;
-    plate.dz += 6*10e-4;
+    plate.dx += fThick;
+    plate.dy += fThick;
+    plate.dz += fThick;
 
     TGeoVolume* vBoron_B10_xyz_u_f = gGeoManager->MakeBox("vBoron_B10_xyz_u_f", boron, 0.5*plate.dx, 0.5*plate.dy, 0.5*plate.dz);
     vBoron_B10_xyz_u_f->SetFillColor(kGreen);
@@ -300,12 +314,12 @@ void Prototyp_test_foil_wrapped_plastic()
     // ---------------   Finish   -----------------------------------------------
     gGeoManager->SetTopVolume(top);
     gGeoManager->CloseGeometry();
-    gGeoManager->CheckOverlaps(0.001);
-    gGeoManager->PrintOverlaps();
+    gGeoManager->CheckOverlaps(0.00001);
+    //gGeoManager->PrintOverlaps();
     gGeoManager->CheckGeometry();
-    gGeoManager->CheckGeometryFull();
+    //gGeoManager->CheckGeometryFull();
 
-    gGeoManager->GetTopVolume()->Draw("ogl");
+    //gGeoManager->GetTopVolume()->Draw("ogl");
 
     TFile* geoFile = new TFile(geoFileName, "RECREATE");
     top->Write();
