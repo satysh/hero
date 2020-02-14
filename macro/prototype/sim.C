@@ -24,7 +24,7 @@ void sim(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output", Int_t Io
 
   // -----   Particle  --------------------------------------------------------
   Int_t pdgId = 2212; // proton 2212 // electron 11
-  Double32_t momentum = 13.; // GeV
+  Double32_t momentum = 13.; // GeV per nuclon
   Int_t curZ, curA;
   switch(IonIndex) {
     case 1 : curZ = 1; curA = 1; break;
@@ -61,6 +61,7 @@ void sim(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output", Int_t Io
   run->AddModule(cave);
 
   TString geoFileName;
+  /*
   switch (geoIndex) {
     case 0: geoFileName = "OLV_Prototyp_foil_wrapped_plastic_0.6.root"; break;
     case 1: geoFileName = "OLV_Prototyp_foil_wrapped_plastic_1.2.root"; break;
@@ -73,6 +74,8 @@ void sim(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output", Int_t Io
     case 8: geoFileName = "OLV_Prototyp_foil_wrapped_plastic_5.4.root"; break;
     case 9: geoFileName = "OLV_Prototyp_foil_wrapped_plastic_6.0.root"; break;
   }
+  */
+  geoFileName = "OLV_Prototyp_foil_wrapped_plastic_3.0.root";
   HERODetector* detector = new HERODetector("HEROdetector", kTRUE);
   detector->SetGeometryFileName(geoFileName);
   detector->AddSensetive("vPlate_B10_xyz_u_f");
