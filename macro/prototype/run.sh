@@ -1,6 +1,6 @@
 #!/bin/bash
-nev=1000
-index=3
+nev=10
+index=1
 OUTDIR=output
 
 rm -fv *.root
@@ -25,5 +25,3 @@ echo err.txt:
 cat ${OUTDIR}/err.txt
 echo -e "\e[1m\e[32m========== Simulation finished =========== \e[0m"
 
-mv output/sim_1.root output/sim.root
-mv output/par_1.root output/par.root

@@ -42,9 +42,9 @@ void sim(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output", Int_t Io
 
   //---------------------Files-----------------------------------------------
   TString outFile;
-  outFile.Form("%s/sim_%d.root", outDir.Data(), index);
+  outFile.Form("%s/sim.root", outDir.Data());
   TString parFile;
-  parFile.Form("%s/par_%d.root", outDir.Data(), index);
+  parFile.Form("%s/par.root", outDir.Data());
   // ------------------------------------------------------------------------
 
   // -----   Timer   --------------------------------------------------------
@@ -75,7 +75,7 @@ void sim(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output", Int_t Io
     case 9: geoFileName = "OLV_Prototyp_foil_wrapped_plastic_6.0.root"; break;
   }
   */
-  geoFileName = "OLV_Prototyp_foil_wrapped_plastic_3.0.root";
+  geoFileName = "HERO_Prototype.root";
   HERODetector* detector = new HERODetector("HEROdetector", kTRUE);
   detector->SetGeometryFileName(geoFileName);
   detector->AddSensetive("vPlate_B10_xyz_u_f");
@@ -106,7 +106,7 @@ void sim(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output", Int_t Io
   primGen->AddGenerator(boxGen);
   run->SetGenerator(primGen);
 
-  run->SetStoreTraj(kFALSE); // kFALSE
+  run->SetStoreTraj(kTRUE); // kFALSE
 
   //-------Set LOG verbosity  -----------------------------------------------
   FairLogger::GetLogger()->SetLogVerbosityLevel("LOW");
