@@ -96,8 +96,7 @@ Bool_t HERODetector::ProcessHits(FairVolume* vol)
 
   if (gMC->IsTrackExiting() || //true if this is the last step of the track in the current volume
       gMC->IsTrackStop()    || //true if the track energy has fallen below the threshold
-      gMC->IsTrackDisappeared()||
-      gMC->TrackTime()*1.0e06 >= 16.) {
+      gMC->IsTrackDisappeared()) {
     FinishNewPoint();
   }
   return kTRUE;
