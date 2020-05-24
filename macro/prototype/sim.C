@@ -42,9 +42,9 @@ void sim(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output", Int_t Io
 
   //---------------------Files-----------------------------------------------
   TString outFile;
-  outFile.Form("%s/sim.root", outDir.Data());
+  outFile.Form("%s/sim_%d.root", outDir.Data(), index);
   TString parFile;
-  parFile.Form("%s/par.root", outDir.Data());
+  parFile.Form("%s/par_%d.root", outDir.Data(), index);
   // ------------------------------------------------------------------------
 
   // -----   Timer   --------------------------------------------------------
@@ -61,8 +61,8 @@ void sim(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output", Int_t Io
   run->AddModule(cave);
 
   TString geoFileName;
-  /*
   switch (geoIndex) {
+    /*
     case 0: geoFileName = "OLV_Prototyp_foil_wrapped_plastic_0.6.root"; break;
     case 1: geoFileName = "OLV_Prototyp_foil_wrapped_plastic_1.2.root"; break;
     case 2: geoFileName = "OLV_Prototyp_foil_wrapped_plastic_1.8.root"; break;
@@ -73,9 +73,11 @@ void sim(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output", Int_t Io
     case 7: geoFileName = "OLV_Prototyp_foil_wrapped_plastic_4.8.root"; break;
     case 8: geoFileName = "OLV_Prototyp_foil_wrapped_plastic_5.4.root"; break;
     case 9: geoFileName = "OLV_Prototyp_foil_wrapped_plastic_6.0.root"; break;
+    */
+    case 0: geoFileName = "OLV_Prototyp_foil_wrapped_plastic_8.0.root"; break;
+    case 1: geoFileName = "OLV_Prototyp_foil_wrapped_plastic_10.0.root"; break;
   }
-  */
-  geoFileName = "HERO_Prototype.root";
+  //geoFileName = "HERO_Prototype.root";
   HERODetector* detector = new HERODetector("HEROdetector", kTRUE);
   detector->SetGeometryFileName(geoFileName);
   detector->AddSensetive("vPlate_B10_xyz_u_f");

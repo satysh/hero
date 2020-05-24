@@ -96,7 +96,8 @@ Bool_t HERODetector::ProcessHits(FairVolume* vol)
 
   if (gMC->IsTrackExiting() || //true if this is the last step of the track in the current volume
       gMC->IsTrackStop()    || //true if the track energy has fallen below the threshold
-      gMC->IsTrackDisappeared()) {
+      gMC->IsTrackDisappeared()||
+      gMC->TrackTime()*1.0e06 >= 16.) {
     FinishNewPoint();
   }
   return kTRUE;
@@ -180,6 +181,8 @@ void HERODetector::StartNewPoint()
   matrix.MasterToLocal(globalPos,localPos);
   fPosInLocal.SetXYZ(localPos[0],localPos[1],localPos[2]);
   //LOG(INFO) << "  StartNewPoint(), time: " << fTimeIn << FairLogger::endl;
+  //if (gMC->TrackCharge() == 0) 
+    //std::cout << gMC->TrackPid() << endl;
 }
 //-------------------------------------------------------------------------------------------------
 void HERODetector::FinishNewPoint()

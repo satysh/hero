@@ -3,6 +3,7 @@ void Prototyp_test_foil_wrapped_plastic(Int_t index = 0)
     TString postFix = "";
     Double_t fThick;
     switch (index) {
+        /*
         case 0 : fThick = 0.6*1e-4; postFix = "0.6"; break;
         case 1 : fThick = 1.2*1e-4; postFix = "1.2"; break;
         case 2 : fThick = 1.8*1e-4; postFix = "1.8"; break;
@@ -13,6 +14,9 @@ void Prototyp_test_foil_wrapped_plastic(Int_t index = 0)
         case 7 : fThick = 4.8*1e-4; postFix = "4.8"; break;
         case 8 : fThick = 5.4*1e-4; postFix = "5.4"; break;
         case 9 : fThick = 6.0*1e-4; postFix = "6.0"; break;
+        */
+        case 0 : fThick = 8.0*1e-4; postFix = "8.0"; break;
+        case 1 : fThick = 10.0*1e-4; postFix = "10.0"; break;
     }
     typedef struct{
         Double_t dx = 12.;

@@ -11,7 +11,7 @@ make -j3
 cd -
 echo -e "\e[1m\e[32m========== Compilation finished =========== \e[0m"
 
-for i in $(seq 0 9);do
+for i in $(seq 0 1);do
   OUTDIR=output_paralell_${i}
   if [ -d ${OUTDIR} ];then
     rm -fv ${OUTDIR}/*
@@ -25,6 +25,7 @@ for i in $(seq 0 9);do
     echo "Starting simulation in thread ${THR}"
     root -l -b -q "sim.C(${nev}, ${thr}, \"${OUTDIR}\", ${ionIndex}, ${i})" > ${OUTDIR}/out_${thr}.txt 2> ${OUTDIR}/err_${thr}.txt &
   done
+  wait
 done
 wait
 
