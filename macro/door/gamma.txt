@@ -1,0 +1,609 @@
+starting event N 1
+starting event N 2
+13 -0.537198 -0.509189 0.505007 -19850.691406 -323326.406250 473523.531250 1.000000
+starting event N 3
+starting event N 4
+starting event N 5
+13 -0.322749 -0.198749 1.228472 69577.101562 -51090.871094 444283.000000 1.000000
+13 -0.038161 0.416921 0.883020 91356.812500 45534.160156 445789.656250 1.000000
+13 -0.082893 -0.283242 0.991988 225475.500000 -180374.875000 447552.156250 1.000000
+starting event N 6
+13 -0.749140 0.469476 0.818757 -61136.539062 23722.902344 455550.062500 1.000000
+starting event N 7
+starting event N 8
+starting event N 9
+starting event N 10
+starting event N 11
+starting event N 12
+13 -0.555298 0.011522 1.129765 30997.451172 -6597.630859 442693.625000 1.000000
+starting event N 13
+starting event N 14
+starting event N 15
+starting event N 16
+starting event N 17
+starting event N 18
+starting event N 19
+starting event N 20
+13 -0.505610 -0.205044 0.893441 29544.437500 -187222.500000 465545.968750 1.000000
+starting event N 21
+starting event N 22
+starting event N 23
+starting event N 24
+starting event N 25
+13 -0.503644 0.117251 0.638986 -10025.597656 3937.037109 452451.187500 1.000000
+13 -1.426212 0.662530 2.576545 -6192.416504 1929.062500 451819.312500 1.000000
+starting event N 26
+starting event N 27
+starting event N 28
+starting event N 29
+starting event N 30
+starting event N 31
+starting event N 32
+starting event N 33
+starting event N 34
+starting event N 35
+starting event N 36
+starting event N 37
+starting event N 38
+13 -0.296490 0.075108 0.837066 18629.404297 3742.676270 433566.062500 1.000000
+13 0.016662 0.179659 1.126676 229918.187500 28576.724609 434408.656250 1.000000
+starting event N 39
+starting event N 40
+starting event N 41
+starting event N 42
+starting event N 43
+starting event N 44
+starting event N 45
+starting event N 46
+starting event N 47
+13 -0.034893 0.157054 1.055252 192038.125000 -14073.314453 460856.468750 1.000000
+starting event N 48
+starting event N 49
+starting event N 50
+starting event N 51
+starting event N 52
+starting event N 53
+starting event N 54
+13 -0.032646 -0.182921 0.850042 40964.093750 -14236.694336 446540.250000 1.000000
+13 -13.835196 -0.973209 19.428911 -13539.644531 -878.363464 445792.687500 1.000000
+13 -2.488370 0.015334 3.827562 2043.163330 -1970.615845 445547.656250 1.000000
+starting event N 55
+starting event N 56
+starting event N 57
+starting event N 58
+starting event N 59
+starting event N 60
+starting event N 61
+starting event N 62
+starting event N 63
+starting event N 64
+starting event N 65
+starting event N 66
+starting event N 67
+starting event N 68
+starting event N 69
+starting event N 70
+starting event N 71
+starting event N 72
+starting event N 73
+starting event N 74
+starting event N 75
+starting event N 76
+starting event N 77
+13 0.055904 0.249057 0.853321 130110.281250 -37598.917969 440170.312500 1.000000
+starting event N 78
+starting event N 79
+starting event N 80
+starting event N 81
+starting event N 82
+13 -0.343862 -0.707730 1.446252 175627.312500 -165505.265625 456158.312500 1.000000
+starting event N 83
+starting event N 84
+starting event N 85
+starting event N 86
+starting event N 87
+starting event N 88
+starting event N 89
+starting event N 90
+starting event N 91
+starting event N 92
+starting event N 93
+starting event N 94
+starting event N 95
+starting event N 96
+starting event N 97
+starting event N 98
+starting event N 99
+starting event N 100
+starting event N 101
+13 -0.410234 0.162355 0.685297 2146.999512 279.034271 468930.312500 1.000000
+starting event N 102
+starting event N 103
+starting event N 104
+starting event N 105
+starting event N 106
+starting event N 107
+starting event N 108
+starting event N 109
+starting event N 110
+starting event N 111
+starting event N 112
+starting event N 113
+starting event N 114
+starting event N 115
+starting event N 116
+starting event N 117
+starting event N 118
+starting event N 119
+starting event N 120
+starting event N 121
+13 -0.001422 0.068212 0.984826 135157.468750 -85827.593750 437491.281250 1.000000
+starting event N 122
+13 -0.435976 0.115948 1.179268 -64934.937500 -32052.339844 440569.062500 1.000000
+starting event N 123
+starting event N 124
+starting event N 125
+starting event N 126
+starting event N 127
+starting event N 128
+starting event N 129
+starting event N 130
+13 -0.463142 -0.221597 0.676763 104534.031250 -106022.609375 466963.281250 1.000000
+starting event N 131
+13 -0.045234 0.668981 0.462137 176565.812500 294451.843750 481167.187500 1.000000
+starting event N 132
+13 -0.015887 0.593599 0.723184 152481.906250 34517.335938 486500.906250 1.000000
+starting event N 133
+starting event N 134
+starting event N 135
+starting event N 136
+starting event N 137
+starting event N 138
+starting event N 139
+starting event N 140
+starting event N 141
+starting event N 142
+13 -0.358197 0.287294 0.782127 -74554.781250 -40389.992188 454813.656250 1.000000
+starting event N 143
+starting event N 144
+starting event N 145
+starting event N 146
+starting event N 147
+starting event N 148
+starting event N 149
+starting event N 150
+starting event N 151
+starting event N 152
+starting event N 153
+starting event N 154
+starting event N 155
+starting event N 156
+starting event N 157
+starting event N 158
+starting event N 159
+starting event N 160
+starting event N 161
+starting event N 162
+13 -0.368167 0.143580 1.374313 90620.257812 -34083.625000 478295.062500 1.000000
+starting event N 163
+starting event N 164
+starting event N 165
+starting event N 166
+starting event N 167
+starting event N 168
+13 -0.545601 -0.238479 0.752562 -76147.421875 -234442.375000 451966.750000 1.000000
+starting event N 169
+starting event N 170
+starting event N 171
+13 -0.197556 0.338246 0.826862 37178.632812 -32030.091797 433761.593750 1.000000
+13 -0.455671 0.143359 1.803246 21794.017578 -14284.080078 432257.281250 1.000000
+13 -0.341948 0.403885 0.786134 -7293.106445 50952.722656 435900.468750 1.000000
+13 -0.527887 0.567201 1.656800 21141.921875 -12266.706055 432031.000000 1.000000
+13 -0.718438 0.556683 0.988824 -51809.765625 73433.140625 434222.718750 1.000000
+13 -0.678300 0.666779 1.006912 -2918.225830 38453.140625 433208.031250 1.000000
+13 -0.597410 0.058804 0.741782 -35229.253906 -24510.587891 434424.281250 1.000000
+13 -0.904219 0.735729 1.103215 -30450.521484 40738.523438 434153.468750 1.000000
+13 -0.344493 0.780816 0.736593 -119522.070312 15492.832031 436740.218750 1.000000
+starting event N 172
+starting event N 173
+starting event N 174
+starting event N 175
+starting event N 176
+13 -0.183057 0.149866 0.814861 196134.343750 -155682.390625 453865.406250 1.000000
+starting event N 177
+starting event N 178
+starting event N 179
+starting event N 180
+starting event N 181
+starting event N 182
+starting event N 183
+starting event N 184
+starting event N 185
+starting event N 186
+starting event N 187
+starting event N 188
+starting event N 189
+starting event N 190
+starting event N 191
+starting event N 192
+starting event N 193
+starting event N 194
+starting event N 195
+starting event N 196
+13 -0.270328 -0.037077 0.781386 27854.460938 -93613.273438 450428.093750 1.000000
+starting event N 197
+starting event N 198
+starting event N 199
+starting event N 200
+starting event N 201
+starting event N 202
+starting event N 203
+starting event N 204
+starting event N 205
+13 -0.230802 0.491136 0.763819 25389.156250 32304.494141 444903.218750 1.000000
+starting event N 206
+starting event N 207
+starting event N 208
+starting event N 209
+starting event N 210
+starting event N 211
+starting event N 212
+13 -0.372868 0.456763 0.696212 -402.495117 13852.108398 459513.625000 1.000000
+13 -0.540473 0.407449 1.195586 17402.416016 35247.261719 460174.593750 1.000000
+13 -1.276207 0.729683 1.784976 -9806.636719 23123.117188 459664.125000 1.000000
+13 -0.243779 0.408032 0.824492 47709.375000 28564.974609 462412.656250 1.000000
+13 -0.592239 0.295890 0.979767 23566.816406 -807.142395 462827.468750 1.000000
+13 -0.667573 0.064668 0.753228 -42146.472656 -8687.277344 463574.875000 1.000000
+starting event N 213
+starting event N 214
+starting event N 215
+starting event N 216
+starting event N 217
+starting event N 218
+starting event N 219
+starting event N 220
+starting event N 221
+starting event N 222
+starting event N 223
+starting event N 224
+13 -0.586950 0.202885 0.619888 -7347.573242 10549.093750 443437.093750 1.000000
+starting event N 225
+starting event N 226
+13 -0.397662 -0.041611 0.900539 46411.074219 -85519.765625 437689.125000 1.000000
+starting event N 227
+13 -0.401971 0.499126 0.733374 81310.468750 142653.421875 485307.250000 1.000000
+starting event N 228
+13 -0.467712 0.334093 0.818706 -1240.653198 11703.655273 487807.187500 1.000000
+starting event N 229
+starting event N 230
+starting event N 231
+starting event N 232
+13 -0.320804 0.189360 0.850322 28994.208984 -58092.964844 466442.125000 1.000000
+starting event N 233
+starting event N 234
+starting event N 235
+starting event N 236
+starting event N 237
+starting event N 238
+starting event N 239
+starting event N 240
+starting event N 241
+starting event N 242
+starting event N 243
+starting event N 244
+starting event N 245
+starting event N 246
+starting event N 247
+starting event N 248
+starting event N 249
+starting event N 250
+starting event N 251
+starting event N 252
+starting event N 253
+starting event N 254
+13 -0.470772 -0.440866 0.752373 41410.878906 -141216.453125 460067.187500 1.000000
+starting event N 255
+starting event N 256
+starting event N 257
+starting event N 258
+13 -0.580223 0.591956 0.386418 -16655.378906 16192.873047 453016.468750 1.000000
+starting event N 259
+starting event N 260
+starting event N 261
+starting event N 262
+starting event N 263
+starting event N 264
+starting event N 265
+starting event N 266
+starting event N 267
+starting event N 268
+starting event N 269
+starting event N 270
+starting event N 271
+starting event N 272
+starting event N 273
+starting event N 274
+starting event N 275
+13 -0.253686 0.134437 1.379982 65015.828125 -112721.625000 435038.468750 1.000000
+13 0.085400 0.138520 0.793510 180703.468750 -180937.968750 440607.437500 1.000000
+starting event N 276
+13 -0.204731 0.835269 1.428960 245698.953125 179526.234375 450276.562500 1.000000
+starting event N 277
+starting event N 278
+starting event N 279
+13 -0.194241 -0.093280 0.834787 106451.234375 -155534.265625 476755.718750 1.000000
+starting event N 280
+starting event N 281
+starting event N 282
+starting event N 283
+starting event N 284
+starting event N 285
+starting event N 286
+13 -1.151392 1.531768 2.976249 34662.011719 -15085.039062 463356.812500 1.000000
+starting event N 287
+starting event N 288
+starting event N 289
+starting event N 290
+starting event N 291
+starting event N 292
+starting event N 293
+starting event N 294
+13 -0.083843 -0.000564 0.894712 207289.375000 -15947.243164 474287.375000 1.000000
+starting event N 295
+13 -0.813504 -0.417219 1.967863 98611.890625 -72756.023438 468102.218750 1.000000
+starting event N 296
+13 -1.313356 0.468333 1.589722 -15235.438477 -7221.634277 462361.312500 1.000000
+13 -1.060875 0.590205 1.278233 -15348.440430 -2246.904541 462467.781250 1.000000
+starting event N 297
+starting event N 298
+starting event N 299
+starting event N 300
+starting event N 301
+starting event N 302
+starting event N 303
+13 0.438055 0.149067 0.782768 706002.125000 -200649.953125 445344.656250 1.000000
+starting event N 304
+starting event N 305
+starting event N 306
+starting event N 307
+starting event N 308
+starting event N 309
+starting event N 310
+starting event N 311
+starting event N 312
+starting event N 313
+starting event N 314
+starting event N 315
+starting event N 316
+starting event N 317
+starting event N 318
+starting event N 319
+starting event N 320
+starting event N 321
+starting event N 322
+starting event N 323
+13 0.316077 -0.724762 0.836509 200364.953125 -259891.203125 481773.656250 1.000000
+13 -1.114075 0.492700 1.298263 -8212.415039 9737.169922 478795.000000 1.000000
+starting event N 324
+starting event N 325
+starting event N 326
+starting event N 327
+starting event N 328
+starting event N 329
+starting event N 330
+starting event N 331
+starting event N 332
+starting event N 333
+starting event N 334
+starting event N 335
+13 -0.563051 0.569443 1.437197 88155.804688 -32611.234375 439863.000000 1.000000
+starting event N 336
+starting event N 337
+starting event N 338
+starting event N 339
+starting event N 340
+starting event N 341
+starting event N 342
+starting event N 343
+starting event N 344
+starting event N 345
+starting event N 346
+13 0.092536 -0.172366 1.455919 120070.851562 417.444885 452827.906250 1.000000
+13 -2.043019 -0.816702 3.260870 -2998.393311 -11039.870117 453159.281250 1.000000
+starting event N 347
+starting event N 348
+starting event N 349
+13 -0.364359 0.294598 0.866110 9305.606445 -58560.906250 451434.687500 1.000000
+starting event N 350
+starting event N 351
+starting event N 352
+starting event N 353
+starting event N 354
+13 -1.027296 0.279625 0.543262 -261285.593750 216388.703125 490774.937500 1.000000
+starting event N 355
+starting event N 356
+starting event N 357
+starting event N 358
+13 -0.745260 0.036592 0.382565 -255332.234375 -85871.984375 496104.187500 1.000000
+starting event N 359
+starting event N 360
+starting event N 361
+starting event N 362
+starting event N 363
+13 -1.026717 0.217275 1.020073 18531.265625 10567.768555 456078.406250 1.000000
+starting event N 364
+starting event N 365
+starting event N 366
+13 -0.267347 -0.222554 1.068554 86991.187500 -18591.535156 443667.312500 1.000000
+13 -0.535331 0.315220 1.520693 57667.273438 -48170.453125 443043.062500 1.000000
+13 -0.302728 0.437766 1.566837 -5827.965332 316.995789 443231.687500 1.000000
+13 -0.535695 1.029809 1.116433 12666.797852 52138.324219 444066.750000 1.000000
+13 -0.239812 0.204373 1.383046 177695.812500 -27826.806641 442441.968750 1.000000
+starting event N 367
+starting event N 368
+13 -8.473989 0.777811 15.131299 -7995.063965 7307.633301 434297.718750 1.000000
+starting event N 369
+13 -0.524281 0.349497 0.679257 -16917.126953 14732.605469 463439.875000 1.000000
+starting event N 370
+13 0.178468 0.267308 1.210590 391350.593750 -251309.468750 442619.312500 1.000000
+starting event N 371
+starting event N 372
+starting event N 373
+starting event N 374
+starting event N 375
+starting event N 376
+starting event N 377
+13 -0.467876 -0.033092 0.778766 23296.347656 -203838.359375 449687.750000 1.000000
+starting event N 378
+13 -1.619583 1.167009 2.156799 47552.601562 53091.945312 479698.687500 1.000000
+13 -2.681164 1.470798 2.812066 -71401.015625 -10644.920898 480755.968750 1.000000
+starting event N 379
+13 -0.394064 0.336617 0.872673 128251.578125 76001.351562 448576.500000 1.000000
+13 -2.002422 0.480470 4.461085 26849.292969 3209.855469 444980.031250 1.000000
+13 -1.342238 -0.339780 0.701948 -14987.923828 -6999.633789 445831.781250 1.000000
+starting event N 380
+starting event N 381
+starting event N 382
+13 -0.052749 0.857114 2.209272 106408.101562 50487.386719 438579.906250 1.000000
+13 -1.332647 0.595323 1.368020 -58887.156250 84983.335938 441804.000000 1.000000
+13 -0.720161 0.234840 0.613629 -108764.804688 40633.949219 444915.500000 1.000000
+starting event N 383
+13 -0.607657 0.439551 0.764431 -12782.690430 10548.487305 485428.625000 1.000000
+13 -0.282996 0.147152 0.814480 38136.835938 -34841.105469 484632.812500 1.000000
+13 -0.785791 0.586925 0.837072 -31431.060547 27477.978516 485024.375000 1.000000
+13 0.098088 0.604433 0.750367 23500.220703 13203.250977 484062.687500 1.000000
+starting event N 384
+starting event N 385
+starting event N 386
+starting event N 387
+starting event N 388
+starting event N 389
+starting event N 390
+starting event N 391
+starting event N 392
+starting event N 393
+13 -0.066931 -0.120100 0.861385 295071.875000 -367685.718750 436939.781250 1.000000
+starting event N 394
+starting event N 395
+13 -0.694669 -0.236826 0.423494 -113266.054688 -67411.570312 471527.000000 1.000000
+starting event N 396
+starting event N 397
+starting event N 398
+starting event N 399
+starting event N 400
+starting event N 401
+starting event N 402
+13 -0.528046 -0.212999 0.618293 272522.812500 -172472.750000 468052.406250 1.000000
+starting event N 403
+starting event N 404
+starting event N 405
+starting event N 406
+starting event N 407
+starting event N 408
+starting event N 409
+starting event N 410
+starting event N 411
+starting event N 412
+starting event N 413
+starting event N 414
+starting event N 415
+starting event N 416
+starting event N 417
+starting event N 418
+13 -0.585101 0.048364 0.610351 -13106.199219 -10791.194336 468231.000000 1.000000
+starting event N 419
+starting event N 420
+starting event N 421
+starting event N 422
+starting event N 423
+13 -0.405113 0.535705 0.701713 -61632.570312 269748.250000 449687.093750 1.000000
+13 -0.550865 -0.482935 0.497002 -47884.812500 -96045.632812 442103.843750 1.000000
+starting event N 424
+starting event N 425
+starting event N 426
+starting event N 427
+starting event N 428
+13 -0.210225 0.013106 0.783253 121773.351562 -130051.218750 435838.625000 1.000000
+13 0.166903 -0.321943 0.823875 58587.011719 -41462.558594 433221.656250 1.000000
+13 -1.203959 0.172894 1.495193 -6108.319824 6396.420898 432485.781250 1.000000
+starting event N 429
+starting event N 430
+starting event N 431
+starting event N 432
+starting event N 433
+13 -0.623042 -0.010353 0.780135 -102514.984375 -346034.343750 456409.031250 1.000000
+starting event N 434
+starting event N 435
+starting event N 436
+starting event N 437
+starting event N 438
+starting event N 439
+starting event N 440
+starting event N 441
+13 -0.699615 0.123791 0.412301 -57671.390625 15655.522461 489200.500000 1.000000
+starting event N 442
+starting event N 443
+starting event N 444
+starting event N 445
+13 -1.271861 0.143780 1.174616 -12209.862305 11335.213867 441861.093750 1.000000
+13 -0.335023 0.151567 0.770903 91775.898438 -14256.575195 444885.437500 1.000000
+13 -1.864038 0.901669 5.051002 40989.605469 15465.574219 440910.312500 1.000000
+starting event N 446
+13 -0.969228 0.511242 1.306469 -40464.601562 -12397.901367 435460.687500 1.000000
+13 -0.151852 0.255896 1.263814 106586.335938 29319.191406 433827.562500 1.000000
+starting event N 447
+starting event N 448
+starting event N 449
+starting event N 450
+starting event N 451
+starting event N 452
+13 -0.219295 0.155799 0.778810 8222.862305 -20357.966797 452731.843750 1.000000
+13 -0.070008 -0.370850 0.849864 129378.789062 -153297.062500 452960.062500 1.000000
+starting event N 453
+13 -0.768131 0.390759 0.710472 -102164.843750 89750.273438 444676.125000 1.000000
+starting event N 454
+13 -0.047897 0.784561 1.055047 160965.109375 115528.367188 438178.562500 1.000000
+starting event N 455
+starting event N 456
+starting event N 457
+starting event N 458
+starting event N 459
+starting event N 460
+starting event N 461
+starting event N 462
+starting event N 463
+starting event N 464
+starting event N 465
+starting event N 466
+starting event N 467
+starting event N 468
+starting event N 469
+13 -0.673543 0.405051 1.059328 28654.046875 45773.566406 469244.156250 1.000000
+13 0.025692 0.497677 0.844154 455472.000000 402234.687500 477853.000000 1.000000
+13 -0.712804 0.440986 0.221559 -143461.656250 153204.656250 480348.093750 1.000000
+starting event N 470
+starting event N 471
+starting event N 472
+starting event N 473
+starting event N 474
+starting event N 475
+13 -0.126689 0.528421 0.806256 26173.664062 26194.089844 461666.468750 1.000000
+13 -0.669760 -0.077037 1.146551 44446.187500 -73835.187500 460474.031250 1.000000
+13 -0.965549 0.133953 1.303222 -7189.627441 -15752.374023 462116.218750 1.000000
+13 -1.078750 0.345024 2.055475 8515.024414 -1801.218628 460724.906250 1.000000
+13 -1.105459 0.181042 1.403698 -12122.963867 -9163.864258 461801.093750 1.000000
+starting event N 476
+starting event N 477
+starting event N 478
+starting event N 479
+starting event N 480
+13 0.236071 0.139520 0.858518 102433.281250 -27813.914062 433829.781250 1.000000
+starting event N 481
+starting event N 482
+13 -0.443173 0.028576 0.880763 19141.117188 5051.536621 445051.375000 1.000000
+starting event N 483
+starting event N 484
+starting event N 485
+starting event N 486
+starting event N 487
+starting event N 488

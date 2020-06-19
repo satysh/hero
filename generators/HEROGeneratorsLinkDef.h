@@ -5,5 +5,6 @@
 #pragma link off all functions;
 
 #pragma link C++ class HEROSphereGenerator+;
+#pragma link C++ class HERONeutronsGenerator+;
 
 #endif // __CINT__

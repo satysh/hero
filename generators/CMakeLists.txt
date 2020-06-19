@@ -26,6 +26,7 @@ link_directories( ${LINK_DIRECTORIES})
 
 set(SRCS
 HEROSphereGenerator.cxx
+HERONeutronsGenerator.cxx
 )
 
 # fill list of header files from list of source files
