@@ -60,7 +60,6 @@ Bool_t HERONeutronsGenerator::ReadEvent(FairPrimaryGenerator* primGen)
     cerr << fPx << ", " << fPy << ", " << fPz << ", "
               << fX << ", " << ", " << fY << ", " << fZ << endl;
     primGen->AddTrack(fPID, fPx, fPy, fPz, fX, fY, fZ);
-    fout << TMath::Sqrt(fPx*fPx+fPy*fPy+fPz*fPz) << "\t" << fX << "\t" << fY << endl;
   }
   fEvent++;
   return kTRUE;

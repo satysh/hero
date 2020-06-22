@@ -1,24 +1,3 @@
-// ------------------------------------------------------------------------
-//  ===== STANDARD ION TABLE (Z, A) =====
-//
-//      H  :  1,  1       Si : 14, 28
-//      He :  2,  4       P  : 15, 31
-//      Li :  3,  7       S  : 16, 32
-//      Be :  4,  9       Cl : 17, 35
-//      B  :  5, 11       Ar : 18, 40
-//      C  :  6, 12       K  : 19, 39
-//      N  :  7, 14       Ca : 20, 40
-//      O  :  8, 16       Sc : 21, 45
-//      F  :  9, 19       Ti : 22, 48
-//      Ne : 10, 20        V : 23, 51
-//      Na : 11, 23       Cr : 24, 52
-//      Mg : 12, 24       Mn : 25, 55
-//      Al : 13, 27       Fe : 26, 56
-// ------------------------------------------------------------------------
-
-int  GetPdgCode(const int Z, const int A);
-void AddIon(const int pdg);                    //For PDG ion beam
-
 void sim(Int_t nEvents = 487, Int_t index = 0)
 {
   gRandom->SetSeed(index);
@@ -54,7 +33,7 @@ void sim(Int_t nEvents = 487, Int_t index = 0)
 // -----   Create PrimaryGenerator   --------------------------------------
   FairPrimaryGenerator* primGen = new FairPrimaryGenerator();
   HERONeutronsGenerator* hGen = new HERONeutronsGenerator("gamma.txt");
-  hGen->SetPosZ(-500.);
+  hGen->SetPosZ(-30.);
 
   primGen->AddGenerator(hGen);
   run->SetGenerator(primGen);

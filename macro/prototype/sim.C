@@ -77,7 +77,7 @@ void sim(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output", Int_t Io
     case 0: geoFileName = "OLV_Prototyp_foil_wrapped_plastic_8.0.root"; break;
     case 1: geoFileName = "OLV_Prototyp_foil_wrapped_plastic_10.0.root"; break;
   }
-  //geoFileName = "HERO_Prototype.root";
+  geoFileName = "HERO_Prototype.root";
   HERODetector* detector = new HERODetector("HEROdetector", kTRUE);
   detector->SetGeometryFileName(geoFileName);
   detector->AddSensetive("vPlate_B10_xyz_u_f");
