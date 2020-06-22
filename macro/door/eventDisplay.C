@@ -1,8 +1,8 @@
 void eventDisplay(TString inputDir = "output")
 {
-  TString parFileName = "par.root";
-  TString simFileName = "sim.root";
-  TString outFileName = "eventDisplay.root";
+  TString parFileName = inputDir + "/par.root";
+  TString simFileName = inputDir + "/sim.root";
+  TString outFileName = inputDir + "/eventDisplay.root";
 
   FairRunAna* fRun = new FairRunAna();
   FairRuntimeDb* rtdb = fRun->GetRuntimeDb();

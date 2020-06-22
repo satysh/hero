@@ -1,12 +1,12 @@
-void sim(Int_t nEvents = 487, Int_t index = 0)
+void sim(Int_t nEvents = 487, Int_t index = 0, TString outDirName="")
 {
   gRandom->SetSeed(index);
 
   //---------------------Files-----------------------------------------------
   TString outFile;
-  outFile.Form("sim.root");
+  outFile.Form("%s/sim.root", outDirName.Data());
   TString parFile;
-  parFile.Form("par.root");
+  parFile.Form("%s/par.root", outDirName.Data());
   // ------------------------------------------------------------------------
 
   // -----   Timer   --------------------------------------------------------
@@ -32,7 +32,7 @@ void sim(Int_t nEvents = 487, Int_t index = 0)
 
 // -----   Create PrimaryGenerator   --------------------------------------
   FairPrimaryGenerator* primGen = new FairPrimaryGenerator();
-  HERONeutronsGenerator* hGen = new HERONeutronsGenerator("gamma.txt");
+  HERONeutronsGenerator* hGen = new HERONeutronsGenerator("input/gamma.txt");
   hGen->SetPosZ(-30.);
 
   primGen->AddGenerator(hGen);
