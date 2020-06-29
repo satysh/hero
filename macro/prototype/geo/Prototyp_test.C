@@ -49,7 +49,7 @@ void Prototyp_test()
   if ( ! SCint ) Fatal("Main", "FairMedium FscScintVB not found");
   geoBuild->createMedium(SCint);
   TGeoMedium* Scint = gGeoManager->GetMedium("FscScintVB");
-  if ( ! Scint ) Fatal("Main", "Medium FscScintVB not found");
+  if ( ! Scint ) Fatal("Main", "Medium FscScint not found");
 
   //------------------  Material for calorimetr   --------------
   FairGeoMedium    * air  = geoMedia->getMedium("air");
@@ -216,11 +216,11 @@ void Prototyp_test()
   gGeoManager->SetTopVolume(top);
   gGeoManager->CloseGeometry();
   gGeoManager->CheckOverlaps(0.001);
-  //gGeoManager->PrintOverlaps();
-  //gGeoManager->CheckGeometry();
-  //gGeoManager->CheckGeometryFull();
+  gGeoManager->PrintOverlaps();
+  gGeoManager->CheckGeometry();
+  gGeoManager->CheckGeometryFull();
 
-  //gGeoManager->GetTopVolume()->Draw("ogl");
+  gGeoManager->GetTopVolume()->Draw("ogl");
 
   TFile* geoFile = new TFile(geoFileName, "RECREATE");
   top->Write();

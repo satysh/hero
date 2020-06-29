@@ -96,6 +96,10 @@ Double_t HEROMCTrack::GetMass() const
 {
   return fMass;
 }
+Double_t HEROMCTrack::GetEnergy() const
+{
+  return fEnergy;
+}
 
 Double_t HEROMCTrack::GetCharge() const
 {
