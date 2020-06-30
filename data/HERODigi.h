@@ -15,7 +15,7 @@ class HERODigi : public FairMultiLinkedData
 
   /** Constructor with arguments
    **/
-  HERODigi(Int_t id, Float_t Edep, Double_t time, Int_t volNb);
+  HERODigi(Int_t pid, Double_t Edep, Double_t lightY, Double_t time, Int_t volNb);
 
   /** Copy constructor **/
   HERODigi(const HERODigi&);
@@ -29,17 +29,17 @@ class HERODigi : public FairMultiLinkedData
   virtual void Print(const Option_t* opt = 0) const;
 
   /* Accessors */
-  Int_t ID () const {return fID;}
-  Float_t Edep() const {return fEdep;}
+  Int_t ID () const {return fPID;}
+  Double_t Edep() const {return fEdep;}
 
  protected:
-  Int_t     fID;
+  Int_t     fPID=-1;
+  Double_t  fEdep=0.;
+  Double_t  fLightYield=0.;
+  Double_t  fTime=0.;
+  Int_t     fVolNb=0;
 
-  Int_t     fVolNb;
-  Double_t  fTime;
-  Float_t   fEdep;
-
-  ClassDef(HERODigi,1)
+  ClassDef(HERODigi, 1)
 
 };
 
