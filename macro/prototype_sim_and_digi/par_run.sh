@@ -1,7 +1,7 @@
 #!/bin/bash
 nev=10
 ionindex=1 # projectile particle
-OUTDIR=output_paralell
+OUTDIR=output_parallel
 NTHR=3
 
 if [ -d ${OUTDIR} ];then
