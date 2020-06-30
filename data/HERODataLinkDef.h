@@ -7,5 +7,6 @@
 #pragma link C++ class HEROPoint+;
 #pragma link C++ class HEROStack+;
 #pragma link C++ class HEROMCTrack+;
+#pragma link C++ class HERODigi+;
 
 #endif // __CINT__

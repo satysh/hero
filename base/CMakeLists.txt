@@ -20,12 +20,13 @@ ${BASE_LINK_DIRECTORIES}
 ${GEANT4_LIB_DIRS}
 ${FAIRROOT_LIBRARY_DIR}
 ${GEANT4VMC_LIBRARY_DIR}
-) 
+)
 
 link_directories( ${LINK_DIRECTORIES})
 
 set(SRCS
 HERODetector.cxx
+HERODigitizer.cxx
 )
 
 # fill list of header files from list of source files

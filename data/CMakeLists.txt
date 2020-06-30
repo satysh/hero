@@ -16,13 +16,14 @@ set(LINK_DIRECTORIES
 ${BASE_LINK_DIRECTORIES}
 ${FAIRROOT_LIBRARY_DIR}
 )
- 
+
 link_directories( ${LINK_DIRECTORIES})
 
 set(SRCS
 HEROPoint.cxx
 HEROStack.cxx
 HEROMCTrack.cxx
+HERODigi.cxx
 )
 
 # fill list of header files from list of source files
