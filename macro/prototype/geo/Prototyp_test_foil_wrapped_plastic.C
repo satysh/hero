@@ -35,6 +35,9 @@ void Prototyp_test_foil_wrapped_plastic(Int_t index = 0)
         Double_t dy = 2.;
         Double_t dz = 1.;
     } SIZ;
+    
+    Double_t Thickness = 100*1e-4;
+    
     // Create a zero rotation
     TGeoRotation* ggZeroRotation = new TGeoRotation("ggZeroRotation");
 
@@ -72,11 +75,11 @@ void Prototyp_test_foil_wrapped_plastic(Int_t index = 0)
 
 
     //----------------- Material for Boron(10)----------------
-	FairGeoMedium    * BOron  = geoMedia->getMedium("HYPboron");
-    if ( ! BOron ) Fatal("Main", "FairMedium BOron not found");
+	FairGeoMedium    * BOron  = geoMedia->getMedium("Carbidebore");
+    if ( ! BOron ) Fatal("Main", "FairMedium Carbidebore  not found");
     geoBuild->createMedium(BOron);
-    TGeoMedium* boron = gGeoManager->GetMedium("HYPboron");
-    if ( ! boron ) Fatal("Main", "Medium boron not found");
+    TGeoMedium* boron = gGeoManager->GetMedium("Carbidebore");
+    if ( ! boron ) Fatal("Main", "Medium Carbidebore  not found");
 
     //------------------  Material for calorimetr   --------------
      FairGeoMedium    * air  = geoMedia->getMedium("air");
@@ -131,6 +134,7 @@ void Prototyp_test_foil_wrapped_plastic(Int_t index = 0)
     plate.dx -= fThick;
     plate.dy -= fThick;
     plate.dz -= fThick;
+  
     TGeoVolume* vPlate_B10_xyz_u_f = gGeoManager->MakeBox("vPlate_B10_xyz_u_f", Scint, 0.5*plate.dx, 0.5*plate.dy, 0.5*plate.dz);
     vPlate_B10_xyz_u_f->SetFillColor(kGreen);
     vPlate_B10_xyz_u_f->SetLineColor(kGreen);
@@ -254,7 +258,7 @@ void Prototyp_test_foil_wrapped_plastic(Int_t index = 0)
 	//--------------------------------------------------------------------------------------------------
     // Air layer
     TGeoVolume* BOX_Air = gGeoManager->MakeBox("BOX_Air", Air, 8., 8., 0.5*(Calor_Size+4.));
-    BOX_Air->SetFillColor(0);
+    BOX_Air->SetFillColor(kYellow);
     BOX_Air->SetLineColor(kYellow);
     BOX_Air->SetTransparency(60);
 
@@ -273,8 +277,8 @@ void Prototyp_test_foil_wrapped_plastic(Int_t index = 0)
 
     // Container
     TGeoVolume* Detector = gGeoManager->MakeBox("Detector", Air, 50., 50., 100.);
-    Detector->SetFillColor(0);
-    Detector->SetLineColor(kYellow);
+    Detector->SetFillColor(kBlack);
+    Detector->SetLineColor(kBlack);
     Detector->SetTransparency(60);
 
     // Volumes hierarchical
