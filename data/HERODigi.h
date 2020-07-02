@@ -23,6 +23,11 @@ class HERODigi : public FairMultiLinkedData
   /** Destructor **/
   virtual ~HERODigi();
 
+  Int_t GetPID() { return fPID; }
+  Double_t GetEdep() { return fEdep; }
+  Double_t GetLightYield() { return fLightYield; }
+  Double_t GetTime() { return fTime; }
+
   HERODigi& operator=(const HERODigi&) { return *this; }
 
   /** Output to screen **/
