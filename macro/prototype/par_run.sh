@@ -1,8 +1,8 @@
 #!/bin/bash
-nev=6000
+nev=100
 OUTDIR=output_paralell
 NTHR=3
-ionIndex=3
+ionIndex=1
 
 rm -fv *.root
 rm -fv *txt
