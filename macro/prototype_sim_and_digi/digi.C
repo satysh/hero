@@ -1,4 +1,4 @@
-void digi(Int_t nEvents = 1000, Int_t index = 0, TString inputDir = "", TString outputDir = "")
+void digi(Int_t nEvents = 1000, Int_t index = 0, TString inputDir = "", TString outputDir = "", Int_t pid=-1)
 {
   // input and output files name form
   TString inputFileName;
@@ -37,6 +37,8 @@ void digi(Int_t nEvents = 1000, Int_t index = 0, TString inputDir = "", TString 
 
   // Add Digitaizer AddTask
   HERODigitizer* digitizer = new HERODigitizer();
+  if (pid != -1)
+    digitizer->SetInterestingPID(pid);
   run->AddTask(digitizer);
 
   // Runtime DataBase info
