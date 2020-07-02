@@ -45,7 +45,7 @@ void Config()
 
 /// create the Specific stack
 
-   HEROStack *stack = new HEROStack(1000);
+   HEROStack *stack = new HEROStack(10000);
    //FairStack *stack = new FairStack(10000);
    stack->StoreSecondaries(kTRUE);
    stack->SetMinPoints(0);

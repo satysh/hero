@@ -180,6 +180,8 @@ void HERODetector::StartNewPoint()
   matrix.MasterToLocal(globalPos,localPos);
   fPosInLocal.SetXYZ(localPos[0],localPos[1],localPos[2]);
   //LOG(INFO) << "  StartNewPoint(), time: " << fTimeIn << FairLogger::endl;
+  //if (gMC->TrackCharge() == 0) 
+    //std::cout << gMC->TrackPid() << endl;
 }
 //-------------------------------------------------------------------------------------------------
 void HERODetector::FinishNewPoint()

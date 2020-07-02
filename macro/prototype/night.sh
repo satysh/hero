@@ -1,7 +1,7 @@
 #!/bin/bash
-nev=10000
+nev=3000
 OUTDIR=output_paralell
-NTHR=16
+NTHR=3
 
 cd ../../../build
 make -j${NTHR}
@@ -11,14 +11,14 @@ echo -e "\e[1m\e[32m========== Compilation finished =========== \e[0m"
 
 if [ -d archive ];then
   if [ -d archive/diffIonsSim ];then
-    echo "done" 
+    echo "done"
   else
     mkdir archive/diffIonsSim/
   fi
 else
   mkdir archive/
   mkdir archive/diffIonsSim/
-fi 
+fi
 
 for i in $(seq 1 4); do
   rm -fv *.root
