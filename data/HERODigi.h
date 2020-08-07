@@ -23,19 +23,16 @@ class HERODigi : public FairMultiLinkedData
   /** Destructor **/
   virtual ~HERODigi();
 
-  Int_t GetPID() { return fPID; }
-  Double_t GetEdep() { return fEdep; }
-  Double_t GetLightYield() { return fLightYield; }
-  Double_t GetTime() { return fTime; }
+    /* Accessors */
+  Int_t GetPID() const { return fPID; }
+  Double_t GetEdep() const { return fEdep; }
+  Double_t GetLightYield() const { return fLightYield; }
+  Double_t GetTime() const { return fTime; }
 
   HERODigi& operator=(const HERODigi&) { return *this; }
 
   /** Output to screen **/
   virtual void Print(const Option_t* opt = 0) const;
-
-  /* Accessors */
-  Int_t ID () const {return fPID;}
-  Double_t Edep() const {return fEdep;}
 
  protected:
   Int_t     fPID=-1;

@@ -43,6 +43,8 @@ private:
   void AddOutputDigi(TClonesArray& clref, Int_t pid, Double_t Edep, Double_t lightY, Double_t Time);
 
   Int_t fPID=-1; // particle Id
+  Bool_t fInsteadFlag=kFALSE; // flag to identify for the particle is skipped is set
+
   ClassDef(HERODigitizer, 1);
 };
 
