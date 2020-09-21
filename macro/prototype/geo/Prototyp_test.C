@@ -45,10 +45,10 @@ void Prototyp_test()
   FairGeoBuilder* geoBuild = geoLoad->getGeoBuilder();
 
   //------------------   My Material for Plate_B10 need work from media file --------------
-  FairGeoMedium    * SCint  = geoMedia->getMedium("FscScintVB");
-  if ( ! SCint ) Fatal("Main", "FairMedium FscScintVB not found");
+  FairGeoMedium    * SCint  = geoMedia->getMedium("FscScint");
+  if ( ! SCint ) Fatal("Main", "FairMedium FscScint not found");
   geoBuild->createMedium(SCint);
-  TGeoMedium* Scint = gGeoManager->GetMedium("FscScintVB");
+  TGeoMedium* Scint = gGeoManager->GetMedium("FscScint");
   if ( ! Scint ) Fatal("Main", "Medium FscScint not found");
 
   //------------------  Material for calorimetr   --------------
@@ -216,9 +216,9 @@ void Prototyp_test()
   gGeoManager->SetTopVolume(top);
   gGeoManager->CloseGeometry();
   gGeoManager->CheckOverlaps(0.001);
-  gGeoManager->PrintOverlaps();
-  gGeoManager->CheckGeometry();
-  gGeoManager->CheckGeometryFull();
+  //gGeoManager->PrintOverlaps();
+  //gGeoManager->CheckGeometry();
+  //gGeoManager->CheckGeometryFull();
 
   gGeoManager->GetTopVolume()->Draw("ogl");
 
