@@ -80,25 +80,25 @@ void sim(Int_t nEvents = 1, Int_t index = 0, TString outDir = "output", Int_t Io
   geoFileName = "HERO_Prototype.root";
   HERODetector* detector = new HERODetector("HEROdetector", kTRUE);
   detector->SetGeometryFileName(geoFileName);
-  //detector->AddSensetive("vPlate_B10_xyz_u_f");
-  //detector->AddSensetive("vPlate_B10_xyz_u_b");
-//   detector->AddSensetive("vPlate_B10_xyz_d_f");
-//   detector->AddSensetive("vPlate_B10_xyz_d_b");
-//   detector->AddSensetive("vPlate_B10_yxz_r_f");
-//   detector->AddSensetive("vPlate_B10_yxz_r_b");
-//   detector->AddSensetive("vPlate_B10_yxz_l_f");
-//   detector->AddSensetive("vPlate_B10_yxz_l_b");
-//   detector->AddSensetive("vPlate_B10_xzy_f");
+  detector->AddSensetive("vPlate_B10_xyz_u_f");
+  detector->AddSensetive("vPlate_B10_xyz_u_b");
+  detector->AddSensetive("vPlate_B10_xyz_d_f");
+  detector->AddSensetive("vPlate_B10_xyz_d_b");
+  detector->AddSensetive("vPlate_B10_yxz_r_f");
+  detector->AddSensetive("vPlate_B10_yxz_r_b");
+  detector->AddSensetive("vPlate_B10_yxz_l_f");
+  detector->AddSensetive("vPlate_B10_yxz_l_b");
+  detector->AddSensetive("vPlate_B10_xzy_f");
 
   detector->AddSensetive("vBoron_B10_xyz_u_f");
-  //detector->AddSensetive("vBoron_B10_xyz_u_b");
-//   detector->AddSensetive("vBoron_B10_xyz_d_f");
+  detector->AddSensetive("vBoron_B10_xyz_u_b");
+  detector->AddSensetive("vBoron_B10_xyz_d_f");
   detector->AddSensetive("vBoron_B10_xyz_d_b");
-//   detector->AddSensetive("vBoron_B10_yxz_r_f");
-//   detector->AddSensetive("vBoron_B10_yxz_r_b");
-//   detector->AddSensetive("vBoron_B10_yxz_l_f");
-//   detector->AddSensetive("vBoron_B10_yxz_l_b");
-//   detector->AddSensetive("vBoron_B10_xzy_f");
+  detector->AddSensetive("vBoron_B10_yxz_r_f");
+  detector->AddSensetive("vBoron_B10_yxz_r_b");
+  detector->AddSensetive("vBoron_B10_yxz_l_f");
+  detector->AddSensetive("vBoron_B10_yxz_l_b");
+  detector->AddSensetive("vBoron_B10_xzy_f");
   run->AddModule(detector);
 
 // -----   Create PrimaryGenerator   --------------------------------------

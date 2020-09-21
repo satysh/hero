@@ -19,7 +19,7 @@ cd -
 echo -e "\e[1m\e[32m========== Compilation finished =========== \e[0m"
 
 for thr in $(seq 1 ${NTHR}); do
-	echo "Starting simulation in thread ${THR}"
+	echo "Starting simulation in thread ${thr}"
 	root -l -b -q "sim.C(${nev}, ${thr}, \"${OUTDIR}\", ${ionIndex})" > ${OUTDIR}/out_${thr}.txt 2> ${OUTDIR}/err_${thr}.txt &
 done
 wait
