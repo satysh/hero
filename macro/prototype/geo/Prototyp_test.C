@@ -64,11 +64,11 @@ void Prototyp_test()
   TGeoMedium* Lead = gGeoManager->GetMedium("lead");
   if ( ! Lead ) Fatal("Main", "Medium Lead not found");
 
-  FairGeoMedium    * POlysterol  = geoMedia->getMedium("FscScintVB");
+  FairGeoMedium    * POlysterol  = geoMedia->getMedium("FscScint");
   if ( ! POlysterol ) Fatal("Main", "FairMedium POlysterol not found");
   geoBuild->createMedium(POlysterol);
-  TGeoMedium* Polysterol = gGeoManager->GetMedium("FscScintVB");
-  if ( ! Polysterol ) Fatal("Main", "Medium FscScintVB not found");
+  TGeoMedium* Polysterol = gGeoManager->GetMedium("FscScint");
+  if ( ! Polysterol ) Fatal("Main", "Medium FscScint not found");
 
   //------------------  Material for SIZ  --------------
   Calorimetr calor;
