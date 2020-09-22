@@ -45,11 +45,11 @@ void Prototyp_test()
   FairGeoBuilder* geoBuild = geoLoad->getGeoBuilder();
 
   //------------------   My Material for Plate_B10 need work from media file --------------
-  FairGeoMedium    * SCint  = geoMedia->getMedium("FscScint");
-  if ( ! SCint ) Fatal("Main", "FairMedium FscScint not found");
+  FairGeoMedium    * SCint  = geoMedia->getMedium("FscScintVB");
+  if ( ! SCint ) Fatal("Main", "FairMedium FscScintVB not found");
   geoBuild->createMedium(SCint);
-  TGeoMedium* Scint = gGeoManager->GetMedium("FscScint");
-  if ( ! Scint ) Fatal("Main", "Medium FscScint not found");
+  TGeoMedium* Scint = gGeoManager->GetMedium("FscScintVB");
+  if ( ! Scint ) Fatal("Main", "Medium FscScintVB not found");
 
   //------------------  Material for calorimetr   --------------
   FairGeoMedium    * air  = geoMedia->getMedium("air");
@@ -64,11 +64,11 @@ void Prototyp_test()
   TGeoMedium* Lead = gGeoManager->GetMedium("lead");
   if ( ! Lead ) Fatal("Main", "Medium Lead not found");
 
-  FairGeoMedium    * POlysterol  = geoMedia->getMedium("FscScint");
+  FairGeoMedium    * POlysterol  = geoMedia->getMedium("FscScintVB");
   if ( ! POlysterol ) Fatal("Main", "FairMedium POlysterol not found");
   geoBuild->createMedium(POlysterol);
-  TGeoMedium* Polysterol = gGeoManager->GetMedium("FscScint");
-  if ( ! Polysterol ) Fatal("Main", "Medium FscScint not found");
+  TGeoMedium* Polysterol = gGeoManager->GetMedium("FscScintVB");
+  if ( ! Polysterol ) Fatal("Main", "Medium FscScintVB not found");
 
   //------------------  Material for SIZ  --------------
   Calorimetr calor;
@@ -220,7 +220,7 @@ void Prototyp_test()
   //gGeoManager->CheckGeometry();
   //gGeoManager->CheckGeometryFull();
 
-  gGeoManager->GetTopVolume()->Draw("ogl");
+  //gGeoManager->GetTopVolume()->Draw("ogl");
 
   TFile* geoFile = new TFile(geoFileName, "RECREATE");
   top->Write();
