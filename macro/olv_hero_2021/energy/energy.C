@@ -16,7 +16,7 @@ void energy()
   f.open(path.Data());
   if (!f.is_open()) {
     cerr << "Can't open file " << path << endl;
-    return kFALSE;
+    return;
   }
 
   Int_t nPoints = std::count(std::istreambuf_iterator<char>(f),

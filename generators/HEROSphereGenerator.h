@@ -6,6 +6,8 @@
 
 // ROOT
 #include "Rtypes.h"                     // for Double32_t, Bool_t, kTRUE, etc
+#include "TRandom.h"
+#include <TF1.h>
 
 class FairPrimaryGenerator;
 
@@ -19,6 +21,9 @@ public:
 
   virtual ~HEROSphereGenerator() {};
 
+  void SetDistance(Double_t dist) { fDistance=dist; }
+
+  Double_t GetDistance() { return fDistance; }
   Bool_t Init();
 
   virtual Bool_t ReadEvent(FairPrimaryGenerator* primGen);
@@ -30,14 +35,18 @@ protected:
   HEROSphereGenerator & operator=(const HEROSphereGenerator &);
 
 private:
-  void EnergyGen();
+  Double_t EnergyGen();
 
 private:
 
   Int_t fPID;
   Int_t fMult;
+  Double_t fDistance;
 
   Double32_t fX, fY, fZ; // Point vertex coordinates [cm]
+
+  TRandom fRnd;
+  TF1* fEnergyInvCDF=NULL;
 
   ClassDef(HEROSphereGenerator, 4);
 };
