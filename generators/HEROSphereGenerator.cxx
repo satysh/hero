@@ -78,4 +78,8 @@ FairGenerator* HEROSphereGenerator::CloneGenerator() const
   return new HEROSphereGenerator(*this);
 }
 
+void HEROSphereGenerator::EnergyGen()
+{
+
+}
 ClassImp(HEROSphereGenerator)

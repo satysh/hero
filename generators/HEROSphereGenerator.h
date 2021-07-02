@@ -26,8 +26,11 @@ public:
   virtual FairGenerator* CloneGenerator() const;
 
 protected:
-    HEROSphereGenerator (const HEROSphereGenerator &);
-    HEROSphereGenerator & operator=(const HEROSphereGenerator &);
+  HEROSphereGenerator (const HEROSphereGenerator &);
+  HEROSphereGenerator & operator=(const HEROSphereGenerator &);
+
+private:
+  void EnergyGen();
 
 private:
 
