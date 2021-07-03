@@ -1,4 +1,4 @@
-void sim(Int_t nEvents=10, Int_t index=1)
+void sim(Int_t nEvents=100, Int_t index=1)
 {
   // -----   Particle  --------------------------------------------------------
   Int_t pdgId = 2212; // proton 2212
@@ -32,8 +32,9 @@ void sim(Int_t nEvents=10, Int_t index=1)
 // -----   Create PrimaryGenerator   --------------------------------------
   FairPrimaryGenerator* primGen = new FairPrimaryGenerator();
   HEROSphereGenerator* shpGen = new HEROSphereGenerator(pdgId, 1);
-  shpGen->SetDistance(-250.);
-  shpGen->SetThetaRange(-10., 10.);
+  shpGen->SetDistance(-500.);
+  Double_t dtheta = fabs(atan(125./500.))*TMath::RadToDeg();
+  shpGen->SetThetaRange(-dtheta, dtheta);
   primGen->AddGenerator(shpGen);
   run->SetGenerator(primGen);
 
