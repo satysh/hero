@@ -70,7 +70,7 @@ void geo()
     vAir_Sphere ->SetFillColor(kGreen);
     vAir_Sphere ->SetLineColor(kGreen);
     vAir_Sphere ->SetTransparency(60);
-//         vAir->AddNode(vAir_Sphere, 1);
+    vAir->AddNode(vAir_Sphere, 1);
 
 //     TGeoVolume* vScint_Sphere_[Num_Layers], *vMetal_Sphere_[Num_Layers];
 //     // Shapes and volumes ---------------------------------------------------------------

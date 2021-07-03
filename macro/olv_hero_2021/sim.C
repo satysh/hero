@@ -1,8 +1,7 @@
-void sim(Int_t nEvents=1000, Int_t index=0)
+void sim(Int_t nEvents=10, Int_t index=1)
 {
   // -----   Particle  --------------------------------------------------------
   Int_t pdgId = 2212; // proton 2212
-  Double32_t momentum = 13.; // GeV
 
   // ------------------------------------------------------------------------
   gRandom->SetSeed(index);
@@ -27,13 +26,14 @@ void sim(Int_t nEvents=1000, Int_t index=0)
 
   HERODetector* detector = new HERODetector("HEROdetector", kTRUE);
   detector->SetGeometryFileName("HERO_detector_Sphear.geo.root");
-  detector->AddSensetive("vDetContainer");
+  detector->AddSensetive("vAir_Sphere");
   run->AddModule(detector);
 
 // -----   Create PrimaryGenerator   --------------------------------------
   FairPrimaryGenerator* primGen = new FairPrimaryGenerator();
   HEROSphereGenerator* shpGen = new HEROSphereGenerator(pdgId, 1);
-  shpGen->SetDistance(-300.);
+  shpGen->SetDistance(-250.);
+  shpGen->SetThetaRange(-10., 10.);
   primGen->AddGenerator(shpGen);
   run->SetGenerator(primGen);
 

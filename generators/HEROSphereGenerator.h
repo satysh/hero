@@ -22,6 +22,7 @@ public:
   virtual ~HEROSphereGenerator() {};
 
   void SetDistance(Double_t dist) { fDistance=dist; }
+  void SetThetaRange(Double32_t thmin, Double32_t thmax) { fThetaMin=thmin; fThetaMax=thmax; }
 
   Double_t GetDistance() { return fDistance; }
   Bool_t Init();
@@ -42,6 +43,9 @@ private:
   Int_t fPID;
   Int_t fMult;
   Double_t fDistance;
+  Double32_t fPDGMass;
+  Double32_t fThetaMin;
+  Double32_t fThetaMax;
 
   Double32_t fX, fY, fZ; // Point vertex coordinates [cm]
 
