@@ -11,6 +11,7 @@ wait
 cd geo/
 root -l -q geo.C
 wait
+echo -e "\e[1m\e[32m========== geo build finished =========== \e[0m"
 cd ../
 
 if [ -d ${OUTDIR} ];then
@@ -20,7 +21,9 @@ else
 fi
 echo -e "\e[1m\e[32m========== Clean finished =========== \e[0m"
 
-root -l -q "sim.C(${nev}, ${index})"
+root -l -q "sim.C(${nev}, ${index})" > ${OUTDIR}/out.txt 2> ${OUTDIR}/err.txt
 wait
 
-root -l eventDisplay.C
+cat ${OUTDIR}/err.txt
+echo -e "\e[1m\e[32m========== sim finished =========== \e[0m"
+#root -l eventDisplay.C

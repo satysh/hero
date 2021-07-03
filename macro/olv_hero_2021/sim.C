@@ -38,7 +38,7 @@ void sim(Int_t nEvents=100, Int_t index=1)
   primGen->AddGenerator(shpGen);
   run->SetGenerator(primGen);
 
-  run->SetStoreTraj(kTRUE); // kFALSE
+  run->SetStoreTraj(kFALSE); // kFALSE
 
   //-------Set LOG verbosity  -----------------------------------------------
   FairLogger::GetLogger()->SetLogVerbosityLevel("LOW");
