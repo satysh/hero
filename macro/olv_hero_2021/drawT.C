@@ -1,5 +1,8 @@
-void draw(TString inputDir = "output")
+void drawT(TString inputDir = "output")
 {
+   // 2112 neutron 1000020040 alphas
+  Int_t pid = 1000020040;
+  Double_t PDGMass = 3.72737924; // GeV
   TString fileName;
   fileName.Form("%s/sim.root", inputDir.Data());
   TFile* file = new TFile(fileName, "READ");
@@ -31,49 +34,51 @@ void draw(TString inputDir = "output")
 
   Int_t binNumb = 1000;
   Double_t minBin = 0.;
-  Double_t maxBin = 0.0007;
+  Double_t maxBin = 600.;
   Double_t binStep = (maxBin - minBin)/Double_t(binNumb);
   cout << "binStep: " << binStep << endl;
-  TString histName = "dt";
+  TString histName = "dR";
   TH1F* histo = new TH1F(histName, histName, binNumb, minBin, maxBin);
   histName = "meanhist";
   TH1F* meanhist = new TH1F(histName, histName, binNumb, minBin, maxBin);
 
-  Double_t maxdtmean = 0.;
-  Double_t mindtmean = 1000000.;
-  Double_t maxdt = 0.;
-  Double_t mindt = 1000000.;
+
+  Double_t maxT = 0.;
+  Double_t minT = 1000000.;
+  Double_t maxTmean = 0.;
+  Double_t minTmean = 1000000.;
   //nEvents = 100; //TODO debug
   for (UInt_t i = 0; i < nEvents; i++) {
     cout << "Event: " << i << endl;
     Br->GetEntry(i);
     HEROPoint* Point;
     TIter Iter(Arr);
-    Double_t dtmean = 0.;
+    Double_t Tmean = 0.;
     Int_t nPoints = 0;
     // Loop over points
     while ((Point = (HEROPoint*)Iter.Next())) {
-      // 2112 neutron 1000020040 alpha
-      if (Point->GetPID() == 1000020040) {
-        Double_t curTimeIn = Point->GetTimeIn()*1e-3;
-        Double_t curTimeOut = Point->GetTimeOut()*1e-3;
+      if (Point->GetPID() == pid) {
+        Double_t curPx = Point->GetPxIn();
+        Double_t curPy = Point->GetPyIn();
+        Double_t curPz = Point->GetPzIn();
+        Double_t pabs = TMath::Sqrt(curPx*curPx + curPy*curPy + curPz*curPz);
+        Double_t ekin = TMath::Sqrt(pabs*pabs+PDGMass*PDGMass) - PDGMass;
+        ekin *= 1000.; // GeV toMeV
+        maxT = max(maxT, ekin);
+        minT = min(minT, ekin);
+        histo->Fill(ekin);
 
-        Double_t dTime = curTimeOut - curTimeIn;
-        maxdt = max(maxdt, dTime);
-        mindt = min(mindt, dTime);
-        histo->Fill(dTime);
-
-        dtmean += dTime;
+        Tmean += ekin;
         nPoints++;
       }
     } // loop over points end
-    dtmean /= Double_t(nPoints);
-    maxdtmean = max(maxdtmean, dtmean);
-    mindtmean = min(mindtmean, dtmean);
-    meanhist->Fill(dtmean);
+    Tmean /= Double_t(nPoints);
+    maxTmean = max(maxTmean, Tmean);
+    minTmean = min(minTmean, Tmean);
+    meanhist->Fill(Tmean);
   }
-  cout << mindtmean << ", " << maxdtmean << endl;
-  cout << mindt << ", " << maxdt << endl;
+  cout << minTmean << ", " << maxTmean << endl;
+  cout << minT << ", " << maxT << endl;
 
   TH1F* histToDraw = histo;
   TCanvas* canv = new TCanvas("canv", "canv");
@@ -82,7 +87,7 @@ void draw(TString inputDir = "output")
   histToDraw->SetLineWidth(3);
   TAxis* xax = histToDraw->GetXaxis();
   TAxis* yax = histToDraw->GetYaxis();
-  xax->SetTitle("dt [usec]");
+  xax->SetTitle("T [MeV]");
   yax->SetTitle("counts");
-  histToDraw->SetTitle("Alpha lifetime distribution");
+  histToDraw->SetTitle("Alpha ekin distribution");
 }
