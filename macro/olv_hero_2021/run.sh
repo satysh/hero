@@ -1,5 +1,5 @@
 #!/bin/bash
-nev=101
+nev=100000
 index=1
 OUTDIR=output
 
@@ -8,11 +8,11 @@ make -j4
 cd -
 wait
 
-cd geo/
-root -l -q geo.C
-wait
-echo -e "\e[1m\e[32m========== geo build finished =========== \e[0m"
-cd ../
+#cd geo/
+#root -l -q geo.C
+#wait
+#echo -e "\e[1m\e[32m========== geo build finished =========== \e[0m"
+#cd ../
 
 if [ -d ${OUTDIR} ];then
         rm -fv ${OUTDIR}/*
