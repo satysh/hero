@@ -1,8 +1,5 @@
-void drawT(TString inputDir = "output")
+void drawOutt(TString inputDir = "output")
 {
-   // 2112 neutron 1000020040 alphas
-  Int_t pid = 1000020040;
-  Double_t PDGMass = 3.72737924; // GeV
   TString fileName;
   fileName.Form("%s/sim.root", inputDir.Data());
   TFile* file = new TFile(fileName, "READ");
@@ -12,7 +9,7 @@ void drawT(TString inputDir = "output")
   }
 
 
-  TTree* tree = (TTree*)file->Get("HERO;34");
+  TTree* tree = (TTree*)file->Get("HERO");
   if (!tree) {
     cerr << "tree read error" << endl;
     return;
@@ -33,62 +30,66 @@ void drawT(TString inputDir = "output")
   Br->SetAddress(&Arr);
 
   Int_t binNumb = 10000;
-  Double_t minBin = 1.;
-  Double_t maxBin = 3.;
+  Double_t minBin = 0.;
+  Double_t maxBin = 20.;
   Double_t binStep = (maxBin - minBin)/Double_t(binNumb);
   cout << "binStep: " << binStep << endl;
-  TString histName = "Ekin";
+  TString histName = "dt";
   TH1F* histo = new TH1F(histName, histName, binNumb, minBin, maxBin);
   histName = "meanhist";
   TH1F* meanhist = new TH1F(histName, histName, binNumb, minBin, maxBin);
 
-
-  Double_t maxT = 0.;
-  Double_t minT = 1000000.;
-  Double_t maxTmean = 0.;
-  Double_t minTmean = 1000000.;
+  Double_t maxdtmean = 0.;
+  Double_t mindtmean = 1000000.;
+  Double_t maxdt = 0.;
+  Double_t mindt = 1000000.;
   //nEvents = 100; //TODO debug
   for (UInt_t i = 0; i < nEvents; i++) {
     cout << "Event: " << i << endl;
     Br->GetEntry(i);
     HEROPoint* Point;
     TIter Iter(Arr);
-    Double_t Tmean = 0.;
+    Double_t dtmean = 0.;
     Int_t nPoints = 0;
     Bool_t flag = kFALSE;
     // Loop over points
     while ((Point = (HEROPoint*)Iter.Next())) {
-      if (Point->GetPID() == pid) {
-        Double_t curPx = Point->GetPxIn();
-        Double_t curPy = Point->GetPyIn();
-        Double_t curPz = Point->GetPzIn();
-        Double_t pabs = TMath::Sqrt(curPx*curPx + curPy*curPy + curPz*curPz);
-        Double_t ekin = TMath::Sqrt(pabs*pabs+PDGMass*PDGMass) - PDGMass;
-        ekin *= 1000.; // GeV toMeV
-        maxT = max(maxT, ekin);
-        minT = min(minT, ekin);
-        histo->Fill(ekin);
+      // 2112 neutron 1000020040 alpha
+      if (Point->GetPID() == 2112) {
+        flag = kTRUE;
+        Double_t curTimeIn = Point->GetTimeIn()*1e-3;
+        Double_t curTimeOut = Point->GetTimeOut()*1e-3;
 
-        Tmean += ekin;
+        Double_t dTime = curTimeOut;
+        maxdt = max(maxdt, dTime);
+        mindt = min(mindt, dTime);
+        histo->Fill(dTime);
+
+        dtmean += dTime;
         nPoints++;
       }
+      else {
+        continue;
+      }
     } // loop over points end
-    Tmean /= Double_t(nPoints);
-    maxTmean = max(maxTmean, Tmean);
-    minTmean = min(minTmean, Tmean);
-    meanhist->Fill(Tmean);
+    if (flag) {
+      dtmean /= Double_t(nPoints);
+      maxdtmean = max(maxdtmean, dtmean);
+      mindtmean = min(mindtmean, dtmean);
+      meanhist->Fill(dtmean);
+    }
   }
-  cout << minTmean << ", " << maxTmean << endl;
-  cout << minT << ", " << maxT << endl;
+  cout << mindtmean << ", " << maxdtmean << endl;
+  cout << mindt << ", " << maxdt << endl;
 
-  TH1F* histToDraw = histo;
+  TH1F* histToDraw = meanhist;
   TCanvas* canv = new TCanvas("canv", "canv");
   //canv->SetLogy();
   histToDraw->Draw();
   histToDraw->SetLineWidth(3);
   TAxis* xax = histToDraw->GetXaxis();
   TAxis* yax = histToDraw->GetYaxis();
-  xax->SetTitle("T [MeV]");
+  xax->SetTitle("t [usec]");
   yax->SetTitle("counts");
-  histToDraw->SetTitle("Alpha ekin distribution");
+  histToDraw->SetTitle("Alpha mean t distribution");
 }
