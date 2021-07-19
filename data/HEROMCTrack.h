@@ -39,6 +39,7 @@ class HEROMCTrack : public TObject
 
   /**  Accessors  **/
 
+  Int_t    GetId()        const { return fID; }
   Int_t    GetPdgCode()   const { return fPdgCode; }
   Int_t    GetMotherId()  const { return fMotherId; }
   Double_t GetPx()        const { return fPx; }
@@ -50,7 +51,8 @@ class HEROMCTrack : public TObject
   Double_t GetStartT()    const { return fStartT; }
   Double_t GetMass()      const;
   Double_t GetCharge()    const;
-  Double_t GetEnergy()    const;
+  Double_t GetEnergy()    const { return fEnergy; }
+  Double_t GetEkin()      const { return fEnergy-GetMass(); }
   Double_t GetPt()        const { return TMath::Sqrt(fPx*fPx+fPy*fPy); }
   Double_t GetP()         const { return TMath::Sqrt(fPx*fPx+fPy*fPy+fPz*fPz); }
   Double_t GetRapidity()  const;

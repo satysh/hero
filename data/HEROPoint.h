@@ -37,34 +37,36 @@ class HEROPoint : public FairMCPoint
 
 
   /** Accessors **/
-  Int_t GetEventID() const { return fEventID; }
+  Int_t GetEventID()       const { return fEventID; }
   Int_t GetMot0TrackID()   const { return fMot0TrackID; }
-  Double_t GetXIn()   const { return fX; }
-  Double_t GetYIn()   const { return fY; }
-  Double_t GetZIn()   const { return fZ; }
+  Int_t GetPID()           const {return fPID;}
+  Double_t GetXIn()        const { return fX; }
+  Double_t GetYIn()        const { return fY; }
+  Double_t GetZIn()        const { return fZ; }
   Double_t GetXInLocal()   const { return fXlocal; }
   Double_t GetYInLocal()   const { return fYlocal; }
   Double_t GetZInLocal()   const { return fZlocal; }
-  Double_t GetXOut()  const { return fX_out; }
-  Double_t GetYOut()  const { return fY_out; }
-  Double_t GetZOut()  const { return fZ_out; }
-  Double_t GetPxIn()  const { return fPx; }
-  Double_t GetPyIn()  const { return fPy; }
-  Double_t GetPzIn()  const { return fPz; }
-  Double_t GetPxOut() const { return fPx_out; }
-  Double_t GetPyOut() const { return fPy_out; }
-  Double_t GetPzOut() const { return fPz_out; }
-  Double_t GetPIn()   const;
-  Double_t GetPOut()  const;
-  Double_t GetMass() const { return fMass; }
+  Double_t GetXOut()       const { return fX_out; }
+  Double_t GetYOut()       const { return fY_out; }
+  Double_t GetZOut()       const { return fZ_out; }
+  Double_t GetPxIn()       const { return fPx; }
+  Double_t GetPyIn()       const { return fPy; }
+  Double_t GetPzIn()       const { return fPz; }
+  Double_t GetPxOut()      const { return fPx_out; }
+  Double_t GetPyOut()      const { return fPy_out; }
+  Double_t GetPzOut()      const { return fPz_out; }
+  Double_t GetPIn()        const;
+  Double_t GetPOut()       const;
+  Double_t GetMass()       const { return fMass; }
+  Double_t GetEkinIn()     const;
+  Double_t GetEkinOut()    const;
   Double_t GetLightYield() const {return fLightYield;}
-  Int_t GetPID() const {return fPID;}
-  Double_t GetCharge() const {return fCharge;}
-  Double_t GetTime() const {return fTimeIn;}
-  Double_t GetTimeIn() const {return fTimeIn;}
-  Double_t GetTimeOut() const {return fTimeOut;}
-  Double_t GetVolNb() const {return fVolNb;}
-  Double_t GetLength() const;
+  Double_t GetCharge()     const {return fCharge;}
+  Double_t GetTime()       const {return fTimeIn;}
+  Double_t GetTimeIn()     const {return fTimeIn;}
+  Double_t GetTimeOut()    const {return fTimeOut;}
+  Double_t GetVolNb()      const {return fVolNb;}
+  Double_t GetLength()     const;
 
   void PositionIn(TVector3& pos)  { pos.SetXYZ(fX, fY, fZ); }
   void PositionOut(TVector3& pos) { pos.SetXYZ(fX_out,fY_out,fZ_out); }

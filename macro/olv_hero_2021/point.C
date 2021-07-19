@@ -1,6 +1,5 @@
-void b(TString inputDir = "output")
+void point(TString inputDir = "output")
 {
-
   Double_t pMass = 0.93827208816; // GeV
   TString fileName;
   fileName.Form("%s/sim.root", inputDir.Data());
@@ -31,36 +30,27 @@ void b(TString inputDir = "output")
   Arr = new TClonesArray("HEROPoint");
   Br->SetAddress(&Arr);
 
-  Int_t binNumb = 300;
-  Double_t minBin = 0.;
-  Double_t maxBin = 130.;
-  Double_t binStep = (maxBin - minBin)/Double_t(binNumb);
-  cout << "binStep: " << binStep << endl;
-  TString histName = "b";
-  TH1F* histo = new TH1F(histName, histName, binNumb, minBin, maxBin);
-
   //nEvents = 100; //TODO debug
   Int_t counter = 0;
   for (UInt_t i = 0; i < nEvents; i++) {
-    cout << "Event: " << i << ", ";
+    cout << "Event: " << i << endl;
     Br->GetEntry(i);
     HEROPoint* Point;
     TIter Iter(Arr);
     while ((Point = (HEROPoint*)Iter.Next())) {
       if (Point->GetTrackID() == 0) {
-        cout << "GetPdgCode = " << Point->GetPID() << endl;
-        Double_t outX = Point->GetXOut();
-        Double_t outY = Point->GetYOut();
-        Double_t curB = TMath::Sqrt(outX*outX + outY*outY);
-        histo->Fill(curB);
+        Double_t pPabsIn = Point->GetPIn();
+        Double_t pEkinIn = TMath::Sqrt(pPabsIn*pPabsIn + pMass*pMass) - pMass;
+        cout << "GetPdgCode = " << Point->GetPID() << ", ";
+        cout << "In x,y,z, Ekin = " << Point->GetXIn() << ", " << Point->GetYIn() << ", " << Point->GetZIn() << ", "
+                                    << pEkinIn << endl;
+        Double_t pPabsOut = Point->GetPOut();
+        Double_t pEkinOut = TMath::Sqrt(pPabsOut*pPabsOut + pMass*pMass) - pMass;
+        cout << "Out x,y,z, Ekin = " << Point->GetXOut() << ", " << Point->GetYOut() << ", " << Point->GetZOut() << ", "
+                                     << pEkinOut << endl;
         counter++;
       }
     } // loop over points end
   }
   cout << "Particle's n with Point id = 0 is " << counter << endl;
-  TCanvas* canv = new TCanvas("canv", "canv");
-  histo->Draw();
-  histo->GetXaxis()->SetTitle("b [cm]");
-  histo->GetYaxis()->SetTitle("counts");
-  histo->SetTitle("for primary protons (dits = -1500  cm)");
 }
