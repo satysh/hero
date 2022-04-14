@@ -35,6 +35,9 @@ void twoD(TString inputDir = "output")
   Double_t nmint = 10000.;
   Double_t amaxt = 0.;
   Double_t amint = 10000.;
+  Double_t meanmint = 1000.;
+  Double_t meanmaxt = 0.;
+
   //nEvents = 100; // DEBUG
   for (UInt_t i = 0; i < nEvents; i++) {
     cout << "Event: " << i << endl;
@@ -52,7 +55,7 @@ void twoD(TString inputDir = "output")
     // Loop over points
     while ((Point = (HEROPoint*)Iter.Next())) {
       // 2112 neutron 1000020040 alpha
-      if (Point->GetPID() == 2112) {
+      if (Point->GetPID() == 2112 /*&& Point->GetTimeOut()*1e-3 > 2.*/) {
         flag1 = kTRUE;
         nneutrons++;
         Double_t timeout = Point->GetTimeOut()*1e-3;
@@ -62,7 +65,7 @@ void twoD(TString inputDir = "output")
         meannt += timeout;
         maxtn = max(maxtn, timeout);
       }
-      else if (Point->GetPID() == 1000020040) {
+      else if (Point->GetPID() == 1000020040 /*&& Point->GetTimeIn()*1e-3 > 2. */) {
         flag2 = kTRUE;
         nalpha++;
         Double_t timein = Point->GetTimeIn()*1e-3;
@@ -74,19 +77,26 @@ void twoD(TString inputDir = "output")
       }
     } // loop over points end
     if (flag1 && flag2) {
-      vntout.push_back(maxtn);
-      vatin.push_back(maxta);
+      Double_t curmeannt = meannt/nneutrons;
+      Double_t curmeanat = meanat/nalpha;
+      vntout.push_back(curmeannt);
+      vatin.push_back(curmeanat);
+      Double_t curmint = min(curmeannt, curmeanat);
+      Double_t curmaxt = max(curmeannt, curmeanat);
+      meanmint = min(meanmint, curmint);
+      meanmaxt = max(meanmaxt, curmaxt);
     }
   }
   cout << "n: min = " << nmint << ", max=" << nmaxt << endl;
   cout << "a: min=" << amint << ", max=" << amaxt << endl;
   cout << "vntout size is " << vntout.size() << endl;
   cout << "vatin size is " << vatin.size() << endl;
+  cout << "meanmint is " << meanmint << ", meanmaxt is " << meanmaxt << endl;
   TString title = "";
-  Int_t nx = 1000;
-  Int_t ny = 1000;
+  Int_t nx = 1600;
+  Int_t ny = 1600;
 
-  TH2D* histo = new TH2D("histo", title.Data(), nx, 0., 30., ny, 0., 30.);
+  TH2D* histo = new TH2D("histo", title.Data(), nx, 0., 16., ny, 0., 16.);
   for (Int_t i=0; i<vatin.size(); i++) {
     histo->Fill(vntout.at(i), vatin.at(i));
   }
@@ -94,6 +104,6 @@ void twoD(TString inputDir = "output")
   histo->GetXaxis()->SetTitle("neutron time out [usec]");
   histo->GetYaxis()->SetTitle("alpha time in [usec]");
   histo->Draw("COLZ");
-  histo->SetStats(kFALSE);
+  //histo->SetStats(kFALSE);
   gPad->SetGrid(2, 2);
 }

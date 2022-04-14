@@ -31,7 +31,7 @@ void draw(TString inputDir = "output")
 
   Int_t binNumb = 1000;
   Double_t minBin = 0.;
-  Double_t maxBin = 0.0007;
+  Double_t maxBin = 28.;
   Double_t binStep = (maxBin - minBin)/Double_t(binNumb);
   cout << "binStep: " << binStep << endl;
   TString histName = "dt";
@@ -54,7 +54,7 @@ void draw(TString inputDir = "output")
     // Loop over points
     while ((Point = (HEROPoint*)Iter.Next())) {
       // 2112 neutron 1000020040 alpha
-      if (Point->GetPID() == 1000020040) {
+      if (Point->GetPID() == 2112) {
         Double_t curTimeIn = Point->GetTimeIn()*1e-3;
         Double_t curTimeOut = Point->GetTimeOut()*1e-3;
 

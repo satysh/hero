@@ -116,7 +116,7 @@ Bool_t HEROSphereGenerator::ReadEvent(FairPrimaryGenerator* primGen)
 {
   LOG(INFO) << "HEROSphereGenerator::ReadEvent" << FairLogger::endl;
   Double32_t pabs = 1.,pt, theta = 0., phi = 0., px, py, pz;
-  Double_t ekin = EnergyGen();
+  Double_t ekin = 8.; //EnergyGen();
   LOG(INFO) << "Current ekin=" << ekin << FairLogger::endl;
   pabs = TMath::Sqrt(ekin*ekin + 2.*ekin*fPDGMass);
   phi = fRnd.Uniform(0., 360.)*TMath::DegToRad();
