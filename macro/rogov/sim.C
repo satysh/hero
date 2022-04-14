@@ -1,8 +1,32 @@
+// ------------------------------------------------------------------------
+//  ===== STANDARD ION TABLE (Z, A) =====
+//
+//      H  :  1,  1       Si : 14, 28
+//      He :  2,  4       P  : 15, 31
+//      Li :  3,  7       S  : 16, 32
+//      Be :  4,  9       Cl : 17, 35
+//      B  :  5, 11       Ar : 18, 40
+//      C  :  6, 12       K  : 19, 39
+//      N  :  7, 14       Ca : 20, 40
+//      O  :  8, 16       Sc : 21, 45
+//      F  :  9, 19       Ti : 22, 48
+//      Ne : 10, 20        V : 23, 51
+//      Na : 11, 23       Cr : 24, 52
+//      Mg : 12, 24       Mn : 25, 55
+//      Al : 13, 27       Fe : 26, 56
+// ------------------------------------------------------------------------
+
+int  GetPdgCode(const int Z, const int A);
+void AddIon(const int pdg);                    //For PDG ion beam
+//-------------------------------------------------------------------------
+
 void sim(Int_t nEvents=10, Int_t index=0)
 {
   // -----   Particle  --------------------------------------------------------
-  Int_t pdgId = 2212; // proton 2212
-  Double32_t ekin = 13.; // GeV
+  Int_t curZ = 26;
+  Int_t curA = 56;
+  Int_t pdgId = GetPdgCode(curZ, curA); // proton 2212
+  Double32_t ekin = 13.*Double_t(curA); // GeV
 
   // ------------------------------------------------------------------------
   gRandom->SetSeed(index);
@@ -37,10 +61,13 @@ void sim(Int_t nEvents=10, Int_t index=0)
   boxGen->SetThetaRange(0., 0.); // 0-90
   boxGen->SetPhiRange(0., 0.); // 0-360
   boxGen->SetBoxXYZ(0., 0., 0., 0., -500.); // xmin, ymin, xmax, ymax, z
+// ------------------------------------------------------------------------
+  AddIon(pdgId);//Add ion in FairRunSim
+// ------------------------------------------------------------------------
   primGen->AddGenerator(boxGen);
   run->SetGenerator(primGen);
 
-  run->SetStoreTraj(kTRUE); // kFALSE
+  run->SetStoreTraj(kFALSE); // kFALSE
 
   //-------Set LOG verbosity  -----------------------------------------------
   FairLogger::GetLogger()->SetLogVerbosityLevel("LOW");
@@ -72,3 +99,23 @@ void sim(Int_t nEvents=10, Int_t index=0)
                   << "s" << endl << endl;
 }
 
+int GetPdgCode(const int Z, const int A)             //For PDG ion beam
+{
+  if (Z == 1 && A == 1) return 2212;
+  return 1000000000 + Z*10000 + A*10;
+}
+void AddIon(const int pdg)
+{
+  if (pdg < 1000000000) return;
+
+  FairRunSim* run = FairRunSim::Instance();
+  if (!run) return;
+
+  int Z = (pdg-1000000000)/10000;
+  int A = (pdg-1000000000-10000*Z)/10;
+
+  FairIon* ion = new FairIon();
+  ion->SetParams(Form("ION_%03d_%03d",Z,A), Z, A, Z);
+
+  run->AddNewIon(ion);
+}
