@@ -1,5 +1,5 @@
 #!/bin/bash
-nev=100000
+nev=10000
 index=1
 OUTDIR=output
 

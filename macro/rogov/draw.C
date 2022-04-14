@@ -19,8 +19,7 @@ int  GetPdgCode(const int Z, const int A);
 // ------------------------------------------------------------------------
 void draw()
 {
-  TString fileName;
-  fileName.Form("output/sim.root", inputDir.Data());
+  TString fileName = "output/sim.root";
   TFile* file = new TFile(fileName, "READ");
   if (file->IsZombie()) {
       cerr << "File read error" << endl;
