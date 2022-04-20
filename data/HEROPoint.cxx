@@ -105,14 +105,28 @@ Bool_t HEROPoint::IsUsable() const
 // -------------------------------------------------------------------------
 
 //-------------------------------------------------------------------------
-Double_t HEROPoint::GetPIn()   const{
+Double_t HEROPoint::GetPIn()   const
+{
   return sqrt(fPx*fPx + fPy*fPy + fPz*fPz);
 }
 //-------------------------------------------------------------------------
 
 //-------------------------------------------------------------------------
-Double_t HEROPoint::GetPOut()  const{
+Double_t HEROPoint::GetPOut()  const
+{
   return sqrt(fPx_out*fPx_out + fPy_out*fPy_out + fPz_out*fPz_out);
+}
+//-------------------------------------------------------------------------
+Double_t HEROPoint::GetEkinIn() const
+{
+  Double_t Pin = GetPIn();
+  Double_t curekin = TMath::Sqrt(fMass*fMass + Pin*Pin) - fMass;
+  return curekin;
+}
+//-------------------------------------------------------------------------
+Double_t HEROPoint::GetEkinOut() const
+{
+
 }
 //-------------------------------------------------------------------------
 Double_t HEROPoint::GetP(Double_t pointLen) const{

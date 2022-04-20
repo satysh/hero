@@ -23,10 +23,10 @@ void AddIon(const int pdg);                    //For PDG ion beam
 void sim(Int_t nEvents=10, Int_t index=0)
 {
   // -----   Particle  --------------------------------------------------------
-  Int_t curZ = 26;
-  Int_t curA = 56;
+  Int_t curZ = 36;
+  Int_t curA = 84;
   Int_t pdgId = GetPdgCode(curZ, curA); // proton 2212
-  Double32_t ekin = 13.*Double_t(curA); // GeV
+  Double32_t ekin = 15.*Double_t(curA); // GeV
 
   // ------------------------------------------------------------------------
   gRandom->SetSeed(index);
