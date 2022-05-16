@@ -45,7 +45,7 @@ void geo()
   if ( ! aluminum ) Fatal("Main", "Medium aluminum not found");
 
 
-  TGeoVolume* vMed = gGeoManager->MakeTube("vMed", iron, 0., 10., 0.5*25.); // name, medium, rmin, rmax, dz/2
+  TGeoVolume* vMed = gGeoManager->MakeTube("vMed", iron, 0., 10., 0.5*5.); // name, medium, rmin, rmax, dz/2
 
   TGeoVolumeAssembly* vDetContainer = new TGeoVolumeAssembly("vDetContainer");
 

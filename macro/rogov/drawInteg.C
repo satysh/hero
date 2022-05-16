@@ -21,7 +21,7 @@ Double_t proccesse(TString ion = "H");
 void drawInteg()
 {
 //  TLegend* leg = new TLegend(1., 1., 0.80, 0.80);
-  Int_t nIons = 4;
+  Int_t nIons = 3;
   TVectorD vZ(nIons);
   TVectorD vNeut(nIons);
   for (Int_t i=0; i<nIons; i++) {
@@ -54,7 +54,7 @@ void drawInteg()
   gr->SetMarkerStyle(8);
   gr->SetMarkerSize(2);
   gr->SetMarkerColor(2);
-  gr->SetTitle("Target is Iron(diameter = 20 [cm], Thick = 25 [cm])");
+  gr->SetTitle("Target is Iron(diameter = 20 [cm], Thick = 5 [cm])");
   //leg->Draw();
   gr->GetXaxis()->SetTitle("Z");
   gr->GetYaxis()->SetTitle("n_neutrons_Integral / nEvents");
@@ -71,16 +71,16 @@ void drawInteg()
   latexFe56->SetTextSize(0.05);
   latexFe56->SetTextColor(kBlack);
   gr->GetListOfFunctions()->Add(latexFe56);
-  TLatex *latexKr84 = new TLatex(gr->GetX()[3], gr->GetY()[3],"Kr^{84}");
+  /*TLatex *latexKr84 = new TLatex(gr->GetX()[3], gr->GetY()[3],"Kr^{84}");
   latexFe56->SetTextSize(0.05);
   latexFe56->SetTextColor(kBlack);
-  gr->GetListOfFunctions()->Add(latexKr84);
+  gr->GetListOfFunctions()->Add(latexKr84);*/
   gPad->SetGrid(2,2);
 }
 
 Double_t proccesse(TString ion) {
   cout << "proccesse(" << ion << ")" << endl;
-  TString fileName = "archive/"+ion+"/sim.root";
+  TString fileName = "archive/5cmthicktarget/"+ion+"/sim.root";
   TFile* file = new TFile(fileName, "READ");
   if (file->IsZombie()) {
       cerr << "File read error" << endl;
